@@ -1,0 +1,54 @@
+.datatablefooter{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center
+  }
+
+  .datatableshowing {
+    color:#6b6c72;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    cursor: pointer;
+    grid-column-gap: 5px;
+
+    & li {
+      /* padding: 4px 12px; */
+      border: 1px solid #e3eaf3;
+      color: #505050;
+      font-size: 14px;
+      border-radius: 5px;
+      font-weight: 500;
+      &:hover{
+        color: #38B2AC ;
+        border: 1px solid #38B2AC;
+      }
+    }
+    & a {
+      padding:  6px 12px 8px 12px;
+      line-height: 28px;
+    }
+
+  }
+   .paginationActive {
+        color: #38B2AC !important;
+        border: 1px solid #38B2AC !important;
+        /* background-color: #B2F5EA; */
+        /* background: linear-gradient(to bottom,#fff 0,#eaeaea 100%); */
+    }
+
+  .paginationDisabled {
+    border: 1px solid #e3eaf3;
+    color: #505050;
+    &:hover {
+      border: 1px solid #e3eaf3 !important;
+      color: #505050 !important;
+    }
+  }
+  .paginationDisabled a:hover {
+    cursor: no-drop;
+  }
