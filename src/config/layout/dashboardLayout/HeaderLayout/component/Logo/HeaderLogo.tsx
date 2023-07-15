@@ -1,14 +1,13 @@
-import { Flex, IconButton, useBreakpointValue } from "@chakra-ui/react";
+import { Flex, IconButton, Input, useBreakpointValue } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import store from "../../../../../../store/store";
-import CustomInput from "../../../../../component/CustomInput/CustomInput";
 
 const HeaderLogo = observer(() => {
   const isLargerThanXl = useBreakpointValue({ lg: true });
 
   const {
-    layout: { fullScreenModeFun, fullScreenMode },
+    layout: { fullScreenModeFun, fullScreenMode },auth : {closeSearchBar}
   } = store;
   return (
     <Flex alignItems="center" display={"flex"} ml={2}>
@@ -32,11 +31,12 @@ const HeaderLogo = observer(() => {
             aria-label="open the drawer button"
           />
         ))}
-      <CustomInput
+      <Input
         type="text"
         name="search"
         placeholder="Search here"
         w={isLargerThanXl ? "90%" : "95%"}
+        onKeyDown={closeSearchBar}
       />
     </Flex>
   );

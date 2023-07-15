@@ -13,6 +13,7 @@ interface Notification {
 class AuthStore {
   loading: boolean = false;
   user: any | null = null;
+  openSearch:any = false
   notification: Notification | null = null;
   isRememberCredential = true;
   companyUsers = []
@@ -23,9 +24,11 @@ class AuthStore {
       user: observable,
       notification: observable,
       companyUsers: observable,
+      openSearch:observable,
       login: action,
       register: action,
       doLogout: action,
+      closeSearchBar:action,
       openNotification: action,
       closeNotication: action,
       checkPermission: action,
@@ -286,6 +289,18 @@ class AuthStore {
     {
       return Promise.reject(err?.response?.data || err)
     }
+  }
+
+  closeSearchBar = async () => {
+    if(this.openSearch)
+    {
+      this.openSearch = false
+    }
+    else
+    {
+      this.openSearch = true
+    }
+
   }
 }
 

@@ -13,7 +13,7 @@ import { observer } from "mobx-react-lite";
 import store from "../../../store/store";
 import styled from "styled-components";
 import SidebarLayout from "./SidebarLayout/SidebarLayout";
-import { useMediaQuery, useTheme } from "@chakra-ui/react";
+import { useColorModeValue, useMediaQuery, useTheme } from "@chakra-ui/react";
 
 const RedirectComponent = observer(() => {
   const navigate = useNavigate();
@@ -28,14 +28,19 @@ const RedirectComponent = observer(() => {
   return <></>;
 });
 
+
 const DashboardLayout = observer(() => {
   const {
     auth: { restoreUser, user },
     layout: { fullScreenMode },
+    themeStore : {themeConfig}
   } = store;
   const navigate = useNavigate();
-
   const theme = useTheme();
+
+  console.log(theme)
+
+
   const [sizeStatus] = useMediaQuery(`(max-width: ${theme.breakpoints.xl})`);
 
   useEffect(() => {
@@ -57,6 +62,7 @@ const DashboardLayout = observer(() => {
           className={fullScreenMode ? "fullscreen" : ""}
           sizeStatus={sizeStatus}
           fullScreenMode={fullScreenMode}
+          backgroundColor={useColorModeValue(themeConfig.colors.custom.light.primary,themeConfig.colors.custom.dark.primary)}
         >
           <HeaderLayout />
         </HeaderContainer>
@@ -115,11 +121,13 @@ const Container = styled.div<{ fullScreenMode: boolean }>`
 const HeaderContainer = styled.div<{
   fullScreenMode: boolean;
   sizeStatus: boolean;
+  backgroundColor:any
 }>`
     height: ${headerHeight};
     border-bottom:'1px solid black'
     position: fixed;
     right: 0;
+    background-color:${(props) => props.backgroundColor};
     left: ${(props) =>
       props.fullScreenMode || props.sizeStatus ? 0 : sidebarWidth};
     transition: all 0.3s ease-in-out;

@@ -1,6 +1,5 @@
 import { Box, useColorModeValue } from "@chakra-ui/react";
 import { useState } from "react";
-import TestimonialModal from "./TestimonialModal";
 import TestimonialForm from "./component/TestimonialForm";
 import { observer } from "mobx-react-lite";
 import TestimonialList from "./component/TestimonialList";
@@ -9,6 +8,7 @@ import DashPageHeader from "../../../config/component/common/DashPageHeader/Dash
 import Pagination from "../../../config/component/pagination/Pagination";
 import DashPageTitle from "../../../config/component/common/DashPageTitle/DashPageTitle";
 import { dashboard } from "../../../config/constant/routes";
+import DashFormModel from "../../../config/component/common/DashFormModel/DashFormModel";
 
 const Testimonial = observer(() => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,21 +31,26 @@ const Testimonial = observer(() => {
         btnAction={() => setOpenTestimonial(true)}
         breadcrumb={items}
       />
-       <DashPageTitle title="Our Testimonials" subTitle="What Other peoples thinks about your Organisations" />
+      <DashPageTitle
+        title="Our Testimonials"
+        subTitle="What Other peoples thinks about your Organisations"
+      />
       <TestimonialList />
       <Pagination
         totalPages={20}
-        onPageChange={(w) => {setCurrentPage(w)}}
+        onPageChange={(w) => {
+          setCurrentPage(w);
+        }}
         currentPage={currentPage}
       />
-      <TestimonialModal
+      <DashFormModel
         open={openTestimonial}
         close={() => setOpenTestimonial(false)}
         loading={false}
         title="Add Testimonial"
       >
         <TestimonialForm close={() => setOpenTestimonial(false)} />
-      </TestimonialModal>
+      </DashFormModel>
     </Box>
   );
 });

@@ -4,10 +4,19 @@ import VideoGridLayout from "./Layout/VideoGridLayout";
 import DashPageTitle from "../../../config/component/common/DashPageTitle/DashPageTitle";
 import { headerHeight } from "../../../config/constant/variable";
 import { dashboard } from "../../../config/constant/routes";
+import { observer } from "mobx-react-lite";
+import { useState } from "react";
+import VideoForm from "./component/VideosForm";
+import DashFormModel from "../../../config/component/common/DashFormModel/DashFormModel";
 
-const VideosIndex = () => {
+const VideosIndex = observer(() => {
+  const [openVideoModel, setOpenVideoModel] = useState<any>({
+    open: false,
+    data: null,
+  });
+
   const items = [
-    { label: "Home", link: '/' },
+    { label: "Home", link: "/" },
     { label: "Dashboard", link: dashboard.home },
     { label: "Videos" },
   ];
@@ -22,13 +31,29 @@ const VideosIndex = () => {
       <DashPageHeader
         title="Videos"
         btnTitle="CREATE"
-        btnAction={() => alert("rahul")}
+        btnAction={() => setOpenVideoModel({ open: true })}
         breadcrumb={items}
       />
-      <DashPageTitle title="Our Youtube Videos" subTitle="Videos container contains the all types of videos"/>
+      <DashPageTitle
+        title="Our Youtube Videos"
+        subTitle="Videos container contains the all types of videos"
+      />
       <VideoGridLayout />
+      <DashFormModel
+        title="Add Videos"
+        open={openVideoModel.open}
+        close={() => {
+          setOpenVideoModel({ open: false, data: null });
+        }}
+      >
+        <VideoForm
+          close={() => {
+            setOpenVideoModel({ open: false, data: null });
+          }}
+        />
+      </DashFormModel>
     </Box>
   );
-};
+});
 
 export default VideosIndex;

@@ -18,7 +18,7 @@ export default function CallToActionWithIllustration() {
           textAlign={"center"}
           align={"center"}
           spacing={{ base: 8, md: 10 }}
-          py={{ base: 20, md: 28 }}
+          py={{ base: 15, md: 30 }}
         >
           <Heading
             fontWeight={600}
