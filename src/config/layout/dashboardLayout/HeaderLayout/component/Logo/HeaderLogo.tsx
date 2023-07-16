@@ -7,7 +7,8 @@ const HeaderLogo = observer(() => {
   const isLargerThanXl = useBreakpointValue({ lg: true });
 
   const {
-    layout: { fullScreenModeFun, fullScreenMode },auth : {closeSearchBar}
+    layout: { fullScreenModeFun, fullScreenMode },
+    auth: { closeSearchBar },
   } = store;
   return (
     <Flex alignItems="center" display={"flex"} ml={2}>

@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 import styled from "styled-components";
 import {
   LargeScreenHeaderHeight,
@@ -23,6 +23,7 @@ const HeaderLayout = () => {
       right={0}
       top={0}
       zIndex={999}
+      backgroundColor={useColorModeValue('white','#1A202C')}
     >
       <Box width={isLargerThan1020 ? "60%" : "90%"}>
         <HeaderLogo />
