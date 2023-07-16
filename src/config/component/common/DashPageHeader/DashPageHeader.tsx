@@ -20,12 +20,13 @@ interface PageHeaderProps {
   title?: string;
   subTitle?: string;
   btnTitle?: string;
+  titleIcon?:any;
   breadcrumb?: BreadcrumbItem[];
   btnAction?: () => void;
 }
 
 const DashPageHeader = observer(
-  ({ title, subTitle, btnTitle, btnAction, breadcrumb }: PageHeaderProps) => {
+  ({ title, subTitle, btnTitle, btnAction, breadcrumb, titleIcon }: PageHeaderProps) => {
     const theme = useTheme();
     const headingColor = useColorModeValue(
       theme.colors.gray[800],
@@ -61,13 +62,14 @@ const DashPageHeader = observer(
           </Box>
           <Box>
             <Button
+              leftIcon={titleIcon}
               onClick={btnAction}
               colorScheme="blue"
               variant="outline"
               color={buttonColor}
               _hover={{ color: buttonHoverColor }}
             >
-              {btnTitle ? btnTitle : "Create"}
+              {btnTitle}
             </Button>
           </Box>
         </Flex>

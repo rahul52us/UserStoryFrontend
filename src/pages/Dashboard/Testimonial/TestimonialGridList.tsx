@@ -1,8 +1,8 @@
   import { useEffect } from "react";
   import { observer } from "mobx-react-lite";
   import { Container, Stack } from "@chakra-ui/react";
-  import store from "../../../../store/store";
-  import ArrowTestimonial from "../../../../config/component/ArrowTestimonial/ArrowTestimonial";
+  import store from "../../../store/store";
+  import ArrowTestimonial from "../../../config/component/ArrowTestimonial/ArrowTestimonial";
 
   const TestimonialList = observer(() => {
     const {
@@ -25,7 +25,7 @@
     }, [getTestimonials, openNotification, testimonials.hasFetch]);
 
     return (
-      <Container maxW="7xl" py={2} mt={1}>
+      <Container maxW="7xl">
         <Stack
           display="flex"
           flexWrap={"wrap"}

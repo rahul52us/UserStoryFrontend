@@ -6,7 +6,7 @@ interface DashPageTitleI {
 }
 const DashPageTitle = ({ title, subTitle }: DashPageTitleI) => {
   return (
-    <Stack spacing={0} align={"center"} mb={5} mt={5}>
+    <Stack spacing={0} align={"center"} mb={5} mt={5} display={'none'}>
       <Heading>{title}</Heading>
       <Text textAlign={"center"}>{subTitle}</Text>
     </Stack>

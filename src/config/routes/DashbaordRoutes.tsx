@@ -26,6 +26,8 @@ const VideosIndex = lazy(
   () => import("../../pages/Dashboard/Videos/VideosIndex")
 );
 
+const MarksheetDesignTool = lazy(() => import('../component/CreateDeisgn/MarksheetDesignTool'))
+
 export const DashboardRoutes = [
   {
     element: <DashboardIndex />,
@@ -61,4 +63,9 @@ export const DashboardRoutes = [
     path: dashboard.videos,
     privateRoutes: true,
   },
+  {
+    element: <MarksheetDesignTool />,
+    path:'/dashboard/marksheet',
+    privateRoutes:true
+  }
 ];

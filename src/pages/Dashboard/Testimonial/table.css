@@ -1,0 +1,6 @@
+/* tableStyles.css */
+
+/* Adjust the height of the table rows */
+.table-row {
+    height: 40px; /* Change this value as needed */
+  }
