@@ -144,7 +144,6 @@ class AuthStore {
   createOrganisation = async (value: any) => {
     try {
       const { remember_me, token, first_name, last_name, ...sendData } = value;
-      console.log(sendData);
       sendData["name"] = `${first_name} ${last_name}`;
       const { data } = await axios.post(
         `/organisation/create/${token}`,

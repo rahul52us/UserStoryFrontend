@@ -15,7 +15,7 @@ const HeaderProfile = observer(() => {
         _hover={{ opacity: 0.8 }}
         fontSize="xl"
       >
-        <Avatar size="sm" borderRadius={10} name={user.name} />
+        <Avatar size="sm" borderRadius={10} name={user?.name} />
       </MenuButton>
       <MenuList
         bg="white"

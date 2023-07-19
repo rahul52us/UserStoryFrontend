@@ -8,6 +8,7 @@ const Testimonial = lazy(
 );
 const Contact = lazy(() => import("../../pages/main/Contact/Contact"));
 const YoutubeVideoIndex = lazy(() => import('../../pages/main/youtubeVideos/YoutubeVideosIndex'))
+const CoursesIndex = lazy(() => import('../../pages/main/courses/Courses'))
 
 export const MainPublicRoutes = [
   {
@@ -39,5 +40,10 @@ export const MainPublicRoutes = [
     element : <YoutubeVideoIndex />,
     path: "/videos",
     publicRoute : true
+  },
+  {
+    element: <CoursesIndex />,
+    path:'/courses',
+    publicRoutes: true
   }
 ];

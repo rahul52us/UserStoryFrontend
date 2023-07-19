@@ -1,12 +1,13 @@
 import { Heading, Stack, Text, Button, Container } from "@chakra-ui/react";
 import Features from "./component/Features";
 import HomeServices from "./component/HomeServices/HomeServices";
-import Contact from "../Contact/Contact";
+
+import CaptionCarousel from "../../../config/component/carousel/Carousel";
 
 export default function CallToActionWithIllustration() {
   return (
     <>
-      <Contact />
+     <CaptionCarousel />
       <Container maxW={'6xl'}>
       <Stack
         textAlign={"center"}

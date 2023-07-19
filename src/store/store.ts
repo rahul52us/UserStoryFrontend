@@ -10,6 +10,7 @@ import VideoStore from "./videosStore/videosStore";
 import ProjectStore from "./projectStore/projectStore";
 import ChatMessageStore from "./ChatMessageStore/ChatMessageStore";
 import ThemeStore from "./themeStore/themeStore";
+import NotesStore from "./notesStore/NotesStore";
 configure({ enforceActions: "never" });
 
 const store = {
@@ -24,5 +25,6 @@ const store = {
   Project: new ProjectStore(),
   VideoStore: new VideoStore(),
   chatMessage: new ChatMessageStore(),
+  notesStore : new NotesStore()
 };
 export default store;

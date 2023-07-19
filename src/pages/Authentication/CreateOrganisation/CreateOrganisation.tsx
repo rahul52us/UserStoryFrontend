@@ -103,7 +103,7 @@ const CreateOrganisation = observer(() => {
                       message: data.message,
                       type: "success",
                     });
-                    navigate("/");
+                    navigate(authentication.login);
                   })
                   .catch((error) => {
                     openNotification({

@@ -19,6 +19,8 @@ const VerifyEmail = lazy(
     () => import("../../pages/Authentication/VerifyEmail/VerifyEmail")
   );
 
+const CreateOrganisationStep1 = lazy(() => import('../../pages/Authentication/CreateOrganisation/CreateOrganisationStep1'))
+
 export const AuthenticateRoutes = [
     {
       element: <Login />,
@@ -48,5 +50,9 @@ export const AuthenticateRoutes = [
       element: <CreateOrganisation />,
       path: authentication.createOrganisation,
     },
+    {
+      element : <CreateOrganisationStep1 />,
+      path: authentication.createOrganisationStep1
+    }
   ];
 
