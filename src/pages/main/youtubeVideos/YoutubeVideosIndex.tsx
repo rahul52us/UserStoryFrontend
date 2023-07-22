@@ -1,105 +1,98 @@
-import { useState } from "react";
-import {
-  Box,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  Flex,
-} from "@chakra-ui/react";
-import styled from "styled-components";
-import { AiOutlineClose } from "react-icons/ai";
-import YoutubeVideoPlayer from "../../../config/component/YoutubeVideoPlayer/YoutubeVideoPlayer";
+  import { useEffect } from "react";
+  import {
+    Box,
+    Button,
+    ButtonGroup,
+    Container,
+    Heading,
+    Text,
+  } from "@chakra-ui/react";
+  import { BiGrid } from "react-icons/bi";
+  import { FaList } from "react-icons/fa";
+  import FilterContainer from "../../../config/component/FilterContainer/FilterContainer";
+  import VideosContainer from "./VideosContainer";
+  import { observer } from "mobx-react-lite";
+  import store from "../../../store/store";
 
-const IframeContainer = styled(Box)`
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%; /* 16:9 aspect ratio */
-  overflow: hidden;
-`;
+  const YoutubeVideoIndex = observer(() => {
+    const {
+      notesStore: { getCategories, categories },
+      auth: { openNotification },
+    } = store;
 
-const IframeWrapper = styled(Box)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-`;
+    useEffect(() => {
+      if (!categories.hasFetch) {
+        getCategories({ page: 1 })
+          .then(() => {})
+          .catch((err: any) => {
+            openNotification({
+              type: "error",
+              message: err?.message,
+              title: "Get Categories Failed",
+            });
+          });
+      }
+    }, [getCategories, categories.hasFetch, openNotification]);
 
-const CloseButton = styled.button`
-  position: absolute;
-  top: -1.5rem;
-  right: -1.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  background-color: transparent;
-  background: white;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;}
-`;
-
-const YoutubeVideoIndex = () => {
-  const [selectedVideo, setSelectedVideo] = useState("");
-
-  const openVideoModal = (videoId: any) => {
-    setSelectedVideo(videoId);
-  };
-
-  const closeVideoModal = () => {
-    setSelectedVideo("");
-  };
-
-  const videos : string[] = [
-    'XGgQaB-TbaM',
-    "hi0301FRL3g",
-    "3heVqPjpEww",
-    "ULVfS6SkvlY",
-    "B7wsylEjIjQ",
-
-  ]
-
-  return (
-    <Box p={5}>
-      <Flex justifyContent="center" gap={8} flexWrap="wrap">
-        {videos.map((item) => (
-          <Box key={item}>
-            <YoutubeVideoPlayer
-              openVideoModal={openVideoModal}
-              videoId={item}
-            />
+    return (
+      <Box>
+        <Box
+          display="flex"
+          flexDirection="column-reverse"
+          bgGradient="linear-gradient(135deg, #AEE3FF, #72C7FF)"
+        >
+          <Container maxW="7xl" style={{ marginTop: "60px" }}>
+            <Box display={"flex"} alignItems={"center"}>
+              <Heading fontSize={"5xl"}>All Videos</Heading>
+              <Button
+                border="1px solid white"
+                bgColor="rgba(255, 255, 255, 0.05)"
+                borderRadius={30}
+                pt={6}
+                pb={6}
+                ml={10}
+                mt={2}
+                _hover={{ backgroundColor: "rgba(255, 255, 255, 0.05)" }}
+              >
+                🎉 50 Courses
+              </Button>
+            </Box>
+            <Text mt={4} fontWeight={500}>
+              Videos that help beginner designers become true unicorns.
+            </Text>
+            <Box mt={10}>
+              <ButtonGroup
+                borderRadius={20}
+                border="1px solid rgba(255, 255, 255, 0.05)"
+                bgColor="rgba(255, 255, 255, 0.05)"
+                p={2}
+              >
+                <Button
+                  borderRadius={20}
+                  w={100}
+                  leftIcon={<BiGrid />}
+                  bgColor={"blue.500"}
+                  color="white"
+                >
+                  Grid
+                </Button>
+                <Button borderRadius={20} w={100} leftIcon={<FaList />}>
+                  List
+                </Button>
+              </ButtonGroup>
+            </Box>
+            <Box mt={5} mb={150}>
+              <FilterContainer />
+            </Box>
+          </Container>
+        </Box>
+        <Container maxW={"8xl"}>
+          <Box mt={"-70"} mb={10}>
+            <VideosContainer />
           </Box>
-        ))}
-        </Flex>
-      {selectedVideo && (
-        <Modal isOpen onClose={closeVideoModal} size="xl">
-          <ModalOverlay />
-          <ModalContent>
-            <ModalBody p={0}>
-              <IframeContainer>
-                <IframeWrapper>
-                  <iframe
-                    src={`https://www.youtube.com/embed/${selectedVideo}`}
-                    title="YouTube Video"
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    allowFullScreen
-                  />
-                </IframeWrapper>
-              </IframeContainer>
-            </ModalBody>
-            <CloseButton onClick={closeVideoModal}>
-              <AiOutlineClose size={20} />
-            </CloseButton>
-          </ModalContent>
-        </Modal>
-      )}
-    </Box>
-  );
-};
+        </Container>
+      </Box>
+    );
+  });
 
 export default YoutubeVideoIndex;

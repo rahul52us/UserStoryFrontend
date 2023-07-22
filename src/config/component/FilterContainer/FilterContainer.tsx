@@ -42,7 +42,7 @@ const FilterContainer = () => {
           leftIcon={<BiFilter />}
           borderRadius={20}
           p={5}
-          onClick={handleFilterToggle} // Toggle the filter collapse on click
+          onClick={handleFilterToggle}
         >
           {" "}
           Filter

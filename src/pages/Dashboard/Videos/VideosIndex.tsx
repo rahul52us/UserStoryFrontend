@@ -1,4 +1,4 @@
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import DashPageHeader from "../../../config/component/common/DashPageHeader/DashPageHeader";
 import VideoGridLayout from "./Layout/VideoGridLayout";
 import DashPageTitle from "../../../config/component/common/DashPageTitle/DashPageTitle";
@@ -22,12 +22,7 @@ const VideosIndex = observer(() => {
   ];
 
   return (
-    <Box
-      bg={useColorModeValue("gray.100", "gray.700")}
-      minHeight={`calc(100vh - ${headerHeight})`}
-      m={-4}
-      p={3}
-    >
+    <Box minHeight={`calc(100vh - ${headerHeight})`} m={-4} p={3}>
       <DashPageHeader
         title="Videos"
         btnTitle="CREATE"

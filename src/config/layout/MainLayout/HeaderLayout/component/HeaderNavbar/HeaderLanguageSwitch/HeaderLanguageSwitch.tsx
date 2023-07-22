@@ -1,18 +1,22 @@
-import {  IconButton, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react";
+import {
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Text,
+} from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { FiGlobe } from "react-icons/fi";
 
 const HeaderLanguageSwitch = () => {
   const { i18n } = useTranslation();
 
-  // Define language options
   const languageOptions = [
     { value: "en", label: "English" },
     { value: "hi", label: "Hindi" },
-    // Add more languages as needed
   ];
 
-  // Handle language change
   const handleLanguageChange = (value: any) => {
     const selectedLanguage = value;
     i18n.changeLanguage(selectedLanguage);
@@ -30,7 +34,6 @@ const HeaderLanguageSwitch = () => {
         _hover={{ opacity: 0.8 }}
       />
       <MenuList
-        bg="white"
         minWidth="180px"
         boxShadow="md"
         py={1}
@@ -42,7 +45,6 @@ const HeaderLanguageSwitch = () => {
             key={option.value}
             value={option.value}
             onClick={() => handleLanguageChange(option.value)}
-            _hover={{ bg: "gray.100" }}
             px={4}
             py={2}
           >

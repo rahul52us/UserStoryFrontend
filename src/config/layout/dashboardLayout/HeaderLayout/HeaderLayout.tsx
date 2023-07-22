@@ -1,4 +1,4 @@
-import { Box, Flex, useTheme } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import styled from "styled-components";
 import { useMediaQuery } from "@chakra-ui/react";
 import HeaderNavbar from "./component/HeaderNavbar/HeaderNavbar";
@@ -8,8 +8,6 @@ import { observer } from "mobx-react-lite";
 
 const HeaderLayout = observer(() => {
   const [isLargerThan1020] = useMediaQuery("(min-width: 1020px)");
-  const theme = useTheme()
-  console.log(theme.custom)
 
   return (
     <HeaderingContainer

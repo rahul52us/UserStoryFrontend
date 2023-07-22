@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Divider,
   Flex,
   Heading,
   Text,
@@ -47,7 +46,7 @@ const DashPageHeader = observer(
 
     return (
       <>
-        <Flex justify="space-between" alignItems="center" mb={2}>
+        <Flex justify="space-between" alignItems="center" ml={3} mr={5}>
           <Box>
             {breadcrumb ? (
               <CustomBreadcrumb items={breadcrumb} />
@@ -73,7 +72,6 @@ const DashPageHeader = observer(
             </Button>
           </Box>
         </Flex>
-        <Divider borderColor={textColor} />
       </>
     );
   }

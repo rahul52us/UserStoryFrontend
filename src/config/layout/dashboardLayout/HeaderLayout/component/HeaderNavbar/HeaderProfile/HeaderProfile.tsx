@@ -15,10 +15,9 @@ const HeaderProfile = observer(() => {
         _hover={{ opacity: 0.8 }}
         fontSize="xl"
       >
-        <Avatar size="sm" borderRadius={10} name={user.name} />
+        <Avatar src={user.pic} size="sm" borderRadius={10} name={user.name} />
       </MenuButton>
       <MenuList
-        bg="white"
         minWidth="180px"
         boxShadow="md"
         py={1}
@@ -26,7 +25,6 @@ const HeaderProfile = observer(() => {
         zIndex={10}
       >
         <MenuItem
-          _hover={{ bg: "gray.100" }}
           px={4}
           py={2}
           fontSize="sm"
@@ -35,7 +33,6 @@ const HeaderProfile = observer(() => {
           Profile Settings
         </MenuItem>
         <MenuItem
-          _hover={{ bg: "gray.100" }}
           px={4}
           py={2}
           fontSize="sm"
@@ -44,7 +41,6 @@ const HeaderProfile = observer(() => {
           Change Password
         </MenuItem>
         <MenuItem
-          _hover={{ bg: "gray.100" }}
           px={4}
           py={2}
           fontSize="sm"
@@ -54,7 +50,6 @@ const HeaderProfile = observer(() => {
           Customize Theme
         </MenuItem>
         <MenuItem
-          _hover={{ bg: "gray.100" }}
           px={4}
           py={2}
           fontSize="sm"

@@ -4,9 +4,12 @@ import { useState } from "react";
 interface LinkProps {
   text: string;
   icon?: any;
+  clickEvent?: any;
+  color?: string;
+  hoverColor?: string;
 }
 
-const LinkText = ({ text, icon }: LinkProps) => {
+const LinkText = ({ text, icon, clickEvent, color, hoverColor }: LinkProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -24,10 +27,21 @@ const LinkText = ({ text, icon }: LinkProps) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       position="relative"
+      _hover={{
+        color: hoverColor ? hoverColor : "blue.400",
+        transition: "background-color 0.2s ease",
+      }}
+      onClick={() => {
+        if (clickEvent) {
+          clickEvent();
+        }
+      }}
+      color={color && color}
+      maxWidth={"max-content"}
     >
-      <Box position="relative" display="flex" alignItems="center">
+      <Box display="flex" alignItems="center">
         {icon}
-        <Text ml={2} fontWeight={500}>
+        <Text ml={icon ? 2 : 0} fontWeight={500}>
           {text}
         </Text>
         <Box
@@ -36,8 +50,7 @@ const LinkText = ({ text, icon }: LinkProps) => {
           left={0}
           width={isHovered ? "100%" : 0}
           height="2px"
-          color="blue.400"
-          backgroundColor="currentColor"
+          backgroundColor={hoverColor ? hoverColor : "blue.400"}
           transition="width 0.2s ease"
         />
       </Box>

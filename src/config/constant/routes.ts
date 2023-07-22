@@ -13,3 +13,13 @@ export const dashboard = {
     testimonial : '/dashboard/testimonial',
     videos:'/dashboard/videos'
 }
+
+export const main = {
+    home : '/',
+    about : '/about',
+    contact : '/contact',
+    courses : '/courses',
+    testimonial : '/testimonial',
+    video : '/video',
+    profile:'/profile'
+}

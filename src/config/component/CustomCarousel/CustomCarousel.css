@@ -1,0 +1,6 @@
+/* Custom CSS to remove the focus outline on the slider */
+.slick-slider:focus,
+.slick-slider:focus-within,
+.slick-slider .slick-list:focus {
+  outline: none !important;
+}

@@ -16,7 +16,7 @@ interface HomeServiceCompProps {
 
 const HomeServiceComp: React.FC<HomeServiceCompProps> = ({ item }) => {
   return (
-    <Card bgGradient={item.gradiant} w="100%" p={4} borderRadius={5}>
+    <Card bgGradient={item.gradiant} w="100%" p={4} borderRadius={5} boxShadow="rgb(0 0 0 / 20%) 0px 0px 11px">
       <Box display={"flex"} justifyContent={"center"}>
         <Box w={"80%"}>
           <Text

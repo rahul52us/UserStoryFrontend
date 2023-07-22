@@ -12,9 +12,16 @@ import {
   createIcon,
   IconProps,
   useColorModeValue,
+  Card,
+  useBreakpointValue,
 } from "@chakra-ui/react";
+import { preTitle, shortDescription, subTitle } from "./utils/text";
+import CustomCarousel from "../../../config/component/CustomCarousel/CustomCarousel";
 
 export default function CallToActionWithVideo() {
+
+  const sildesValues = useBreakpointValue({base : 1 , md : 2 , lg : 3})
+
   return (
     <Container maxW={"6xl"} style={{ overflow: "hidden" }}>
       <Stack
@@ -43,18 +50,14 @@ export default function CallToActionWithVideo() {
                 zIndex: -1,
               }}
             >
-              Write once,
+              {preTitle}
             </Text>
             <br />
             <Text as={"span"} color={"red.400"}>
-              use everywhere!
+              {subTitle}
             </Text>
           </Heading>
-          <Text color={"gray.500"}>
-            Snippy is a rich coding snippets app that lets you create your own
-            code snippets, categorize them, and even sync them in the cloud so
-            you can use them anywhere. All that is free!
-          </Text>
+          <Text color={"gray.500"}>{shortDescription}</Text>
           <Stack
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: "column", sm: "row" }}
@@ -130,6 +133,92 @@ export default function CallToActionWithVideo() {
           </Box>
         </Flex>
       </Stack>
+      <CustomCarousel settings={{ slidesToShow: sildesValues  }}>
+        <Box p={2}>
+          <Card bg={"red.400"} p={5}>
+            <Image
+              alt={"Hero Image"}
+              fit={"cover"}
+              align={"center"}
+              w={"100%"}
+              h={"100%"}
+              src={
+                "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80"
+              }
+            />
+          </Card>
+        </Box>
+        <Box p={2}>
+          <Card bg={"red.400"} p={5}>
+            <Image
+              alt={"Hero Image"}
+              fit={"cover"}
+              align={"center"}
+              w={"100%"}
+              h={"100%"}
+              src={
+                "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80"
+              }
+            />
+          </Card>
+        </Box>
+        <Box p={2}>
+          <Card bg={"red.400"} p={5}>
+            <Image
+              alt={"Hero Image"}
+              fit={"cover"}
+              align={"center"}
+              w={"100%"}
+              h={"100%"}
+              src={
+                "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80"
+              }
+            />
+          </Card>
+        </Box>
+        <Box p={2}>
+          <Card bg={"red.400"} p={5}>
+            <Image
+              alt={"Hero Image"}
+              fit={"cover"}
+              align={"center"}
+              w={"100%"}
+              h={"100%"}
+              src={
+                "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80"
+              }
+            />
+          </Card>
+        </Box>
+        <Box p={2}>
+          <Card bg={"red.400"} p={5}>
+            <Image
+              alt={"Hero Image"}
+              fit={"cover"}
+              align={"center"}
+              w={"100%"}
+              h={"100%"}
+              src={
+                "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80"
+              }
+            />
+          </Card>
+        </Box>
+        <Box p={2}>
+          <Card bg={"red.400"} p={5}>
+            <Image
+              alt={"Hero Image"}
+              fit={"cover"}
+              align={"center"}
+              w={"100%"}
+              h={"100%"}
+              src={
+                "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80"
+              }
+            />
+          </Card>
+        </Box>
+      </CustomCarousel>
     </Container>
   );
 }

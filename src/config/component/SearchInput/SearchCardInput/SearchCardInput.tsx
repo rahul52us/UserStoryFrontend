@@ -1,7 +1,7 @@
 import { Box, Input } from "@chakra-ui/react";
 import { BiSearch } from "react-icons/bi";
 
-const SearchCardInput = () => {
+const SearchCardInput = ({searchValue , onChange} : any) => {
   return (
     <Box
       display="flex"
@@ -25,6 +25,8 @@ const SearchCardInput = () => {
         pl={4}
         variant="unstyled"
         pr={4}
+        value={searchValue}
+        onChange={onChange}
       />
       <BiSearch cursor="pointer" color="gray" />
     </Box>

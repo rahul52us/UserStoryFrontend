@@ -1,7 +1,8 @@
 import { lazy } from "react";
-
+import { main } from "../constant/routes";
 const Home = lazy(() => import("../../pages/main/Home/Home"));
 const About = lazy(() => import("../../pages/main/About/About"));
+const ProfileIndex = lazy(() => import('../../pages/main/profile/ProfileIndex'))
 const Pricing = lazy(() => import("../../pages/main/pricing/Pricing"));
 const Testimonial = lazy(
   () => import("../../pages/main/Testimonial/Testimonial")
@@ -13,12 +14,12 @@ const CoursesIndex = lazy(() => import('../../pages/main/courses/Courses'))
 export const MainPublicRoutes = [
   {
     element: <Home />,
-    path: "/",
+    path: main.home,
     publicRoute: true,
   },
   {
     element: <About />,
-    path: "/about",
+    path: main.about,
     publicRoute: true,
   },
   {
@@ -28,22 +29,27 @@ export const MainPublicRoutes = [
   },
   {
     element: <Testimonial />,
-    path: "/testimonial",
+    path: main.testimonial,
     publicRoute: true,
   },
   {
     element: <Contact />,
-    path: "/contact",
+    path: main.contact,
     publicRoute: true,
   },
   {
     element : <YoutubeVideoIndex />,
-    path: "/videos",
+    path: main.video,
     publicRoute : true
   },
   {
     element: <CoursesIndex />,
-    path:'/courses',
+    path:main.courses,
     publicRoutes: true
-  }
+  },
+  {
+    element: <ProfileIndex />,
+    path:main.profile,
+    publicRoutes: false
+  },
 ];

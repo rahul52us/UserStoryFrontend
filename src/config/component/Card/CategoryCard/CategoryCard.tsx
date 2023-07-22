@@ -4,7 +4,7 @@ import { BiBookContent, BiBookmark, BiCart, BiUser } from "react-icons/bi";
 import StarRatingIcon from "../../StarRatingIcon/StarRatingIcon";
 import LinkText from "../../LinkText/LinkText";
 
-const CategoryCard = ({ image, title, description, username, userPic, discountPrice, originalPrice, rating } : any) => {
+const CategoryCard = ({ image, title, description, username, userPic, discountPrice, originalPrice, rating, totalCount } : any) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => setIsHovered(true);
@@ -37,7 +37,7 @@ const CategoryCard = ({ image, title, description, username, userPic, discountPr
 
       <Flex mt={2} justify="space-between" alignItems="center">
         <Text color="gray" fontSize="sm" display="flex" alignItems="center">
-          <BiBookContent style={{ marginRight: "10px" }} color="gray" /> 12 Lessons
+          <BiBookContent style={{ marginRight: "10px" }} color="gray" /> {totalCount} Lessons
         </Text>
         <Text color="gray" fontSize="sm" display="flex" alignItems="center">
           <BiUser style={{ marginRight: "10px" }} color="gray" /> Students

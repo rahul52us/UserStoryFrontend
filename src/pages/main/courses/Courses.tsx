@@ -21,17 +21,16 @@ const BlueishGradientBox = observer(() => {
   } = store;
 
   useEffect(() => {
-    if(!categories.hasFetch)
-    {
+    if (!categories.hasFetch) {
       getCategories({ page: 1 })
-      .then(() => {})
-      .catch((err: any) => {
-        openNotification({
-          type: "error",
-          message: err?.message,
-          title: "Get Categories Failed",
+        .then(() => {})
+        .catch((err: any) => {
+          openNotification({
+            type: "error",
+            message: err?.message,
+            title: "Get Categories Failed",
+          });
         });
-      });
     }
   }, [getCategories, categories.hasFetch, openNotification]);
 

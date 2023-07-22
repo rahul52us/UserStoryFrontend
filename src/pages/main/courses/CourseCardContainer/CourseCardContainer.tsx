@@ -8,7 +8,8 @@ import SkeletanCategoryCard from "../../../../config/component/Card/CategoryCard
 const CourseCardContainer = observer(() => {
   const {
     notesStore: {
-      categories: { data },
+      categories: { data, loading },
+      localFiltering
     },
   } = store;
   return (
@@ -22,7 +23,7 @@ const CourseCardContainer = observer(() => {
       gap={4}
       columnGap={3}
     >
-      <SideFilterContainer category={data} />
+      <SideFilterContainer category={data} loading={loading} filtering={localFiltering}/>
       <Grid
         templateColumns={{
           base: "1fr",
@@ -45,6 +46,7 @@ const CourseCardContainer = observer(() => {
               discountPrice={item.discountPrice}
               originalPrice={item.originalPrice}
               rating={item.rating}
+              totalCount={item?.notes}
             />
           );
         })}

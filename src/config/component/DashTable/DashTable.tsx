@@ -42,9 +42,10 @@ const ExampleTable = ({
     <Box
       borderWidth="1px"
       borderRadius="md"
-      p={4}
       overflowX="auto"
       boxShadow={"0 0 5px rgba(0, 0, 0, 0.2)"}
+		  // bg="white"
+		  p="1.125rem 1.375rem"
     >
       <Flex
         display="flex"

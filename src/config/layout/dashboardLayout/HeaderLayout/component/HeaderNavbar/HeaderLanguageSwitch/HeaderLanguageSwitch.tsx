@@ -30,7 +30,6 @@ const HeaderLanguageSwitch = () => {
         _hover={{ opacity: 0.8 }}
       />
       <MenuList
-        bg="white"
         minWidth="180px"
         boxShadow="md"
         py={1}
@@ -42,7 +41,6 @@ const HeaderLanguageSwitch = () => {
             key={option.value}
             value={option.value}
             onClick={() => handleLanguageChange(option.value)}
-            _hover={{ bg: "gray.100" }}
             px={4}
             py={2}
           >
