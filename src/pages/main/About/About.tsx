@@ -135,7 +135,7 @@ export default function CallToActionWithVideo() {
       </Stack>
       <CustomCarousel settings={{ slidesToShow: sildesValues  }}>
         <Box p={2}>
-          <Card bg={"red.400"} p={5}>
+          <Card backgroundColor={useColorModeValue("red.50", "red.400")} p={5}>
             <Image
               alt={"Hero Image"}
               fit={"cover"}
@@ -149,7 +149,7 @@ export default function CallToActionWithVideo() {
           </Card>
         </Box>
         <Box p={2}>
-          <Card bg={"red.400"} p={5}>
+          <Card backgroundColor={useColorModeValue("red.50", "red.400")} p={5}>
             <Image
               alt={"Hero Image"}
               fit={"cover"}
@@ -163,7 +163,7 @@ export default function CallToActionWithVideo() {
           </Card>
         </Box>
         <Box p={2}>
-          <Card bg={"red.400"} p={5}>
+          <Card backgroundColor={useColorModeValue("red.50", "red.400")} p={5}>
             <Image
               alt={"Hero Image"}
               fit={"cover"}
@@ -177,7 +177,7 @@ export default function CallToActionWithVideo() {
           </Card>
         </Box>
         <Box p={2}>
-          <Card bg={"red.400"} p={5}>
+          <Card backgroundColor={useColorModeValue("red.50", "red.400")} p={5}>
             <Image
               alt={"Hero Image"}
               fit={"cover"}
@@ -191,7 +191,7 @@ export default function CallToActionWithVideo() {
           </Card>
         </Box>
         <Box p={2}>
-          <Card bg={"red.400"} p={5}>
+          <Card backgroundColor={useColorModeValue("red.50", "red.400")} p={5}>
             <Image
               alt={"Hero Image"}
               fit={"cover"}
@@ -205,7 +205,7 @@ export default function CallToActionWithVideo() {
           </Card>
         </Box>
         <Box p={2}>
-          <Card bg={"red.400"} p={5}>
+          <Card backgroundColor={useColorModeValue("red.50", "red.400")} p={5}>
             <Image
               alt={"Hero Image"}
               fit={"cover"}

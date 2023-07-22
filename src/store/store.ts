@@ -15,7 +15,7 @@ configure({ enforceActions: "never" });
 
 const store = {
   auth: new AuthStore(),
-  themeStore : new ThemeStore(),
+  themeStore: new ThemeStore(),
   quiz: new QuizStore(),
   layout: new LayoutStore(),
   DashStore: new DashStore(),
@@ -25,6 +25,6 @@ const store = {
   Project: new ProjectStore(),
   VideoStore: new VideoStore(),
   chatMessage: new ChatMessageStore(),
-  notesStore : new NotesStore()
+  notesStore: new NotesStore(),
 };
 export default store;

@@ -42,11 +42,23 @@ const HeaderProfile = observer(() => {
           py={2}
           fontSize="sm"
           fontWeight="medium"
-          onClick={() => navigate(main.profile)}
+          onClick={() => {
+            localStorage.setItem("profile_current_active_tab", "0");
+            navigate(main.profile);
+          }}
         >
           Profile Settings
         </MenuItem>
-        <MenuItem px={4} py={2} fontSize="sm" fontWeight="medium">
+        <MenuItem
+          px={4}
+          py={2}
+          fontSize="sm"
+          fontWeight="medium"
+          onClick={() => {
+            localStorage.setItem("profile_current_active_tab", "1");
+            navigate(main.changePassword);
+          }}
+        >
           Change Password
         </MenuItem>
         <MenuItem

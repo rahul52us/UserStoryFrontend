@@ -36,6 +36,8 @@ interface CustomInputProps {
   getOptionLabel?: any;
   getOptionValue?: any;
   rows?: number;
+  disabled?: boolean;
+  showError? : boolean
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({
@@ -52,7 +54,9 @@ const CustomInput: React.FC<CustomInputProps> = ({
   isMulti,
   getOptionLabel,
   getOptionValue,
+  disabled,
   rows,
+  showError,
   ...rest
 }) => {
   const theme = useTheme();
@@ -75,6 +79,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             onChange={onChange}
             name={name}
             required={required}
+            disabled={disabled}
             {...rest}
           />
         );
@@ -86,6 +91,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             onChange={onChange}
             name={name}
             placeholder={placeholder}
+            disabled={disabled}
             {...rest}
           />
         );
@@ -97,6 +103,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             value={value}
             onChange={onChange}
             name={name}
+            disabled={disabled}
             {...rest}
           />
         );
@@ -108,6 +115,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             value={value}
             onChange={onChange}
             name={name}
+            disabled={disabled}
             {...rest}
           />
         );
@@ -128,6 +136,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             isSearchable={isSearchable}
             getOptionLabel={getOptionLabel}
             getOptionValue={getOptionValue}
+            isDisabled={disabled}
             components={{
               IndicatorSeparator: null,
               DropdownIndicator: () => (
@@ -139,13 +148,16 @@ const CustomInput: React.FC<CustomInputProps> = ({
       case "date":
         return (
           <DatePicker
-            customInput={<Input className="chakra-input" style={{width : '100%'}} />}
+            customInput={
+              <Input className="chakra-input" style={{ width: "100%" }} />
+            }
             name={name}
             selected={value}
             onChange={onChange}
             placeholderText={placeholder}
             className="chakra-input"
             isClearable
+            disabled={disabled}
             {...rest}
           />
         );
@@ -157,6 +169,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             value={value}
             onChange={onChange}
             name={name}
+            disabled={disabled}
             {...rest}
           />
         );
@@ -164,8 +177,10 @@ const CustomInput: React.FC<CustomInputProps> = ({
   };
 
   return (
-    <FormControl id={name} isRequired={required} isInvalid={!!error}>
-      <FormLabel fontSize={'small'} mt={2}>{label}</FormLabel>
+    <FormControl id={name} isInvalid={!!error && showError}>
+      <FormLabel fontSize={"small"} mt={2}>
+      {label} {required && <span style={{color:'red'}}>*</span>}
+      </FormLabel>
       <div style={{ position: "relative" }}>
         {renderInputComponent()}
         {type === "password" && (
@@ -187,7 +202,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
           </div>
         )}
       </div>
-      {error && <FormErrorMessage>{error}</FormErrorMessage>}
+      {showError && error && <FormErrorMessage>{error}</FormErrorMessage>}
     </FormControl>
   );
 };

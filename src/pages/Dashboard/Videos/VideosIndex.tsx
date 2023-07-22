@@ -35,6 +35,7 @@ const VideosIndex = observer(() => {
       />
       <VideoGridLayout />
       <DashFormModel
+        isCentered={true}
         title="Add Videos"
         open={openVideoModel.open}
         close={() => {

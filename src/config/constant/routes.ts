@@ -17,9 +17,10 @@ export const dashboard = {
 export const main = {
     home : '/',
     about : '/about',
+    changePassword:'/profile',
     contact : '/contact',
     courses : '/courses',
     testimonial : '/testimonial',
-    video : '/video',
+    video : '/videos',
     profile:'/profile'
 }

@@ -1,4 +1,4 @@
-import  axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { action, makeObservable, observable } from "mobx";
 import CryptoJS from "crypto-js";
 
@@ -13,10 +13,10 @@ interface Notification {
 class AuthStore {
   loading: boolean = false;
   user: any | null = null;
-  openSearch:any = false
+  openSearch: any = false;
   notification: Notification | null = null;
   isRememberCredential = true;
-  companyUsers = []
+  companyUsers = [];
 
   constructor() {
     this.initiatAppOptions();
@@ -24,11 +24,11 @@ class AuthStore {
       user: observable,
       notification: observable,
       companyUsers: observable,
-      openSearch:observable,
+      openSearch: observable,
       login: action,
       register: action,
       doLogout: action,
-      closeSearchBar:action,
+      closeSearchBar: action,
       openNotification: action,
       closeNotication: action,
       checkPermission: action,
@@ -37,10 +37,11 @@ class AuthStore {
       sendNotification: action,
       restoreUser: action,
       forgotPasswordStore: action,
+      changePasswordStore: action,
       resetPasswordStore: action,
       verifyEmail: action,
       createOrganisation: action,
-      getCompanyUsers: action
+      getCompanyUsers: action,
     });
   }
 
@@ -156,31 +157,30 @@ class AuthStore {
   };
 
   restoreUser = () => {
-    try
-    {
-    const authorization_token = process.env.REACT_APP_AUTHORIZATION_TOKEN;
-    if (authorization_token) {
-      const storedData = localStorage.getItem("quizUserData");
-      if (storedData) {
-        const decryptedBytes = CryptoJS.AES.decrypt(
-          storedData,
-          process.env.REACT_APP_ENCRYPT_SECRET_KEY!
-        );
-        const decryptedData = decryptedBytes.toString(CryptoJS.enc.Utf8);
-        this.user = JSON.parse(decryptedData);
-        return true;
+    try {
+      const authorization_token = process.env.REACT_APP_AUTHORIZATION_TOKEN;
+      if (authorization_token) {
+        const storedData = localStorage.getItem("quizUserData");
+        if (storedData) {
+          const decryptedBytes = CryptoJS.AES.decrypt(
+            storedData,
+            process.env.REACT_APP_ENCRYPT_SECRET_KEY!
+          );
+          const decryptedData = decryptedBytes.toString(CryptoJS.enc.Utf8);
+          this.user = JSON.parse(decryptedData);
+          return true;
+        } else {
+          this.doLogout();
+          return false;
+        }
       } else {
         this.doLogout();
         return false;
       }
-    } else {
+    } catch (err) {
+      this.user = null;
       this.doLogout();
-      return false;
     }
-  }catch(err){
-    this.user = null
-    this.doLogout()
-  }
   };
 
   doLogout = () => {
@@ -204,6 +204,18 @@ class AuthStore {
   resetPasswordStore = async (value: any) => {
     try {
       const { data } = await axios.post("/auth/reset-password", value);
+      return data.data;
+    } catch (err: any) {
+      return Promise.reject(err?.response?.data || err.message);
+    }
+  };
+
+  changePasswordStore = async (value: any) => {
+    try {
+      const { data } = await axios.post("/auth/change-password", {
+        oldPassword: value.oldPassword,
+        newPassword: value.newPassword,
+      });
       return data.data;
     } catch (err: any) {
       return Promise.reject(err?.response?.data || err.message);
@@ -277,30 +289,23 @@ class AuthStore {
     }
   };
 
-  getCompanyUsers = async ({ page } : any) => {
-    try
-    {
-      const {data} = await axios(`auth/get/users?page=${page}`)
-      this.companyUsers = data.data
-      return data
+  getCompanyUsers = async ({ page }: any) => {
+    try {
+      const { data } = await axios(`auth/get/users?page=${page}`);
+      this.companyUsers = data.data;
+      return data;
+    } catch (err: any) {
+      return Promise.reject(err?.response?.data || err);
     }
-    catch(err : any)
-    {
-      return Promise.reject(err?.response?.data || err)
-    }
-  }
+  };
 
   closeSearchBar = async () => {
-    if(this.openSearch)
-    {
-      this.openSearch = false
+    if (this.openSearch) {
+      this.openSearch = false;
+    } else {
+      this.openSearch = true;
     }
-    else
-    {
-      this.openSearch = true
-    }
-
-  }
+  };
 }
 
 export default AuthStore;
