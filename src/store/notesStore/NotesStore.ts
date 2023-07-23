@@ -26,7 +26,7 @@ class NotesStore {
   getCategories = action(async (sendData: any) => {
     this.categories.loading = true;
     try {
-      const { data } = await axios.get(
+      const { data } = await axios.post(
         `notes/categories?page=${sendData.page}&limit=15`
       );
       this.categories.hasFetch = true;

@@ -9,7 +9,7 @@ const CourseCardContainer = observer(() => {
   const {
     notesStore: {
       categories: { data, loading },
-      localFiltering
+      localFiltering,
     },
   } = store;
   return (
@@ -23,7 +23,11 @@ const CourseCardContainer = observer(() => {
       gap={4}
       columnGap={3}
     >
-      <SideFilterContainer category={data} loading={loading} filtering={localFiltering}/>
+      <SideFilterContainer
+        data={data}
+        loading={loading}
+        filtering={localFiltering}
+      />
       <Grid
         templateColumns={{
           base: "1fr",
@@ -37,7 +41,7 @@ const CourseCardContainer = observer(() => {
         {data.map((item: any, index: any) => {
           return (
             <CategoryCard
-              image={item.image}
+              thumbnail={item.thumbnail}
               key={index}
               title={item.title}
               description={item.description}
@@ -46,7 +50,7 @@ const CourseCardContainer = observer(() => {
               discountPrice={item.discountPrice}
               originalPrice={item.originalPrice}
               rating={item.rating}
-              totalCount={item?.notes}
+              totalCount={item?.totalChildData}
             />
           );
         })}

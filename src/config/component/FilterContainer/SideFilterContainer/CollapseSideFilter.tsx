@@ -17,7 +17,7 @@ const CollapseSideFilter = ({ data, maxShow = 8 }: any) => {
     <>
       <Box>
         {displayedCategories.map((item: any, index: number) => (
-          <SearchCheckLabel labelText={item.title} total={10} key={index} />
+          <SearchCheckLabel labelText={item.title} total={item.totalChildData ? item.totalChildData : 0} key={index} />
         ))}
       </Box>
 
@@ -33,7 +33,7 @@ const CollapseSideFilter = ({ data, maxShow = 8 }: any) => {
           data
             .slice(maxShow)
             .map((item: any, index: number) => (
-              <SearchCheckLabel labelText={item.title} total={10} key={index} />
+              <SearchCheckLabel labelText={item.title} total={item.totalChildData ? item.totalChildData : 0} key={index} />
             ))}
       </Box>
 

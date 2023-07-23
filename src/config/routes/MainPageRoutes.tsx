@@ -8,7 +8,7 @@ const Testimonial = lazy(
   () => import("../../pages/main/Testimonial/Testimonial")
 );
 const Contact = lazy(() => import("../../pages/main/Contact/Contact"));
-const YoutubeVideoIndex = lazy(() => import('../../pages/main/youtubeVideos/YoutubeVideosIndex'))
+const YoutubeVideoIndex = lazy(() => import('../../pages/main/Videos/VideosIndex'))
 const CoursesIndex = lazy(() => import('../../pages/main/courses/Courses'))
 
 export const MainPublicRoutes = [

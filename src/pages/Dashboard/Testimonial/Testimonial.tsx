@@ -140,6 +140,7 @@ const Testimonial = observer(() => {
         close={() => setOpenTestimonial(false)}
         loading={false}
         title="Add Testimonial"
+        isCentered={true}
       >
         <TestimonialForm close={() => setOpenTestimonial(false)} />
       </DashFormModel>

@@ -16,7 +16,7 @@
 
   const YoutubeVideoIndex = observer(() => {
     const {
-      notesStore: { getCategories, categories },
+      VideoStore: { getCategories, categories },
       auth: { openNotification },
     } = store;
 
@@ -54,7 +54,7 @@
                 mt={2}
                 _hover={{ backgroundColor: "rgba(255, 255, 255, 0.05)" }}
               >
-                🎉 50 Courses
+                🎉 {categories?.data?.length} Courses
               </Button>
             </Box>
             <Text mt={4} fontWeight={500}>

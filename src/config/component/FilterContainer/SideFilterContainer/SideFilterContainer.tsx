@@ -4,7 +4,7 @@ import SearchCardInput from "../../SearchInput/SearchCardInput/SearchCardInput";
 import CollapseSideFilter from "./CollapseSideFilter";
 import NormalLoader from "../../Loader/NormalLoader";
 
-const SideFilterContainer = ({ category, loading, filtering }: any) => {
+const SideFilterContainer = ({ data, loading, filtering }: any) => {
   const [searchValue, setSearchValue] = useState("");
 
   return (
@@ -27,7 +27,7 @@ const SideFilterContainer = ({ category, loading, filtering }: any) => {
         </Box>
       )}
       <Box mt={5}>
-        <CollapseSideFilter data={category} maxShow={4} />
+        <CollapseSideFilter data={data} maxShow={4} />
       </Box>
       <Box borderBottom="3px solid lightgray">
         <Heading fontSize="xl" mt={5} mb={3} fontWeight={600}>
