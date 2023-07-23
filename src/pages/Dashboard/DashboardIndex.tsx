@@ -1,4 +1,4 @@
-import { Box, Card, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
 import ExampleTable from "../../config/component/DashTable/DashTable";
 import DashboardBanner from "./component/DashboardBanner";
 import DashWidgetCard from "./component/DashWidgetCard";
@@ -12,10 +12,7 @@ import DeleteModel from "../../config/component/common/DeleteModel";
 import { deleteCategoryFunction } from "./quiz/component/category/utils/function";
 import { useTranslation } from "react-i18next";
 import CustomTable from "../../config/component/CustomTable/CustomTable";
-import BarChart from "../../config/component/charts/BarChart";
-import LineGraph from "../../config/component/charts/LineChart";
-import PieChart from "../../config/component/charts/PieChart";
-import DonutChart from "../../config/component/charts/Doughnut";
+import DashChartContainer from "./component/DashChartContainer";
 
 const removeKeys: (keyof Category)[] = [
   "description",
@@ -112,21 +109,8 @@ const DashboardIndex = observer(() => {
   return (
     <>
       <DashboardBanner />
-      <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }} gap={5} mb={5}>
-        <Card width={"100%"} minH={350} p={{base : 0, sm : 2}}>
-          <BarChart />
-        </Card>
-        <Card width={"100%"} minH={350} p={{base : 0, sm : 2}}>
-          <LineGraph />
-        </Card>
-        <Card width={"100%"} minH={350} p={{base : 0, sm : 2}}>
-          <PieChart />
-        </Card>
-        <Card width={"100%"} minH={350} p={{base : 0, sm : 2}}>
-          <DonutChart />
-        </Card>
-      </Grid>
       <DashWidgetCard />
+      <DashChartContainer />
       <CustomTable data={data} columns={columns} />
       <Box mt={5}>
         <Grid

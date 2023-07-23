@@ -13,6 +13,7 @@ import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./config/theme/theme";
 import { GlobalStyles } from "./globalStyles";
 import ThemeChangeContainer from "./config/component/themeChangeContainer/ThemeChangeContainer";
+import ScrollToTopButton from "./config/component/ScrollToTopBottom/ScrollToTopBottom";
 
 const App = observer(() => {
   i18n.use(initReactI18next).init({
@@ -37,6 +38,7 @@ const App = observer(() => {
         <ChatMessageContainer />
         <DashSearchBar />
         <ThemeChangeContainer />
+        <ScrollToTopButton />
       </ErrorBoundary>
     </ChakraProvider>
   );
