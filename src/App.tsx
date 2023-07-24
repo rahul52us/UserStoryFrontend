@@ -6,7 +6,6 @@ import RouterIndex from "./config/routes/RoutesIndex";
 import Notification from "./config/component/Notification/Notification";
 import enTranslation from "./config/locales/en.json";
 import hiTranslation from "./config/locales/hi.json";
-import ChatMessageContainer from "./config/component/common/chatContainer/ChatMessageContainer";
 import ErrorBoundary from "./config/component/ErrorBoundary/ErrorBoundary";
 import DashSearchBar from "./config/component/common/DashSearchBar/DashSearchBar";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
@@ -14,6 +13,7 @@ import theme from "./config/theme/theme";
 import { GlobalStyles } from "./globalStyles";
 import ThemeChangeContainer from "./config/component/themeChangeContainer/ThemeChangeContainer";
 import ScrollToTopButton from "./config/component/ScrollToTopBottom/ScrollToTopBottom";
+import ChatMessageContainer from "./config/component/Chat/ChatMessageContainer";
 
 const App = observer(() => {
   i18n.use(initReactI18next).init({

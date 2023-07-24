@@ -5,8 +5,10 @@ import { io, Socket } from "socket.io-client";
 type DefaultEventsMap = Record<string, unknown>; // Define the DefaultEventsMap type
 
 class ChatMessageStore {
-  auth : any
+  auth: any;
   sockteId: any = null;
+  onlineConnectedUsers: any = [];
+  userConnected: boolean = false;
   socket: Socket<DefaultEventsMap> | null = null; // Use the DefaultEventsMap type
 
   openMessageDrawer = {
@@ -17,21 +19,40 @@ class ChatMessageStore {
   constructor() {
     makeObservable(this, {
       openMessageDrawer: observable,
+      userConnected: observable,
       setOpenMessageDrawer: action,
       createTask: action,
       sockteId: observable,
       socket: observable,
-      createSocketConnection:action
+      onlineConnectedUsers: observable,
+      createSocketConnection: action,
+      setUserConnected: action,
+      addOnlineConnectedUsers: action,
+      removeOnlineConnectedUsers: action,
     });
   }
 
+  setUserConnected = () => {
+    this.userConnected = true;
+  };
+
   createSocketConnection = () => {
     this.auth = new AuthStore();
-    this.socket = io("http://localhost:9000");
+    this.socket = io("http://localhost:8080");
     this.socket.on("connect", () => {
       this.sockteId = this.socket?.id;
     });
-  }
+  };
+
+  addOnlineConnectedUsers = (user: any) => {
+    this.onlineConnectedUsers = [...this.onlineConnectedUsers, user];
+  };
+
+  removeOnlineConnectedUsers = (user: any) => {
+    this.onlineConnectedUsers = this.onlineConnectedUsers.filter(
+      (item: any) => item.socketId !== user.socketId
+    );
+  };
 
   createTask = async () => {};
 
