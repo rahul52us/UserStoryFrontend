@@ -1,10 +1,9 @@
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
-import { Heading } from "@chakra-ui/react";
 import store from "../../../store/store";
 import CustomDrawer from "../Drawer/CustomDrawer";
 import MessageMainContainer from "./elements/MessageMainContainer";
-import { toJS } from "mobx";
+import FileViewer from "../FileViewer/FileViewer";
 
 const ChatMessageContainer = observer(() => {
   const {
@@ -14,7 +13,6 @@ const ChatMessageContainer = observer(() => {
       socket,
       createSocketConnection,
       addOnlineConnectedUsers,
-      onlineConnectedUsers,
       removeOnlineConnectedUsers,
     },
     auth: { user },
@@ -43,8 +41,6 @@ const ChatMessageContainer = observer(() => {
     } catch (err) {}
   }, [socket, addOnlineConnectedUsers, removeOnlineConnectedUsers]);
 
-  console.log(toJS(onlineConnectedUsers));
-
   return (
     <CustomDrawer
       open={openMessageDrawer.open}
@@ -54,7 +50,9 @@ const ChatMessageContainer = observer(() => {
       {socket ? (
         <MessageMainContainer />
       ) : (
-        <Heading>Login for the start the chatting</Heading>
+        <>
+          <FileViewer />
+        </>
       )}
     </CustomDrawer>
   );
