@@ -26,7 +26,11 @@ const VideosIndex = lazy(
   () => import("../../pages/Dashboard/Videos/VideosIndex")
 );
 
+const NotesIndex = lazy(() => import('../../pages/Dashboard/Notes/NotesIndex'))
+
 const MarksheetDesignTool = lazy(() => import('../component/CreateDeisgn/MarksheetDesignTool'))
+
+
 
 export const DashboardRoutes = [
   {
@@ -43,6 +47,11 @@ export const DashboardRoutes = [
     element: <TaskIndex />,
     path: "/dashboard/task",
     privateRoutes: true,
+  },
+  {
+    element: <NotesIndex />,
+    path: '/dashboard/courses',
+    privateRoutes: true
   },
   {
     element: <ProjectIndex />,

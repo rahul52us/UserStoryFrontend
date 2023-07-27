@@ -1,8 +1,9 @@
 import { Heading, Stack, Text, Button, Container } from "@chakra-ui/react";
-import Features from "./component/Features";
 import HomeServices from "./component/HomeServices/HomeServices";
 
 import CaptionCarousel from "../../../config/component/carousel/Carousel";
+import HomeExtraResources from "./component/HomeExtraResources/HomeExtraResources";
+import AdvancedEditor from "../../../config/component/Editor/Editor";
 
 export default function CallToActionWithIllustration() {
   return (
@@ -48,7 +49,8 @@ export default function CallToActionWithIllustration() {
         </Stack>
       </Stack>
       <HomeServices />
-      <Features />
+      <HomeExtraResources />
+      <AdvancedEditor />
       </Container>
     </>
   );

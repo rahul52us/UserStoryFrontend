@@ -18,6 +18,7 @@ class NotesStore {
       categories: observable,
       originalData: observable,
       getCategories: action,
+      createCategory: action,
       localFiltering: action,
       filteredData: computed,
     });
@@ -41,6 +42,18 @@ class NotesStore {
       this.categories.loading = false;
     }
   });
+
+   createCategory = async (sendData : any) => {
+    try
+    {
+      const {data} = await axios.post('/api/notes/create',sendData)
+      console.log(data)
+    }
+    catch(err: any)
+    {
+      return Promise.reject(err?.response?.data || err);
+    }
+  }
 
   localFiltering = (searchValue: any) => {
     const filteredData = advancedSearch(this.originalData, searchValue);

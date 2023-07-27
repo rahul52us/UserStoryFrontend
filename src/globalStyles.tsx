@@ -4,6 +4,7 @@ const globalStyles = css`
   /* Customize scrollbar styles */
   ::-webkit-scrollbar {
     width: 8px;
+    height:8px;
   }
 
   ::-webkit-scrollbar-thumb {
