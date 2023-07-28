@@ -1,59 +1,47 @@
-import { useState } from "react";
-import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
-// Correct imports
-import "draft-js/dist/Draft.css"; // Import Draft.js styles
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"; // Import react-draft-wysiwyg styles
+import { Box } from "@chakra-ui/react";
+import "draft-js/dist/Draft.css";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-
-const AdvancedEditor = () => {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-
-  // Save the editor content to localStorage
-  const saveContent = () => {
-    const content = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
-    localStorage.setItem("editorContent", content);
-  };
-
-  // Load the editor content from localStorage
-  const loadContent = () => {
-    const content = localStorage.getItem("editorContent");
-    if (content) {
-      const rawContent = convertFromRaw(JSON.parse(content));
-      setEditorState(EditorState.createWithContent(rawContent));
-    }
-  };
+const AdvancedEditor = ({ editorState, setEditorState }: any) => {
 
   return (
     <div>
-      <div>
-        <button onClick={saveContent}>Save Content</button>
-        <button onClick={loadContent}>Load Content</button>
-      </div>
-      <Editor
-        editorState={editorState}
-        onEditorStateChange={setEditorState}
-        toolbar={{
-          options: [
-            "inline",
-            "blockType",
-            "fontSize",
-            "fontFamily",
-            "list",
-            "textAlign",
-            "colorPicker",
-            "link",
-            "embedded",
-            "emoji",
-            "remove",
-            "history",
-          ],
-          inline: {
-            options: ["bold", "italic", "underline", "strikethrough", "monospace"],
-          },
-        }}
-        editorClassName="editor"
-      />
+      <Box boxShadow="lg" borderRadius="md" p={4}>
+        <Editor
+          editorState={editorState}
+          onEditorStateChange={setEditorState}
+          toolbar={{
+            options: [
+              "inline",
+              "blockType",
+              "colorPicker",
+              "fontSize",
+              "fontFamily",
+              "list",
+              "textAlign",
+              "link",
+              "embedded",
+              "emoji",
+              "remove",
+              "history",
+            ],
+            inline: {
+              options: [
+                "bold",
+                "italic",
+                "underline",
+                "strikethrough",
+                "monospace",
+              ],
+            },
+          }}
+          editorClassName="editor"
+          editorStyle={{ maxHeight: "200px",minHeight:'200px' }}
+          placeholder="Write Your details"
+          toolbarStyle={{ color: "red" }}
+        />
+      </Box>
     </div>
   );
 };

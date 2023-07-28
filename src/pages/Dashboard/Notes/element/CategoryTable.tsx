@@ -1,10 +1,9 @@
-import { Avatar, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
-import { toJS } from "mobx";
+import { Avatar, Icon, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import moment from "moment";
 import StarRatingIcon from "../../../../config/component/StarRatingIcon/StarRatingIcon";
+import { FaEdit } from "react-icons/fa";
 
-const CategoryTable = ({ data }: any) => {
-  console.log(toJS(data));
+const CategoryTable = ({ data, setFormModel }: any) => {
   return (
     <div style={{ overflowX: "auto" }}>
       <Table variant="striped">
@@ -39,6 +38,9 @@ const CategoryTable = ({ data }: any) => {
             <Th minW={160} textAlign="center">
               Created Date
             </Th>
+            <Th minW={100} textAlign="center">
+              Actions
+            </Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -70,6 +72,13 @@ const CategoryTable = ({ data }: any) => {
                   {item?.createdAt
                     ? moment(item?.createdAt).format("DD-MM-YYYY")
                     : "-"}
+                </Td>
+                <Td textAlign="center">
+                  <Icon onClick={() => setFormModel({
+                    open : true,
+                    type : 'edit',
+                    data : item
+                  })}><FaEdit /></Icon>
                 </Td>
               </Tr>
             );

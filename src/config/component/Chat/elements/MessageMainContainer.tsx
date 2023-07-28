@@ -22,9 +22,7 @@ const MessageMainContainer = observer(() => {
       });
       setUserConnected();
     }
-
   }, [user, socket, userConnected, setUserConnected]);
-
 
   const users = [
     {
@@ -92,7 +90,6 @@ const MessageMainContainer = observer(() => {
       me: true,
     },
   ];
-
 
   return (
     <Box m={-6} display="flex" flexDirection="column">

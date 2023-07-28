@@ -20,6 +20,7 @@ class NotesStore {
       getCategories: action,
       createCategory: action,
       localFiltering: action,
+      getSingleCategory: action,
       filteredData: computed,
     });
   }
@@ -43,17 +44,18 @@ class NotesStore {
     }
   });
 
-   createCategory = async (sendData : any) => {
-    try
-    {
-      const {data} = await axios.post('/api/notes/create',sendData)
-      console.log(data)
-    }
-    catch(err: any)
-    {
+  createCategory = async (sendData: any) => {
+    try {
+      const { data } = await axios.post("/notes/category", sendData);
+      return data;
+    } catch (err: any) {
       return Promise.reject(err?.response?.data || err);
     }
-  }
+  };
+
+  getSingleCategory = async (Id: any) => {
+    return this.categories.data.filter((item: any) => item._id === Id);
+  };
 
   localFiltering = (searchValue: any) => {
     const filteredData = advancedSearch(this.originalData, searchValue);

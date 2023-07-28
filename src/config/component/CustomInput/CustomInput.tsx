@@ -10,11 +10,13 @@ import {
 import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 import { useState } from "react";
 import Select from "react-select";
-import DatePicker from "react-datepicker";
+import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import AdvancedEditor from "../Editor/Editor";
 
 interface CustomInputProps {
   type?:
+    | "editor"
     | "password"
     | "number"
     | "text"
@@ -26,6 +28,9 @@ interface CustomInputProps {
   placeholder?: string;
   required?: boolean;
   error?: any;
+  maxDate?: any;
+  minDate?: any;
+  disabledDates?: any;
   name: string;
   onChange?: any;
   value?: any;
@@ -37,7 +42,7 @@ interface CustomInputProps {
   getOptionValue?: any;
   rows?: number;
   disabled?: boolean;
-  showError? : boolean
+  showError?: boolean;
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({
@@ -57,6 +62,9 @@ const CustomInput: React.FC<CustomInputProps> = ({
   disabled,
   rows,
   showError,
+  maxDate,
+  minDate,
+  disabledDates,
   ...rest
 }) => {
   const theme = useTheme();
@@ -80,6 +88,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             name={name}
             required={required}
             disabled={disabled}
+            _placeholder={{fontSize:'12px'}}
             {...rest}
           />
         );
@@ -92,6 +101,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             name={name}
             placeholder={placeholder}
             disabled={disabled}
+            _placeholder={{fontSize:'12px'}}
             {...rest}
           />
         );
@@ -104,6 +114,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             onChange={onChange}
             name={name}
             disabled={disabled}
+            _placeholder={{fontSize:'12px'}}
             {...rest}
           />
         );
@@ -116,6 +127,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             onChange={onChange}
             name={name}
             disabled={disabled}
+            _placeholder={{fontSize:'12px'}}
             {...rest}
           />
         );
@@ -147,20 +159,40 @@ const CustomInput: React.FC<CustomInputProps> = ({
         );
       case "date":
         return (
-          <DatePicker
-            customInput={
-              <Input className="chakra-input" style={{ width: "100%" }} />
-            }
+          <SingleDatepicker
             name={name}
-            selected={value}
-            onChange={onChange}
-            placeholderText={placeholder}
-            className="chakra-input"
-            isClearable
+            date={value}
+            onDateChange={onChange}
+            maxDate={maxDate}
+            minDate={minDate}
             disabled={disabled}
-            {...rest}
+            disabledDates={disabledDates}
+            configs={{
+              dateFormat: "dd-MM-yyyy",
+            }}
+            propsConfigs={{
+              dayOfMonthBtnProps: {
+                defaultBtnProps: {
+                  _hover: {
+                    background: "teal.500",
+                  },
+                },
+                selectedBtnProps: {
+                  background: "teal.300",
+                },
+                todayBtnProps: {
+                  border: "1px solid #38B2AC",
+                },
+              },
+              inputProps: {
+                size: "md",
+                placeholder: "Enter the date",
+              },
+            }}
           />
         );
+      case "editor":
+        return <AdvancedEditor editorState={value} setEditorState={onChange} />;
       default:
         return (
           <Input
@@ -170,6 +202,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             onChange={onChange}
             name={name}
             disabled={disabled}
+            _placeholder={{fontSize:'12px'}}
             {...rest}
           />
         );
@@ -179,7 +212,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
   return (
     <FormControl id={name} isInvalid={!!error && showError}>
       <FormLabel fontSize={"small"} mt={2}>
-      {label} {required && <span style={{color:'red'}}>*</span>}
+        {label} {required && <span style={{ color: "red" }}>*</span>}
       </FormLabel>
       <div style={{ position: "relative" }}>
         {renderInputComponent()}
