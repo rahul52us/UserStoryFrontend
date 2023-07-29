@@ -14,6 +14,9 @@ import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import AdvancedEditor from "../Editor/Editor";
 
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
 interface CustomInputProps {
   type?:
     | "editor"
@@ -23,7 +26,8 @@ interface CustomInputProps {
     | "switch"
     | "textarea"
     | "select"
-    | "date";
+    | "date"
+    | "phone";
   label?: string;
   placeholder?: string;
   required?: boolean;
@@ -43,6 +47,7 @@ interface CustomInputProps {
   rows?: number;
   disabled?: boolean;
   showError?: boolean;
+  phone?: string;
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({
@@ -65,6 +70,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
   maxDate,
   minDate,
   disabledDates,
+  phone,
   ...rest
 }) => {
   const theme = useTheme();
@@ -193,6 +199,9 @@ const CustomInput: React.FC<CustomInputProps> = ({
         );
       case "editor":
         return <AdvancedEditor editorState={value} setEditorState={onChange} />;
+      case "phone":
+        return <PhoneInput country={"in"} value={value} onChange={onChange} />;
+
       default:
         return (
           <Input

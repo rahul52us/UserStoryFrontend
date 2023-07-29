@@ -29,10 +29,9 @@ const SocialMediaLinkLogo = ({
         icon={icon}
         aria-label="facebook"
         borderRadius={"50%"}
-        _hover={{ backgroundColor: hoverColor, color:color }}
+        _hover={{ backgroundColor: hoverColor, color: color }}
         title={title}
-
-        transition={'0.6s ease-in-out'}
+        transition={"0.2s ease-in-out"}
       />
     </Box>
   );

@@ -10,6 +10,7 @@ const Testimonial = lazy(
 const Contact = lazy(() => import("../../pages/main/Contact/Contact"));
 const YoutubeVideoIndex = lazy(() => import('../../pages/main/Videos/VideosIndex'))
 const CoursesIndex = lazy(() => import('../../pages/main/courses/Courses'))
+const Faq = lazy(() => import("../../pages/main/Faq/Faq"));
 
 export const MainPublicRoutes = [
   {
@@ -38,18 +39,23 @@ export const MainPublicRoutes = [
     publicRoute: true,
   },
   {
-    element : <YoutubeVideoIndex />,
+    element: <YoutubeVideoIndex />,
     path: main.video,
-    publicRoute : true
+    publicRoute: true,
   },
   {
     element: <CoursesIndex />,
-    path:main.courses,
-    publicRoutes: true
+    path: main.courses,
+    publicRoutes: true,
   },
   {
     element: <ProfileIndex />,
-    path:main.profile,
-    publicRoutes: false
+    path: main.profile,
+    publicRoutes: false,
+  },
+  {
+    element: <Faq />,
+    path: main.faq,
+    publicRoutes: true,
   },
 ];

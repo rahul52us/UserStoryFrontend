@@ -26,6 +26,7 @@ const FooterLayout = observer(() => {
         pl={{ base: 3, sm: 5, md: 10 }}
         pr={{ base: 3, sm: 5, md: 10 }}
         pt={{ base: 3, sm: 5, md: 10 }}
+        bg={useColorModeValue("teal.50", "whiteAlpha.700")}
       >
         <Grid
           templateColumns={{
@@ -54,7 +55,7 @@ const FooterLayout = observer(() => {
                 be shy introduce yourself!
               </Text>
             </Flex>
-            <Box width={{ base: "70%", sm: "50%" }} mt={5}>
+            <Box mt={5}>
               <SocialMediaLink />
             </Box>
             <Box mt={5}>
@@ -127,7 +128,7 @@ const FooterLayout = observer(() => {
               <Box mt={2}>
                 <LinkText
                   text="Contact Us"
-                  clickEvent={() => navigate(main.testimonial)}
+                  clickEvent={() => navigate(main.contact)}
                 />
               </Box>
               <Box mt={2}>
