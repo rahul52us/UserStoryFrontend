@@ -1,10 +1,13 @@
 {
   "greeting": "Hello",
   "welcome": "Welcome to my app!",
-  "quiz":{
-    "quiz_category":"प्रश्नोत्तरी श्रेणि",
-    "quiz_categories":"प्रश्नोत्तरी श्रेणियाँ",
+  "quiz": {
+    "quiz_category": "प्रश्नोत्तरी श्रेणि",
+    "quiz_categories": "प्रश्नोत्तरी श्रेणियाँ",
     "create_category": "श्रेणी बनाएं",
-    "create_new":"नया निर्माण"
+    "create_new": "नया निर्माण"
+  },
+  "contact": {
+    "contact_form_title": "हमारे साथ जुड़े"
   }
 }

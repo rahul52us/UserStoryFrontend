@@ -13,6 +13,9 @@ import Select from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
 interface CustomInputProps {
   type?:
     | "password"
@@ -21,7 +24,8 @@ interface CustomInputProps {
     | "switch"
     | "textarea"
     | "select"
-    | "date";
+    | "date"
+    | "phone";
   label?: string;
   placeholder?: string;
   required?: boolean;
@@ -37,7 +41,8 @@ interface CustomInputProps {
   getOptionValue?: any;
   rows?: number;
   disabled?: boolean;
-  showError? : boolean
+  showError?: boolean;
+  phone?: string;
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({
@@ -57,6 +62,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
   disabled,
   rows,
   showError,
+  phone,
   ...rest
 }) => {
   const theme = useTheme();
@@ -161,6 +167,9 @@ const CustomInput: React.FC<CustomInputProps> = ({
             {...rest}
           />
         );
+      case "phone":
+        return <PhoneInput country={"in"} value={value} onChange={onChange} />;
+
       default:
         return (
           <Input
@@ -179,7 +188,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
   return (
     <FormControl id={name} isInvalid={!!error && showError}>
       <FormLabel fontSize={"small"} mt={2}>
-      {label} {required && <span style={{color:'red'}}>*</span>}
+        {label} {required && <span style={{ color: "red" }}>*</span>}
       </FormLabel>
       <div style={{ position: "relative" }}>
         {renderInputComponent()}

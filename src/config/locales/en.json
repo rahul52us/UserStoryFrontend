@@ -1,10 +1,13 @@
 {
-    "greeting": "Hello",
-    "welcome": "Welcome to my app!",
-    "quiz":{
-      "quiz_category":"Quiz Category",
-      "quiz_categories":"Quiz Categories",
-      "create_category": "create category",
-      "create_new":"Create New"
-    }
+  "greeting": "Hello",
+  "welcome": "Welcome to my app!",
+  "quiz": {
+    "quiz_category": "Quiz Category",
+    "quiz_categories": "Quiz Categories",
+    "create_category": "create category",
+    "create_new": "Create New"
+  },
+  "contact": {
+    "contact_form_title": "Get in touch with us"
   }
+}
