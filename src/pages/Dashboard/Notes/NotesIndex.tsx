@@ -3,10 +3,10 @@ import { Box, Button, Card, Grid } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
 import BarChart from "../../../config/component/charts/BarChart";
 import store from "../../../store/store";
-import { toJS } from "mobx";
 import CategoryTable from "./element/CategoryTable";
 import CustomDrawer from "../../../config/component/Drawer/CustomDrawer";
 import FormComponent from "./element/FormComponent";
+import { CardBoxShadow } from "../../../config/constant/variable";
 
 const NotesIndex = observer(() => {
   const [formModel, setFormModel] = useState({ open: false, type: "add", data : null });
@@ -29,14 +29,13 @@ const NotesIndex = observer(() => {
     }
   }, [getCategories, categories.hasFetch, openNotification]);
 
-  console.log(toJS(categories.data));
   return (
     <Box>
       <Grid gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" }} gap={4}>
-        <Card p={3} boxShadow="rgb(0 0 0 / 20%) 0px 0px 11px">
+        <Card p={3} boxShadow={CardBoxShadow}>
           <BarChart />
         </Card>
-        <Card p={3} boxShadow="rgb(0 0 0 / 20%) 0px 0px 11px">
+        <Card p={3} boxShadow={CardBoxShadow}>
           <div>
             <Button onClick={() => setFormModel({open : true , type : 'add', data : null})}>Add New</Button>
           </div>
@@ -45,8 +44,7 @@ const NotesIndex = observer(() => {
       <Box
         flex={1}
         mt={5}
-        boxShadow="rgb(0 0 0 / 20%) 0px 0px 11px"
-        p="1.125rem 0.375rem"
+        boxShadow={CardBoxShadow}
         rounded={8}
         my={4}
       >

@@ -1,4 +1,13 @@
-import { Avatar, Icon, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import {
+  Avatar,
+  Icon,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import moment from "moment";
 import StarRatingIcon from "../../../../config/component/StarRatingIcon/StarRatingIcon";
 import { FaEdit } from "react-icons/fa";
@@ -6,12 +15,8 @@ import { FaEdit } from "react-icons/fa";
 const CategoryTable = ({ data, setFormModel }: any) => {
   return (
     <div style={{ overflowX: "auto" }}>
-      <Table variant="striped">
-        <Thead
-          bg={"whiteAlpha.900"}
-          stroke={"whiteAlpha.500"}
-          bgColor={"red.100"}
-        >
+      <Table size="sm">
+        <Thead bg={"whiteAlpha.900"} stroke={"whiteAlpha.500"} h={10}>
           <Tr>
             <Th>Thumbnail</Th>
             <Th minW={150} textAlign="center">
@@ -73,12 +78,17 @@ const CategoryTable = ({ data, setFormModel }: any) => {
                     ? moment(item?.createdAt).format("DD-MM-YYYY")
                     : "-"}
                 </Td>
-                <Td textAlign="center">
-                  <Icon onClick={() => setFormModel({
-                    open : true,
-                    type : 'edit',
-                    data : item
-                  })}><FaEdit /></Icon>
+                <Td
+                  textAlign="center"
+                  onClick={() =>
+                    setFormModel({
+                      open: true,
+                      type: "edit",
+                      data: item,
+                    })
+                  }
+                >
+                  <Icon as={FaEdit} cursor="pointer" color="blue.500" />
                 </Td>
               </Tr>
             );

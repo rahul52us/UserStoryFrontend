@@ -66,16 +66,15 @@ const FormComponent = observer(({ formData }: any) => {
     >
       {({ values, handleChange, setFieldValue, errors, isSubmitting }) => (
         <Form>
-          <Box m={-6} display="flex" flexDirection="column">
-            <Flex flexDirection="column" justifyContent="space-between">
+            <Flex flexDirection="column" justifyContent="space-between" m={-6}>
               <Box
                 mt={1}
                 p={5}
                 overflowY="auto"
                 overflowX={"hidden"}
                 flex="1"
-                minH="83vh"
-                maxH={"83vh"}
+                minH="85vh"
+                maxH={"85vh"}
               >
                 <Grid>
                   <Grid gridTemplateColumns={{ md: "1fr 1fr" }} gap={3} mb={2}>
@@ -198,7 +197,6 @@ const FormComponent = observer(({ formData }: any) => {
                       type="editor"
                       value={values.details}
                       onChange={(e: any) => {
-                        // console.log(e)
                         setFieldValue("details", e);
                         setEditorState(e);
                       }}
@@ -217,7 +215,6 @@ const FormComponent = observer(({ formData }: any) => {
                 />
               </Flex>
             </Flex>
-          </Box>
         </Form>
       )}
     </Formik>

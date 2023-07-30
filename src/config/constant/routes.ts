@@ -11,7 +11,8 @@ export const authentication = {
 export const dashboard = {
     home:'/dashboard',
     testimonial : '/dashboard/testimonial',
-    videos:'/dashboard/videos'
+    videos:'/dashboard/videos',
+    class:'/dashboard/class'
 }
 
 export const main = {

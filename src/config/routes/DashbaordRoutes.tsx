@@ -29,7 +29,7 @@ const VideosIndex = lazy(
 const NotesIndex = lazy(() => import('../../pages/Dashboard/Notes/NotesIndex'))
 
 const MarksheetDesignTool = lazy(() => import('../component/CreateDeisgn/MarksheetDesignTool'))
-
+const ClassIndex = lazy(() => import('../../pages/Dashboard/Class/ClassIndex'))
 
 
 export const DashboardRoutes = [
@@ -71,6 +71,11 @@ export const DashboardRoutes = [
     element: <VideosIndex />,
     path: dashboard.videos,
     privateRoutes: true,
+  },
+  {
+    element: <ClassIndex />,
+    path: dashboard.class,
+    privateRoutes:true
   },
   {
     element: <MarksheetDesignTool />,

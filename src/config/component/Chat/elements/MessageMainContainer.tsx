@@ -92,26 +92,24 @@ const MessageMainContainer = observer(() => {
   ];
 
   return (
-    <Box m={-6} display="flex" flexDirection="column">
-      <Flex flexDirection="column" justifyContent="space-between">
-        <Box
-          mt={1}
-          p={5}
-          overflowY="auto"
-          overflowX={"hidden"}
-          flex="1"
-          minH="83vh"
-          maxH={"83vh"}
-        >
-          {users.map((user) => (
-            <MessageContainer key={user.id} user={user} />
-          ))}
-        </Box>
-        <Box>
-          <SendMessageContainer />
-        </Box>
-      </Flex>
-    </Box>
+    <Flex flexDirection="column" justifyContent="space-between" m={-6}>
+      <Box
+        mt={1}
+        p={5}
+        overflowY="auto"
+        overflowX={"hidden"}
+        flex="1"
+        minH="80vh"
+        maxH={"80vh"}
+      >
+        {users.map((user) => (
+          <MessageContainer key={user.id} user={user} />
+        ))}
+      </Box>
+      <Box mt={5}>
+        <SendMessageContainer />
+      </Box>
+    </Flex>
   );
 });
 

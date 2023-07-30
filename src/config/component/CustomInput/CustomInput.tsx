@@ -168,7 +168,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
           <SingleDatepicker
             name={name}
             date={value}
-            onDateChange={onChange}
+            onDateChange={onChange ? onChange : () => {}}
             maxDate={maxDate}
             minDate={minDate}
             disabled={disabled}
