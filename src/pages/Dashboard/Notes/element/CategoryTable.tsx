@@ -56,8 +56,8 @@ const CategoryTable = ({ data, setFormModel }: any) => {
                   <Avatar
                     src={item.thumbnail}
                     name={item.title}
-                    w={10}
-                    h={10}
+                    w={5}
+                    h={5}
                   />
                 </Td>
                 <Td fontSize={"sm"} textAlign="center" minW={180}>
