@@ -36,6 +36,7 @@ export const optamizedClassData = (data: any) => {
   object.sections.forEach((item: any, index : number) => {
     if (!item.name && index === 0) {
       item.name = data.name;
+      item.medium = item?.medium?.value
       return
     }
     item.medium = item?.medium?.value

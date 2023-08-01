@@ -3,13 +3,13 @@ import { Global, css } from "@emotion/react";
 const globalStyles = css`
   /* Customize scrollbar styles */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 12px;
     height:8px;
   }
 
   ::-webkit-scrollbar-thumb {
     background-color: var(--chakra-colors-blue-500);
-    border-radius: 10px;
+    /* border-radius: 10px; */
   }
 
   ::-webkit-scrollbar-track {
