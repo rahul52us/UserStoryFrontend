@@ -1,4 +1,4 @@
-import { Box, Container, Grid } from "@chakra-ui/react";
+import { Box, Container, Grid, Heading } from "@chakra-ui/react";
 import { Controls, Player } from "@lottiefiles/react-lottie-player";
 import styled from "styled-components";
 import FaqQuestions from "./FaqQuestions";
@@ -15,7 +15,10 @@ const BoxStyleFirst = styled(Box)`
 const Faq = () => {
   return (
     <Container maxW={"7xl"} my={{ base: 2, md: 14 }}>
-      <Grid templateColumns={{ md: "1fr 2fr" }} gap={6}>
+      <Heading textAlign="center" fontSize={"4xl"}>
+        Frequently Asked Questions (FAQs)
+      </Heading>
+      <Grid templateColumns={{ md: "1fr 2fr" }} gap={6} mt={8}>
         <BoxStyleFirst
           mx="auto"
           width={{

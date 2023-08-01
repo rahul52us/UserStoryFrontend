@@ -132,7 +132,7 @@ const FooterLayout = observer(() => {
                 />
               </Box>
               <Box mt={2}>
-                <LinkText text="Faq" />
+                <LinkText text="Faq" clickEvent={() => navigate(main.faq)} />
               </Box>
               <Box mt={2}>
                 <LinkText text="Privacy Policy" />

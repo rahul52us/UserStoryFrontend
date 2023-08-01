@@ -4,6 +4,7 @@ import {
   Text,
   Grid,
   useColorModeValue,
+  Heading,
 } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
 import { Controls, Player } from "@lottiefiles/react-lottie-player";
@@ -28,6 +29,10 @@ const BoxStyleFirst = styled(Box)`
 const Contact = observer(() => {
   return (
     <Container maxW={"7xl"} my={{ base: 2, md: 14 }}>
+      <Heading textAlign="center" fontSize={"4xl"}>
+        Contact Us
+      </Heading>
+
       <Grid
         mt={{ base: 2, md: 6 }}
         templateColumns={{ md: "1fr 1fr" }}

@@ -73,17 +73,32 @@ const faqData: accordion[] = [
       },
     ],
   },
+  {
+    title: "Admissions",
+    discription: [
+      {
+        para: "How do I apply for admission?",
+      },
+      {
+        para: "What are the admission requirements?",
+      },
+      {
+        para: "When is the application deadline?",
+      },
+    ],
+  },
 ];
 
 const FaqQuestions = () => {
-  const colormod = useColorModeValue("blue.300", "blue.400");
+  const colormod = useColorModeValue("blue.500", "blue.600");
+  const colormodPanel = useColorModeValue("white", "gray.800");
   return (
     <Accordion defaultIndex={[0]} allowToggle>
       {faqData &&
         faqData.map((item, index) => {
           return (
             <>
-              <AccordionItem key={index} bg={colormod}>
+              <AccordionItem mb=".7rem" key={index} bg={colormod}>
                 <AccordionButton>
                   <Box
                     fontSize={"lg"}
@@ -92,17 +107,19 @@ const FaqQuestions = () => {
                     as="span"
                     flex="1"
                     textAlign="left"
+                    color={"white"}
                   >
                     {item.title}
                   </Box>
                   <AccordionIcon
                     fontSize="1.6rem"
                     fontWeight={500}
-                    // color="white"
+                    color="white"
                   />
                 </AccordionButton>
                 <AccordionPanel
                   pb={4}
+                  bg={colormodPanel}
                   //   bg={useColorModeValue("white", "gray.800")}
                 >
                   {item.discription.map((item: any, index: number) => {
