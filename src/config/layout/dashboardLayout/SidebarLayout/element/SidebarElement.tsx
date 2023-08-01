@@ -50,19 +50,23 @@ const SidebarElement = ({ items }: SidebarElementI) => {
         onClick={handleToggleDropdown}
         bg={isSelected ? "#042954" : "initial"}
       >
-        <NavLink to={items.path} style={{ textDecoration: "none", color: "inherit" }}>
+        <NavLink
+          to={items.path}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
           <Flex alignItems="center">
             <AiFillDashboard color="white" fontSize="1.5rem" />
-            <Text ml={2} color="white">{items.label}</Text>
+            <Text ml={2} color="white">
+              {items.label}
+            </Text>
           </Flex>
         </NavLink>
-        {items.submenus && (
-          isDropdownOpen ? (
-            <RiArrowDropDownLine fontSize="1.8rem" color="white"/>
+        {items.submenus &&
+          (isDropdownOpen ? (
+            <RiArrowDropDownLine fontSize="1.8rem" color="white" />
           ) : (
-            <RiArrowDropRightLine fontSize="1.8rem" color="white"/>
-          )
-        )}
+            <RiArrowDropRightLine fontSize="1.8rem" color="white" />
+          ))}
       </Flex>
       {items.submenus && (
         <Collapse
@@ -80,7 +84,10 @@ const SidebarElement = ({ items }: SidebarElementI) => {
                 }}
                 bg={location.pathname === submenu.path ? "#042954" : "initial"}
               >
-                <NavLink to={submenu.path} style={{ textDecoration: "none", color: "inherit" }}>
+                <NavLink
+                  to={submenu.path}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
                   <Flex
                     alignItems="center"
                     mt={2}
@@ -88,9 +95,8 @@ const SidebarElement = ({ items }: SidebarElementI) => {
                     ml={5}
                     p={1}
                     cursor="pointer"
-                    // bg={location.pathname === submenu.path ? "#042954" : "initial"} // Set the background color of the selected item
                   >
-                    <RiArrowDropRightLine fontSize="1.8rem" color="white"/>
+                    <RiArrowDropRightLine fontSize="1.8rem" color="white" />
                     <Text color="white">{submenu.label}</Text>
                   </Flex>
                 </NavLink>

@@ -1,7 +1,16 @@
 import { useState } from "react";
-import { Flex, VStack } from "@chakra-ui/react";
+import {
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  Flex,
+  VStack,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import SidebarLogo from "./component/SidebarLogo";
 import SidebarElement from "./element/SidebarElement";
+import { observer } from "mobx-react-lite";
+import store from "../../../../store/store";
 
 const SidebarLayout = () => {
   const [menuItems] = useState<any>([
@@ -33,7 +42,7 @@ const SidebarLayout = () => {
         },
         {
           label: "Videos Part",
-          path: "/dashboard/videos"
+          path: "/dashboard/videos",
         },
       ],
     },
@@ -44,14 +53,35 @@ const SidebarLayout = () => {
       <SidebarLogo />
       <VStack spacing={4} align="stretch">
         {menuItems.map((menuItem: any, index: any) => (
-          <SidebarElement
-            items={menuItem}
-            key={index}
-          />
+          <SidebarElement items={menuItem} key={index} />
         ))}
       </VStack>
     </Flex>
   );
 };
 
-export default SidebarLayout;
+const SidebarMainLayout = observer(() => {
+  const {
+    layout: { MobileSidebar, MobileSidebarFun },
+  } = store;
+  const [isLargerThan1020] = useMediaQuery("(min-width: 1020px)");
+
+  return isLargerThan1020 ? (
+    <SidebarLayout />
+  ) : (
+    <Drawer
+      isOpen={MobileSidebar}
+      onClose={() => {
+        MobileSidebarFun(false);
+      }}
+    >
+      <DrawerContent p={0} m={0}>
+        <DrawerBody p={0} m={0}>
+          <SidebarLayout />
+        </DrawerBody>
+      </DrawerContent>
+    </Drawer>
+  );
+});
+
+export default SidebarMainLayout;

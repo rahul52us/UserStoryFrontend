@@ -6,8 +6,10 @@ import HeaderNotification from "./HeaderNotification/HeaderNotification";
 import HeaderThemeSwitch from "./HeaderThemeSwitch/HeaderThemeSwitch";
 import HeaderLanguageSwitch from "./HeaderLanguageSwitch/HeaderLanguageSwitch";
 import HeaderChatMessage from "./HeaderChatMessage";
+import store from "../../../../../../store/store";
 
 const HeaderNavbar = observer(() => {
+  const {layout : {MobileSidebarFun}} = store
   const [isLargerThan1020] = useMediaQuery("(min-width: 1020px)");
 
   return (
@@ -26,7 +28,7 @@ const HeaderNavbar = observer(() => {
           <HeaderProfile />
         </>
       ) : (
-        <FaBars cursor="pointer" />
+        <FaBars cursor="pointer" onClick={() => MobileSidebarFun(true)} />
       )}
     </Flex>
   );
