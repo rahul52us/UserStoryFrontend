@@ -3,6 +3,12 @@ import { action, makeObservable, observable } from "mobx";
 import { QuizCategoryValue } from "../../pages/Dashboard/quiz/component/category/utils/dto";
 
 class QuizStore {
+  dashQuiz: any = {
+    data: [],
+    loading: false,
+    hasFetch: false,
+  };
+
   categories: any = [];
   openDeleteCategoryModal: any = {
     data: null,
@@ -13,7 +19,10 @@ class QuizStore {
     makeObservable(this, {
       categories: observable,
       openDeleteCategoryModal: observable,
+      dashQuiz: observable,
+      CreateQuiz:action,
       getCategories: action,
+      getDashQuiz: action,
       createCategory: action,
       deleteCategory: action,
       setDeleteCategoryModal: action,
@@ -37,12 +46,41 @@ class QuizStore {
     }
   };
 
-  getCategories = async () => {
+  CreateQuiz = async (sendData : any) => {
     try {
-      const { data } = await axios.get("quiz/auth/categories");
-      this.categories = data.data;
+      const { data } = await axios.post("quiz/create", sendData);
+      console.log(data)
+      return data;
     } catch (err: any) {
       return Promise.reject(err?.response?.data || err?.message);
+    }
+  }
+
+  getDashQuiz = async () => {
+    try {
+      this.dashQuiz.loading = true;
+      const { data } = await axios.post("/quiz");
+      this.dashQuiz.data = data.data;
+      console.log(data);
+      return data;
+    } catch (err: any) {
+      return Promise.reject(err?.response?.data || err?.message);
+    } finally {
+      this.dashQuiz.loading = false;
+    }
+  };
+
+  getCategories = async () => {
+    try {
+      this.dashQuiz.loading = true;
+      const { data } = await axios.post("/quiz");
+      // this.dashQuiz.data = data.data;
+      // console.log(data);
+      return data;
+    } catch (err: any) {
+      return Promise.reject(err?.response?.data || err?.message);
+    } finally {
+      this.dashQuiz.loading = false;
     }
   };
 
@@ -58,9 +96,10 @@ class QuizStore {
 
   deleteCategory = async (id: string) => {
     try {
-      console.log(id)
       const { data } = await axios.delete(`quiz/category/${id}`);
-      this.categories =  this.categories.filter((item : any) => item._id.toString() !== id)
+      this.categories = this.categories.filter(
+        (item: any) => item._id.toString() !== id
+      );
       return data;
     } catch (err: any) {
       return Promise.reject(err?.response?.data || err?.message);
