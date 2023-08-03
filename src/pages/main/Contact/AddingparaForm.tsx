@@ -1,4 +1,6 @@
-import { Box, Button, Container, Flex, Grid } from "@chakra-ui/react";
+import { Box, Button, Container, Grid, Flex } from "@chakra-ui/react";
+import { MdClose } from "react-icons/md";
+
 import CustomInput from "../../../config/component/CustomInput/CustomInput";
 import { Form, Formik, FieldArray } from "formik";
 import { observer } from "mobx-react-lite";
@@ -13,15 +15,16 @@ const AddingparaForm = observer(() => {
 
   return (
     <Container maxW={"7xl"} my={{ base: 2, md: 14 }}>
-      <Box>Form adding input when we click on add button</Box>
       <Formik
         initialValues={{
           text1: "",
           text2: "",
-          topics: [
+          category: "",
+          answers: [
             {
-              topic: "",
+              answer: "",
               description: "",
+              answerType: "",
             },
           ],
         }}
@@ -30,11 +33,42 @@ const AddingparaForm = observer(() => {
           setSubmitting(false);
         }}
       >
-        {({ handleSubmit, handleChange, values, isSubmitting }) => {
+        {({
+          handleSubmit,
+          handleChange,
+          setFieldValue,
+          values,
+          isSubmitting,
+        }) => {
           console.log(values);
           return (
             <Form onSubmit={handleSubmit}>
-              <Grid templateColumns={{ md: "1fr 1fr" }} gap={6}>
+              <Flex justifyContent="space-between" alignItems={"center"}>
+                <Box>Form adding input when we click on add button</Box>
+                <Box w="lg">
+                  <CustomInput
+                    type="select"
+                    placeholder="Select Category"
+                    name="category"
+                    label="Category"
+                    value={values.category}
+                    onChange={(e: any) => {
+                      setFieldValue("category", e);
+                    }}
+                    required
+                    options={[
+                      { value: "Low", label: "Low" },
+                      { value: "Medium", label: "Medium" },
+                      { value: "High", label: "High" },
+                    ]}
+                  />
+                </Box>
+              </Flex>
+
+              <Grid
+                templateColumns={{ md: "1fr 1fr 3rem" }}
+                gap={{ base: 4, md: 6 }}
+              >
                 <CustomInput
                   type="text"
                   placeholder="text"
@@ -52,74 +86,83 @@ const AddingparaForm = observer(() => {
                   onChange={handleChange}
                 />
               </Grid>
-              <FieldArray name="topics">
+              <FieldArray name="answers">
                 {({ push, remove }) => (
                   <>
-                    {values.topics.map((topic, index) => (
-                      <Box>
-                        <CustomInput
-                          type="text"
-                          placeholder="text"
-                          label="text3"
-                          name="text1"
-                          value={topic.topic}
-                          onChange={handleChange}
-                        />
-                        <CustomInput
-                          type="textarea"
-                          placeholder="text"
-                          label="text24"
-                          name={`topics.${index}.description`}
-                          value={topic.description}
-                          onChange={handleChange}
-                        />
-                        <Button
-                          colorScheme="red"
-                          variant="outline"
-                          size="sm"
-                          mt="10px"
-                          onClick={() => remove(index)}
-                        >
-                          Remove Topic
+                    {values.answers.map((answer, index) => (
+                      <Grid
+                        alignItems={"center"}
+                        gap={6}
+                        templateColumns="1fr 3rem"
+                      >
+                        <Grid>
+                          <Grid templateColumns={"1fr 1fr"} gap={6}>
+                            <CustomInput
+                              type="select"
+                              placeholder="Select Answer type"
+                              // name="answerType"
+                              name={`answers.${index}.answerType`}
+                              label="Answer Type"
+                              value={answer.answerType}
+                              onChange={(e: any) => {
+                                setFieldValue(`answers.${index}.answerType`, e);
+                              }}
+                              required
+                              options={[
+                                { value: "Low", label: "Low" },
+                                { value: "Medium", label: "Medium" },
+                                { value: "High", label: "High" },
+                              ]}
+                            />
+                            <CustomInput
+                              type="text"
+                              placeholder="text"
+                              label="text3"
+                              name="text1"
+                              value={answer.answer}
+                              onChange={handleChange}
+                            />
+                          </Grid>
+                          <CustomInput
+                            type="textarea"
+                            placeholder="text"
+                            label="text24"
+                            name={`answers.${index}.description`}
+                            value={answer.description}
+                            onChange={handleChange}
+                          />
+                        </Grid>
+
+                        <Button color="red.500" onClick={() => remove(index)}>
+                          <Box fontSize="1.5rem">
+                            <MdClose />
+                          </Box>
                         </Button>
-                      </Box>
+                      </Grid>
                     ))}
-                    <Button
-                      colorScheme="blue"
-                      variant="outline"
-                      size="sm"
-                      mb="10px"
-                      onClick={() => push({ title: "", description: "" })}
-                    >
-                      Add Topic
-                    </Button>
+
+                    <Flex mt={6} justifyContent="space-between">
+                      <Button
+                        type="submit"
+                        bg="blue.400"
+                        color="white"
+                        _hover={{ bg: "blue.500" }}
+                        isLoading={isSubmitting}
+                      >
+                        Submit
+                      </Button>
+                      <Button
+                        onClick={() => push({ title: "", description: "" })}
+                        bg="teal.300"
+                        color="white"
+                        _hover={{ bg: "teal.400" }}
+                      >
+                        Add Topic
+                      </Button>
+                    </Flex>
                   </>
                 )}
               </FieldArray>
-
-              <Flex gap={4} mt={3}>
-                <Button
-                  //   onClick={() => handleAddRows()}
-                  bg="teal.300"
-                  color="white"
-                  _hover={{ bg: "teal.400" }}
-                >
-                  AddRows
-                </Button>
-                <Button bg="red.500" color="white" _hover={{ bg: "red.600" }}>
-                  RemoveRows
-                </Button>
-              </Flex>
-              <Button
-                type="submit"
-                mt={3}
-                bg="blue.400"
-                color="white"
-                _hover={{ bg: "blue.500" }}
-                isLoading={isSubmitting}
-              >
-                Submit
-              </Button>
             </Form>
           );
         }}
