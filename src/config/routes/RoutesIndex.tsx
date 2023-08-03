@@ -15,6 +15,7 @@ const RouterIndex = observer(() => {
           return <Route key={index} path={item.path} element={item.element} />;
         })}
       </Route>
+
       <Route element={<AuthenticateLayout />}>
         {AuthenticateRoutes.map((item, index) => {
           return <Route path={item.path} key={index} element={item.element} />;

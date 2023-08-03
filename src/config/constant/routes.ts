@@ -25,4 +25,5 @@ export const main = {
   video: "/videos",
   profile: "/profile",
   faq: "/faq",
+  addingparaform: "/addingparaform",
 };

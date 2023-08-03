@@ -5,6 +5,7 @@ import CustomInput from "../../../../../config/component/CustomInput/CustomInput
 import { observer } from "mobx-react-lite";
 import { QuizCategoryPara } from "./utils/dto";
 
+
 const QuizCategoryForm = observer(({ submitForm, initialValues }: QuizCategoryPara) => {
   return (
     <div>
