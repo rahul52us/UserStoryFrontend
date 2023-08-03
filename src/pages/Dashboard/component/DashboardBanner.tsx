@@ -33,8 +33,8 @@ const DashboardBanner = observer(() => {
     <Box
       bgColor={useColorModeValue("rgb(199, 210, 254)", "#6366F1")}
       p={isLargerThanXl ? 6 : 2}
-      mt={isLargerThanXl ? 2 : 1.5}
-      borderRadius={2}
+      mt={isLargerThanXl ? 1.2 : 1.5}
+      borderRadius={5}
       mb={isLargerThanXl ? 5 : 3}
     >
       <Flex alignItems="center" justifyContent="space-between">

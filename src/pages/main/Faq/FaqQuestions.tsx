@@ -87,6 +87,34 @@ const faqData: accordion[] = [
       },
     ],
   },
+  {
+    title: "Admissions",
+    discription: [
+      {
+        para: "How do I apply for admission?",
+      },
+      {
+        para: "What are the admission requirements?",
+      },
+      {
+        para: "When is the application deadline?",
+      },
+    ],
+  },
+  {
+    title: "Admissions",
+    discription: [
+      {
+        para: "How do I apply for admission?",
+      },
+      {
+        para: "What are the admission requirements?",
+      },
+      {
+        para: "When is the application deadline?",
+      },
+    ],
+  },
 ];
 
 const FaqQuestions = () => {

@@ -1,10 +1,10 @@
 export interface QuizCategoryValue {
   title: string;
   description: string;
-  topics: {
-    title: string;
-    description: string;
-  }[];
+  section:any;
+  class:any;
+  categories:any
+
 }
 
 export interface QuizCategoryPara {
@@ -12,15 +12,12 @@ export interface QuizCategoryPara {
     values: {
       title: string;
       description: string;
-      topics: {
-        title: string;
-        description: string;
-      }[];
+      section:any;
+      class:any;
+      categories:any
     },
     setSubmitting: (val: boolean) => void,
     resetForm: () => void
   ) => void;
   initialValues : QuizCategoryValue
 }
-
-

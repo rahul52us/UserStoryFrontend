@@ -1,4 +1,3 @@
-import { Card } from "@chakra-ui/react";
 import QuizCategoryForm from "./QuizCategoryForm";
 import { observer } from "mobx-react-lite";
 import store from "../../../../../store/store";
@@ -6,14 +5,16 @@ import { QuizCategoryValue } from "./utils/dto";
 
 const AddQuizCategory = observer(() => {
   const {
-    quiz: { createCategory },
+    quiz: { CreateQuiz },
     auth: { openNotification },
   } = store;
 
   const initialValues = {
     title: "",
     description: "",
-    topics: [{ title: "", description: "" }],
+    class: undefined,
+    section: undefined,
+    categories: [{ title: "", description: "" }],
   };
 
   const addCategoryStore = (
@@ -21,7 +22,14 @@ const AddQuizCategory = observer(() => {
     setSubmitting: (val: boolean) => void,
     resetForm: () => void
   ) => {
-    createCategory(values)
+    if (values.categories === 0) {
+      delete values.categories;
+    }
+    CreateQuiz({
+      ...values,
+      class: values.class?._id,
+      section: values.section?._id,
+    })
       .then((data: any) => {
         openNotification({
           title: "Create Successfully",
@@ -50,14 +58,10 @@ const AddQuizCategory = observer(() => {
   };
 
   return (
-    <div>
-      <Card p={2}>
-        <QuizCategoryForm
-          submitForm={addCategoryStore}
-          initialValues={initialValues}
-        />
-      </Card>
-    </div>
+    <QuizCategoryForm
+      submitForm={addCategoryStore}
+      initialValues={initialValues}
+    />
   );
 });
 
