@@ -180,11 +180,11 @@ const CustomInput: React.FC<CustomInputProps> = ({
               dayOfMonthBtnProps: {
                 defaultBtnProps: {
                   _hover: {
-                    background: "teal.500",
+                    background: "blue.500",
                   },
                 },
                 selectedBtnProps: {
-                  background: "teal.300",
+                  background: "blue.300",
                 },
                 todayBtnProps: {
                   border: "1px solid #38B2AC",
@@ -192,7 +192,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
               },
               inputProps: {
                 size: "md",
-                placeholder: "Enter the date",
+                placeholder: placeholder,
               },
             }}
           />
