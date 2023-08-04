@@ -9,7 +9,7 @@ const FileViewer = () => {
   };
 
   return (
-    <Box h={'85vh'} position="relative">
+    <Box h={"85vh"} position="relative">
       {isLoading && (
         <Box
           position="absolute"
@@ -29,9 +29,7 @@ const FileViewer = () => {
         width="100%"
         height="100%"
         className="customScrollBar"
-        src={
-          "http://localhost:8080/notes/file-1690226408570-941033796.pdf"
-        }
+        src={"http://localhost:8080/notes/file-1690226408570-941033796.pdf"}
         type="application/pdf"
         onLoad={handleFileLoad}
       ></embed>

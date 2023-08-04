@@ -1,20 +1,32 @@
-import {useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import store from "../../../store/store";
 import QuizTable from "./component/QuizTable/QuizTable";
 import ChartIndex from "./component/ChartIndex/ChartIndex";
-import QuizCategories from "./component/category/QuizCategories";
 import CustomDrawer from "../../../config/component/Drawer/CustomDrawer";
+import { Box } from "@chakra-ui/react";
+import QuizCategories from "./component/Forms/QuizCategories";
+import QuestionForm from "./component/Forms/QuestionForm";
 
 const QuizIndex = observer(() => {
-  const [quizForm, setQuizForm] = useState({open : false, data : null, type : 'create'})
+  const [quizForm, setQuizForm] = useState({
+    open: false,
+    data: null,
+    type: "create",
+  });
+  const [questionForm, setQuestionForm] = useState({
+    open: false,
+    data: null,
+    type: "create",
+  });
+
   const {
     quiz: {
       dashQuiz: { hasFetch },
       getDashQuiz,
     },
     auth: { openNotification },
-    classStore : {getClasses}
+    classStore: { getClasses },
   } = store;
 
   useEffect(() => {
@@ -26,7 +38,6 @@ const QuizIndex = observer(() => {
         });
     }
   }, [hasFetch, getDashQuiz, openNotification]);
-
 
   useEffect(() => {
     getClasses({})
@@ -44,10 +55,27 @@ const QuizIndex = observer(() => {
 
   return (
     <div>
-      <ChartIndex setQuizForm={setQuizForm} />
-      <QuizTable />
-      <CustomDrawer title="CREATE QUIZ" open={quizForm.open} close={() => {setQuizForm({type : 'create', data : null, open : false})}}>
+      <ChartIndex setQuizForm={setQuizForm} setQuestionForm={setQuestionForm} />
+      <Box mt={5}>
+        <QuizTable />
+      </Box>
+      <CustomDrawer
+        title="CREATE QUIZ"
+        open={quizForm.open}
+        close={() => {
+          setQuizForm({ type: "create", data: null, open: false });
+        }}
+      >
         <QuizCategories />
+      </CustomDrawer>
+      <CustomDrawer
+        title="CREATE QUIZ"
+        open={questionForm.open}
+        close={() => {
+          setQuestionForm({ type: "create", data: null, open: false });
+        }}
+      >
+        <QuestionForm />
       </CustomDrawer>
     </div>
   );

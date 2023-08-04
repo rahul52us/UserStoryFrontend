@@ -3,7 +3,7 @@ import DashWidgetCard from "./component/DashWidgetCard";
 import { observer } from "mobx-react-lite";
 import store from "../../store/store";
 import DeleteModel from "../../config/component/common/DeleteModel";
-import { deleteCategoryFunction } from "./quiz/component/category/utils/function";
+import { deleteCategoryFunction } from "./quiz/component/Forms/utils/function";
 import DashChartContainer from "./component/DashChartContainer";
 
 

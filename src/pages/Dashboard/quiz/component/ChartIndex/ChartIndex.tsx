@@ -5,9 +5,10 @@ import { CardBoxShadow } from "../../../../../config/constant/variable";
 
 interface QuizFormI {
   setQuizForm: (value: any) => void;
+  setQuestionForm:(value: any) => void;
 }
 
-const ChartIndex = observer(({ setQuizForm }: QuizFormI) => {
+const ChartIndex = observer(({ setQuizForm, setQuestionForm }: QuizFormI) => {
   return (
     <div>
       <Grid gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" }} gap={4}>
@@ -22,6 +23,13 @@ const ChartIndex = observer(({ setQuizForm }: QuizFormI) => {
               }
             >
               Add New
+            </Button>
+            <Button
+              onClick={() =>
+                setQuestionForm({ type: "create", open: true, data: null })
+              }
+            >
+              CREATE QUESTION
             </Button>
           </div>
         </Card>

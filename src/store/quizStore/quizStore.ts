@@ -1,6 +1,6 @@
 import axios from "axios";
 import { action, makeObservable, observable } from "mobx";
-import { QuizCategoryValue } from "../../pages/Dashboard/quiz/component/category/utils/dto";
+import { QuizCategoryValue } from "../../pages/Dashboard/quiz/component/Forms/utils/dto";
 
 class QuizStore {
   dashQuiz: any = {

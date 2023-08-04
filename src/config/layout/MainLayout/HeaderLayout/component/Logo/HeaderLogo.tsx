@@ -1,10 +1,11 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Image } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
+import Logo from "../../../../../assets/icon_images/Logo.jpg";
 
 const HeaderLogo = observer(() => {
   return (
     <Box p={4}>
-      <Text>Logo</Text>
+      <Image src={Logo} alt="" width={16} height={16} borderRadius={10} />
     </Box>
   );
 });

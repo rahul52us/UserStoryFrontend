@@ -1,0 +1,20 @@
+# Use the official Node.js image as the base image for frontend
+FROM node:14 AS frontend
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the package.json and package-lock.json to the working directory
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the frontend files to the working directory
+COPY . .
+
+# Build the production version of the frontend
+RUN npm run build
+
+# Start the frontend server
+CMD ["npm", "start"]
