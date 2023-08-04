@@ -21,6 +21,7 @@ import { authentication } from "../../../config/constant/routes";
 import debounce from "lodash/debounce";
 
 const CreateOrganisation = observer(() => {
+  const [showError, setShowError] = useState(false);
   const [isBelowMd] = useMediaQuery("(max-width: md)");
   const [organisationError, setOrganisationError] = useState("");
   const { token } = useParams();
@@ -49,7 +50,7 @@ const CreateOrganisation = observer(() => {
     return () => {
       debouncedSearch.cancel();
     };
-  }, [searchValue,filterOrganisation]);
+  }, [searchValue, filterOrganisation]);
 
   const handleSearchChange = (e: any) => {
     const value = e.target.value;
@@ -132,6 +133,7 @@ const CreateOrganisation = observer(() => {
                     error={errors.first_name}
                     onChange={handleChange}
                     value={values.first_name}
+                    showError={showError}
                   />
                   <CustomInput
                     type="text"
@@ -142,6 +144,7 @@ const CreateOrganisation = observer(() => {
                     error={errors.last_name}
                     onChange={handleChange}
                     value={values.last_name}
+                    showError={showError}
                   />
                   <CustomInput
                     type="text"
@@ -152,6 +155,7 @@ const CreateOrganisation = observer(() => {
                     error={errors.username}
                     onChange={handleChange}
                     value={values.username}
+                    showError={showError}
                   />
                   <CustomInput
                     type="text"
@@ -165,6 +169,7 @@ const CreateOrganisation = observer(() => {
                       handleChange(e);
                     }}
                     value={values.company_name}
+                    showError={showError}
                   />
                   <CustomInput
                     type="password"
@@ -174,6 +179,7 @@ const CreateOrganisation = observer(() => {
                     error={errors.password}
                     onChange={handleChange}
                     value={values.password}
+                    showError={showError}
                   />
                   <Stack spacing={10}>
                     <Stack
@@ -200,6 +206,9 @@ const CreateOrganisation = observer(() => {
                         bg: "blue.500",
                       }}
                       isLoading={isSubmitting}
+                      onClick={() => {
+                        setShowError(true);
+                      }}
                     >
                       Sign in
                     </Button>
