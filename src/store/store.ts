@@ -12,6 +12,7 @@ import ChatMessageStore from "./ChatMessageStore/ChatMessageStore";
 import ThemeStore from "./themeStore/themeStore";
 import NotesStore from "./notesStore/NotesStore";
 import ClassStore from "./classStore/ClassStore";
+import ExamStore from "./examStore/examStore";
 configure({ enforceActions: "never" });
 
 const store = {
@@ -27,6 +28,7 @@ const store = {
   VideoStore: new VideoStore(),
   chatMessage: new ChatMessageStore(),
   notesStore: new NotesStore(),
-  classStore: new ClassStore()
+  classStore: new ClassStore(),
+  ExamStore: new ExamStore()
 };
 export default store;

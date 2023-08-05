@@ -1,238 +1,234 @@
-import React, { useState, useRef } from 'react';
-import { Stage, Layer, Rect, Text, Line, Transformer } from 'react-konva';
-import { FaSquare, FaFont, FaPen } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
+import { Box, Table, Thead, Tbody, Tr, Th, Td, Input, Select, Heading,  Button } from '@chakra-ui/react';
+import { useFormik } from 'formik';
+import store from '../../../store/store';
 
-interface RectangleElement {
-  type: 'rectangle';
-  id: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  fill: string;
-}
+const MarksheetDesignTool: React.FC = observer(() => {
+  const { ExamStore } = store;
+  const [semesterData, setSemesterData] = useState<any>([]);
 
-interface TextElement {
-  type: 'text';
-  id: string;
-  text: string;
-  x: number;
-  y: number;
-  fontSize: number;
-  fill: string;
-}
+  useEffect(() => {
+    ExamStore.getExam('64cd3381a2ec66f3216bdfdd')
+      .then((data: any) => {
+        setSemesterData(data.semister);
+      })
+      .catch((err: any) => {
+        console.error(err);
+      });
+  }, [ExamStore]);
 
-interface TriangleElement {
-  type: 'triangle';
-  id: string;
-  points: number[];
-  fill: string;
-}
+  const formik = useFormik({
+    initialValues: {
+      semesterData: semesterData,
+    },
+    onSubmit: (values) => {
+      console.log(values.semesterData);
+    },
+  });
 
-type Element = RectangleElement | TextElement | TriangleElement;
+  const handleMarksChange = (
+    semesterIndex: number,
+    testIndex: number,
+    subjectIndex: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value } = event.target;
 
-const DesignTool: React.FC = () => {
-  const [elements, setElements] = useState<Element[]>([]);
-  const [selectedElementId, setSelectedElementId] = useState<string | null>(null);
-  const canvasRef = useRef<any>();
-
-  const handleAddRectangle = () => {
-    const newElement: RectangleElement = {
-      type: 'rectangle',
-      id: `rectangle-${Date.now()}`,
-      x: 50,
-      y: 50,
-      width: 100,
-      height: 50,
-      fill: 'blue',
-    };
-    setElements([...elements, newElement]);
+    const newData = [...formik.values.semesterData];
+    if (testIndex === -1) {
+      newData[semesterIndex].subjects[subjectIndex].marks = value;
+    } else {
+      newData[semesterIndex].noOfTest[testIndex].subjects[subjectIndex].marks = value;
+    }
+    formik.setFieldValue('semesterData', newData, true);
   };
 
-  const handleAddText = () => {
-    const newElement: TextElement = {
-      type: 'text',
-      id: `text-${Date.now()}`,
-      text: 'Sample Text',
-      x: 50,
-      y: 150,
-      fontSize: 18,
-      fill: 'black',
-    };
-    setElements([...elements, newElement]);
-  };
+  useEffect(() => {
+    formik.setValues({ semesterData: semesterData });
+  }, [semesterData]);
 
-  const handleAddTriangle = () => {
-    const newElement: TriangleElement = {
-      type: 'triangle',
-      id: `triangle-${Date.now()}`,
-      points: [150, 150, 200, 200, 250, 150],
-      fill: 'green',
-    };
-    setElements([...elements, newElement]);
-  };
+  const handleGradeChange = (
+    semesterIndex: number,
+    testIndex: number,
+    subjectIndex: number,
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const { value } = event.target;
 
-  const handleDragMove = (index: number, newPos: { x: number; y: number }) => {
-    const updatedElements = [...elements];
-    const element = updatedElements[index];
-
-    if (element.type === 'rectangle') {
-      (element as RectangleElement).x = newPos.x;
-      (element as RectangleElement).y = newPos.y;
-    } else if (element.type === 'triangle') {
-      const deltaX = newPos.x - (element as TriangleElement).points[0];
-      const deltaY = newPos.y - (element as TriangleElement).points[1];
-      const newPoints = (element as TriangleElement).points.map((point, i) =>
-        i % 2 === 0 ? point + deltaX : point + deltaY
-      );
-      (element as TriangleElement).points = newPoints;
+    const newData = [...formik.values.semesterData];
+    if (testIndex === -1) {
+      newData[semesterIndex].subjects[subjectIndex].grade = value;
+    } else {
+      newData[semesterIndex].noOfTest[testIndex].subjects[subjectIndex].grade = value;
     }
 
-    setElements(updatedElements);
+    formik.setFieldValue('semesterData', newData, true);
   };
 
+  const calculateTotalMarks = (subject: any) => {
+    return subject.totalMarks;
+  };
 
-
-  const handleTextChange = (index: number, newText: string) => {
-    const updatedElements = [...elements];
-    if (updatedElements[index].type === 'text') {
-      (updatedElements[index] as TextElement).text = newText;
-      setElements(updatedElements);
+  const calculateObtainedMarks = (subject: any) => {
+    if (subject.marks) {
+      return parseFloat(subject.marks);
     }
+    return 0;
   };
 
-  const handleElementSelect = (id: string) => {
-    setSelectedElementId(id);
-  };
-
-  const handleTransformEnd = (index: number, newProps: any) => {
-    const updatedElements = [...elements];
-    const element = updatedElements[index];
-    if (element.type === 'rectangle') {
-      const { x, y, width, height } = newProps;
-      element.x = x;
-      element.y = y;
-      element.width = width;
-      element.height = height;
-    } else if (element.type === 'triangle') {
-      const newPoints = newProps.points;
-      element.points = newPoints;
+  const calculateSubjectGrade = (subject: any) => {
+    if (subject.grade) {
+      return subject.grade;
     }
-    setElements(updatedElements);
+    return '';
+  };
+
+  const calculateGPAPoints = (grade: string) => {
+    console.log(grade)
+    // Implement your GPA calculation logic here
+    // Example: if (grade === 'A') return 4.0;
+    return 0;
+  };
+
+  const calculateSemesterGPA = (semester: any) => {
+    const totalSubjects = semester.subjects.length;
+    let totalGPAPoints = 0;
+
+    semester.subjects.forEach((subject: any) => {
+      const subjectGrade = calculateSubjectGrade(subject);
+      const subjectGPAPoints = calculateGPAPoints(subjectGrade);
+      totalGPAPoints += subjectGPAPoints;
+    });
+
+    return totalGPAPoints / totalSubjects;
   };
 
   return (
-    <div>
-      <div className="toolbar">
-        <button className="tool-button" onClick={handleAddRectangle}>
-          <FaSquare /> Add Rectangle
-        </button>
-        <button className="tool-button" onClick={handleAddText}>
-          <FaFont /> Add Text
-        </button>
-        <button className="tool-button" onClick={handleAddTriangle}>
-          <FaPen /> Add Triangle
-        </button>
-      </div>
-      <div className="canvas-container">
-        <Stage
-          width={800}
-          height={600}
-          ref={canvasRef}
-          onClick={() => setSelectedElementId(null)}
-        >
-          <Layer>
-            {elements.map((element, index) => {
-              if (element.type === 'rectangle') {
-                return (
-                  <React.Fragment key={element.id}>
-                    <Rect
-                      x={element.x}
-                      y={element.y}
-                      width={element.width}
-                      height={element.height}
-                      fill={element.fill}
-                      draggable
-                      onDragMove={(e) => handleDragMove(index, e.target.position())}
-                      onClick={() => handleElementSelect(element.id)}
-                    />
-                    {selectedElementId === element.id && (
-                      <Transformer
-                        anchorSize={6}
-                        borderDash={[6, 2]}
-                        borderEnabled
-                        onTransformEnd={(e) => {
-                          handleTransformEnd(index, e.currentTarget.attrs);
-                        }}
-                        nodes={[canvasRef.current.findOne(`#${element.id}`)]}
-                      />
-                    )}
-                  </React.Fragment>
-                );
-              } else if (element.type === 'text') {
-                return (
-                  <React.Fragment key={element.id}>
-                    <Text
-                      x={element.x}
-                      y={element.y}
-                      fontSize={element.fontSize}
-                      fill={element.fill}
-                      text={element.text}
-                      draggable
-                      onClick={() => handleElementSelect(element.id)}
-                      onDblClick={() => {
-                        const newText = window.prompt('Enter new text:', element.text);
-                        if (newText) {
-                          handleTextChange(index, newText);
-                        }
-                      }}
-                    />
-                    {selectedElementId === element.id && (
-                      <Transformer
-                        rotateEnabled={false}
-                        onTransformEnd={(e) => {
-                          handleTransformEnd(index, e.currentTarget.attrs);
-                        }}
-                        nodes={[canvasRef.current.findOne(`#${element.id}`)]}
-                      />
-                    )}
-                  </React.Fragment>
-                );
-              } else if (element.type === 'triangle') {
-                return (
-                  <React.Fragment key={element.id}>
-                    <Line
-                      points={element.points}
-                      closed
-                      fill={element.fill}
-                      draggable
-                      onDragMove={(e) => handleDragMove(index, e.target.position())}
-                      onClick={() => handleElementSelect(element.id)}
-                      onTransformEnd={(e) => {
-                        handleTransformEnd(index, e.currentTarget.attrs);
-                      }}
-                    />
-                    {selectedElementId === element.id && (
-                      <Transformer
-                        anchorSize={6}
-                        borderDash={[6, 2]}
-                        borderEnabled
-                        onTransformEnd={(e) => {
-                          handleTransformEnd(index, e.currentTarget.attrs);
-                        }}
-                        nodes={[canvasRef.current.findOne(`#${element.id}`)]}
-                      />
-                    )}
-                  </React.Fragment>
-                );
-              }
-              return null;
-            })}
-          </Layer>
-        </Stage>
-      </div>
-    </div>
-  );
-};
+    <Box width="100%" p={8}>
+      <Box
+        borderWidth="1px"
+        borderRadius="lg"
+        p={4}
+        w="100%"
+        boxShadow="md"
+        textAlign="center"
+        backgroundColor="#f0f0f0"
+        marginBottom="20px"
+      >
+        <Heading size="xl" mb={4}>
+          Student Marksheet
+        </Heading>
+        {/* ... Student information ... */}
+      </Box>
 
-export default DesignTool;
+      {formik.values.semesterData.map((semester: any, semesterIndex: number) => (
+        <Box key={semester._id} borderWidth="1px" borderRadius="lg" p={4} w="100%" boxShadow="md" mb={4}>
+          <Heading size="lg" mb={2}>
+            {semester.name}
+          </Heading>
+          <Table variant="simple" size="sm">
+            <Thead>
+              <Tr>
+                <Th>Subject</Th>
+                <Th>Total Marks</Th>
+                {semester.subjects[0]?.gradingType === 'number' ? <Th>Obtained Marks</Th> : <Th>Grade</Th>}
+              </Tr>
+            </Thead>
+            <Tbody>
+              {semester.subjects.map((subject: any, subjectIndex: number) => (
+                <Tr key={subject._id}>
+                  <Td>{subject.name}</Td>
+                  <Td>{subject.totalMarks}</Td>
+                  {subject.gradingType === 'number' ? (
+                    <Td>
+                      <Input
+                        type="number"
+                        value={subject.marks || ''}
+                        onChange={(event) => handleMarksChange(semesterIndex, -1, subjectIndex, event)}
+                      />
+                    </Td>
+                  ) : (
+                    <Td>
+                      <Select
+                        value={subject.grade || ''}
+                        onChange={(event) => handleGradeChange(semesterIndex, -1, subjectIndex, event)}
+                      >
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                      </Select>
+                    </Td>
+                  )}
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+
+          {semester.noOfTest.map((test: any, testIndex: number) => (
+            <Box key={test._id} mt={4} borderWidth="1px" borderRadius="lg" p={4} boxShadow="md">
+              <Heading size="md" mb={2}>
+                {test.name}
+              </Heading>
+              <Table variant="simple" size="sm">
+                <Thead>
+                  <Tr>
+                    <Th>Subject</Th>
+                    <Th>Total Marks</Th>
+                    {test.subjects[0]?.gradingType === 'number' ? <Th>Obtained Marks</Th> : <Th>Grade</Th>}
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {test.subjects.map((subject: any, subjectIndex: number) => (
+                    <Tr key={subject._id}>
+                      <Td>{subject.name}</Td>
+                      <Td>{subject.totalMarks}</Td>
+                      {subject.gradingType === 'number' ? (
+                        <Td>
+                          <Input
+                            type="number"
+                            value={subject.marks || ''}
+                            onChange={(event) => handleMarksChange(semesterIndex, testIndex, subjectIndex, event)}
+                          />
+                        </Td>
+                      ) : (
+                        <Td>
+                          <Select
+                            value={subject.grade || ''}
+                            onChange={(event) => handleGradeChange(semesterIndex, testIndex, subjectIndex, event)}
+                          >
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                          </Select>
+                        </Td>
+                      )}
+                    </Tr>
+                  ))}
+                </Tbody>
+              </Table>
+            </Box>
+          ))}
+        </Box>
+      ))}
+
+      <Box borderWidth="1px" borderRadius="lg" p={4} w="100%" boxShadow="md" backgroundColor="#f0f0f0">
+        <Heading size="md">Marksheet Summary</Heading>
+        {formik.values.semesterData.map((semester: any) => (
+          <Box key={semester._id} p={2}>
+            <Heading size="sm">{semester.name}</Heading>
+            <p>Total Marks: {semester.subjects.reduce((total: any, subject: any) => total + calculateTotalMarks(subject), 0)}</p>
+            <p>Obtained Marks: {semester.subjects.reduce((total: any, subject: any) => total + calculateObtainedMarks(subject), 0)}</p>
+            <p>Semester GPA: {calculateSemesterGPA(semester)}</p>
+          </Box>
+        ))}
+      </Box>
+
+      <Button type="submit" mt={4} alignSelf="center">
+        Submit
+      </Button>
+    </Box>
+  );
+});
+
+export default MarksheetDesignTool;
