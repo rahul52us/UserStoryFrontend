@@ -1,12 +1,12 @@
-import { Box, Spinner } from '@chakra-ui/react';
+import { Box, Spinner } from "@chakra-ui/react";
 
-const Loader = () => {
+const Loader = ({ height }: any) => {
   return (
     <Box
       display="flex"
       alignItems="center"
       justifyContent="center"
-      height="100vh"
+      height={height ? height : "100vh"}
     >
       <Spinner
         thickness="4px"

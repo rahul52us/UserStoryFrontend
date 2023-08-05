@@ -71,7 +71,7 @@ const DashboardLayout = observer(() => {
           fullScreenMode={fullScreenMode}
           sizeStatus={sizeStatus}
         >
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={<Loader height="90vh" />}>
             <Outlet />
           </Suspense>
         </ContentContainer>

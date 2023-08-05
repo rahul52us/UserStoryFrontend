@@ -4,7 +4,7 @@ import ClassBanner from "./component/ClassBanner";
 import CustomDrawer from "../../../config/component/Drawer/CustomDrawer";
 import ClassForm from "./component/ClassForm/ClassForm";
 import ClassTable from "./component/ClassTable/ClassTable";
-import { Grid } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 const ClassIndex = observer(() => {
   const [classForm, setClassForm] = useState({
@@ -15,11 +15,10 @@ const ClassIndex = observer(() => {
 
   return (
     <>
-      <Grid rowGap={5}>
-        <ClassBanner createClass={setClassForm} />
+      <ClassBanner createClass={setClassForm} />
+      <Box mt={3}>
         <ClassTable tableForm={setClassForm} />
-      </Grid>
-
+      </Box>
       {/* OPEN THE DRAWER FOR THE CLASS FORM */}
       <CustomDrawer
         title="CREATE NEW CLASS"

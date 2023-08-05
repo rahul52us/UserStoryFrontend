@@ -1,15 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { observer } from 'mobx-react-lite';
-import { Box, Table, Thead, Tbody, Tr, Th, Td, Input, Select, Heading,  Button } from '@chakra-ui/react';
-import { useFormik } from 'formik';
-import store from '../../../store/store';
+import React, { useState, useEffect, useRef } from "react";
+import { observer } from "mobx-react-lite";
+import {
+  Box,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  Input,
+  Select,
+  Heading,
+  Button,
+} from "@chakra-ui/react";
+import { useFormik } from "formik";
+import store from "../../../store/store";
 
 const MarksheetDesignTool: React.FC = observer(() => {
   const { ExamStore } = store;
   const [semesterData, setSemesterData] = useState<any>([]);
+  const isInitialFormikValuesSet = useRef(false);
 
   useEffect(() => {
-    ExamStore.getExam('64cd3381a2ec66f3216bdfdd')
+    ExamStore.getExam("64cd3381a2ec66f3216bdfdd")
       .then((data: any) => {
         setSemesterData(data.semister);
       })
@@ -39,14 +52,18 @@ const MarksheetDesignTool: React.FC = observer(() => {
     if (testIndex === -1) {
       newData[semesterIndex].subjects[subjectIndex].marks = value;
     } else {
-      newData[semesterIndex].noOfTest[testIndex].subjects[subjectIndex].marks = value;
+      newData[semesterIndex].noOfTest[testIndex].subjects[subjectIndex].marks =
+        value;
     }
-    formik.setFieldValue('semesterData', newData, true);
+    formik.setFieldValue("semesterData", newData, true);
   };
 
   useEffect(() => {
-    formik.setValues({ semesterData: semesterData });
-  }, [semesterData]);
+    if (!isInitialFormikValuesSet.current && semesterData.length > 0) {
+      formik.setValues({ semesterData: semesterData });
+      isInitialFormikValuesSet.current = true;
+    }
+  }, [semesterData, formik]);
 
   const handleGradeChange = (
     semesterIndex: number,
@@ -60,10 +77,10 @@ const MarksheetDesignTool: React.FC = observer(() => {
     if (testIndex === -1) {
       newData[semesterIndex].subjects[subjectIndex].grade = value;
     } else {
-      newData[semesterIndex].noOfTest[testIndex].subjects[subjectIndex].grade = value;
+      newData[semesterIndex].noOfTest[testIndex].subjects[subjectIndex].grade =
+        value;
     }
-
-    formik.setFieldValue('semesterData', newData, true);
+    formik.setFieldValue("semesterData", newData, true);
   };
 
   const calculateTotalMarks = (subject: any) => {
@@ -81,11 +98,11 @@ const MarksheetDesignTool: React.FC = observer(() => {
     if (subject.grade) {
       return subject.grade;
     }
-    return '';
+    return "";
   };
 
   const calculateGPAPoints = (grade: string) => {
-    console.log(grade)
+    console.log(grade);
     // Implement your GPA calculation logic here
     // Example: if (grade === 'A') return 4.0;
     return 0;
@@ -121,104 +138,177 @@ const MarksheetDesignTool: React.FC = observer(() => {
         </Heading>
         {/* ... Student information ... */}
       </Box>
-
-      {formik.values.semesterData.map((semester: any, semesterIndex: number) => (
-        <Box key={semester._id} borderWidth="1px" borderRadius="lg" p={4} w="100%" boxShadow="md" mb={4}>
-          <Heading size="lg" mb={2}>
-            {semester.name}
-          </Heading>
-          <Table variant="simple" size="sm">
-            <Thead>
-              <Tr>
-                <Th>Subject</Th>
-                <Th>Total Marks</Th>
-                {semester.subjects[0]?.gradingType === 'number' ? <Th>Obtained Marks</Th> : <Th>Grade</Th>}
-              </Tr>
-            </Thead>
-            <Tbody>
-              {semester.subjects.map((subject: any, subjectIndex: number) => (
-                <Tr key={subject._id}>
-                  <Td>{subject.name}</Td>
-                  <Td>{subject.totalMarks}</Td>
-                  {subject.gradingType === 'number' ? (
-                    <Td>
-                      <Input
-                        type="number"
-                        value={subject.marks || ''}
-                        onChange={(event) => handleMarksChange(semesterIndex, -1, subjectIndex, event)}
-                      />
-                    </Td>
+      {formik.values.semesterData.map(
+        (semester: any, semesterIndex: number) => (
+          <Box
+            key={semester._id}
+            borderWidth="1px"
+            borderRadius="lg"
+            p={4}
+            w="100%"
+            boxShadow="md"
+            mb={4}
+          >
+            <Heading size="lg" mb={2}>
+              {semester.name}
+            </Heading>
+            <Table variant="simple" size="sm">
+              <Thead>
+                <Tr>
+                  <Th>Subject</Th>
+                  <Th>Total Marks</Th>
+                  {semester.subjects[0]?.gradingType === "number" ? (
+                    <Th>Obtained Marks</Th>
                   ) : (
-                    <Td>
-                      <Select
-                        value={subject.grade || ''}
-                        onChange={(event) => handleGradeChange(semesterIndex, -1, subjectIndex, event)}
-                      >
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                      </Select>
-                    </Td>
+                    <Th>Grade</Th>
                   )}
                 </Tr>
-              ))}
-            </Tbody>
-          </Table>
-
-          {semester.noOfTest.map((test: any, testIndex: number) => (
-            <Box key={test._id} mt={4} borderWidth="1px" borderRadius="lg" p={4} boxShadow="md">
-              <Heading size="md" mb={2}>
-                {test.name}
-              </Heading>
-              <Table variant="simple" size="sm">
-                <Thead>
-                  <Tr>
-                    <Th>Subject</Th>
-                    <Th>Total Marks</Th>
-                    {test.subjects[0]?.gradingType === 'number' ? <Th>Obtained Marks</Th> : <Th>Grade</Th>}
+              </Thead>
+              <Tbody>
+                {semester.subjects.map((subject: any, subjectIndex: number) => (
+                  <Tr key={subject._id}>
+                    <Td>{subject.name}</Td>
+                    <Td>{subject.totalMarks}</Td>
+                    {subject.gradingType === "number" ? (
+                      <Td>
+                        <Input
+                          type="number"
+                          value={subject.marks || ""}
+                          onChange={(event) =>
+                            handleMarksChange(
+                              semesterIndex,
+                              -1,
+                              subjectIndex,
+                              event
+                            )
+                          }
+                        />
+                      </Td>
+                    ) : (
+                      <Td>
+                        <Select
+                          value={subject.grade || ""}
+                          onChange={(event) =>
+                            handleGradeChange(
+                              semesterIndex,
+                              -1,
+                              subjectIndex,
+                              event
+                            )
+                          }
+                        >
+                          <option value="A">A</option>
+                          <option value="B">B</option>
+                          <option value="C">C</option>
+                        </Select>
+                      </Td>
+                    )}
                   </Tr>
-                </Thead>
-                <Tbody>
-                  {test.subjects.map((subject: any, subjectIndex: number) => (
-                    <Tr key={subject._id}>
-                      <Td>{subject.name}</Td>
-                      <Td>{subject.totalMarks}</Td>
-                      {subject.gradingType === 'number' ? (
-                        <Td>
-                          <Input
-                            type="number"
-                            value={subject.marks || ''}
-                            onChange={(event) => handleMarksChange(semesterIndex, testIndex, subjectIndex, event)}
-                          />
-                        </Td>
+                ))}
+              </Tbody>
+            </Table>
+
+            {semester.noOfTest.map((test: any, testIndex: number) => (
+              <Box
+                key={test._id}
+                mt={4}
+                borderWidth="1px"
+                borderRadius="lg"
+                p={4}
+                boxShadow="md"
+              >
+                <Heading size="md" mb={2}>
+                  {test.name}
+                </Heading>
+                <Table variant="simple" size="sm">
+                  <Thead>
+                    <Tr>
+                      <Th>Subject</Th>
+                      <Th>Total Marks</Th>
+                      {test.subjects[0]?.gradingType === "number" ? (
+                        <Th>Obtained Marks</Th>
                       ) : (
-                        <Td>
-                          <Select
-                            value={subject.grade || ''}
-                            onChange={(event) => handleGradeChange(semesterIndex, testIndex, subjectIndex, event)}
-                          >
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                          </Select>
-                        </Td>
+                        <Th>Grade</Th>
                       )}
                     </Tr>
-                  ))}
-                </Tbody>
-              </Table>
-            </Box>
-          ))}
-        </Box>
-      ))}
+                  </Thead>
+                  <Tbody>
+                    {test.subjects.map((subject: any, subjectIndex: number) => (
+                      <Tr key={subject._id}>
+                        <Td>{subject.name}</Td>
+                        <Td>{subject.totalMarks}</Td>
+                        {subject.gradingType === "number" ? (
+                          <Td>
+                            <Input
+                              type="number"
+                              value={subject.marks || ""}
+                              onChange={(event) =>
+                                handleMarksChange(
+                                  semesterIndex,
+                                  testIndex,
+                                  subjectIndex,
+                                  event
+                                )
+                              }
+                            />
+                          </Td>
+                        ) : (
+                          <Td>
+                            <Select
+                              value={subject.grade || ""}
+                              onChange={(event) =>
+                                handleGradeChange(
+                                  semesterIndex,
+                                  testIndex,
+                                  subjectIndex,
+                                  event
+                                )
+                              }
+                            >
+                              <option value="A">A</option>
+                              <option value="B">B</option>
+                              <option value="C">C</option>
+                            </Select>
+                          </Td>
+                        )}
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+              </Box>
+            ))}
+          </Box>
+        )
+      )}
 
-      <Box borderWidth="1px" borderRadius="lg" p={4} w="100%" boxShadow="md" backgroundColor="#f0f0f0">
+      <Box
+        borderWidth="1px"
+        borderRadius="lg"
+        p={4}
+        w="100%"
+        boxShadow="md"
+        backgroundColor="#f0f0f0"
+      >
         <Heading size="md">Marksheet Summary</Heading>
         {formik.values.semesterData.map((semester: any) => (
           <Box key={semester._id} p={2}>
             <Heading size="sm">{semester.name}</Heading>
-            <p>Total Marks: {semester.subjects.reduce((total: any, subject: any) => total + calculateTotalMarks(subject), 0)}</p>
-            <p>Obtained Marks: {semester.subjects.reduce((total: any, subject: any) => total + calculateObtainedMarks(subject), 0)}</p>
+            <p>
+              Total Marks:{" "}
+              {semester.subjects.reduce(
+                (total: any, subject: any) =>
+                  total + calculateTotalMarks(subject),
+                0
+              )}
+            </p>
+            <p>
+              Obtained Marks:{" "}
+              {semester.subjects.reduce(
+                (total: any, subject: any) =>
+                  total + calculateObtainedMarks(subject),
+                0
+              )}
+            </p>
             <p>Semester GPA: {calculateSemesterGPA(semester)}</p>
           </Box>
         ))}

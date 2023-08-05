@@ -36,7 +36,7 @@ const QuizTable = observer(() => {
       boxShadow="rgb(0 0 0 / 12%) 0px 0px 11px"
       rounded={8}
       p="1.125rem 1.375rem"
-      bg="white"
+      // bg="white"
       mt={8}
     >
       <Flex alignItems="center" justifyContent="space-between">
@@ -70,7 +70,6 @@ const QuizTable = observer(() => {
       </Flex>
       <Box
         position="relative"
-        width="calc(100vw - 74px)"
         overflow="auto hidden"
         className="customScrollBar"
       >
@@ -103,4 +102,4 @@ const QuizTable = observer(() => {
   );
 });
 
-export default QuizTable;
+export default QuizTable
