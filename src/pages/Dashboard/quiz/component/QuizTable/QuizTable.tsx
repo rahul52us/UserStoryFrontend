@@ -1,73 +1,106 @@
-import { observer } from "mobx-react-lite";
-import store from "../../../../../store/store";
-import { Box, Icon, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
-import { FaEdit } from "react-icons/fa";
-import moment from "moment";
-import { CardBoxShadow } from "../../../../../config/constant/variable";
+import { observer } from "mobx-react-lite"
+import store from "../../../../../store/store"
+import { toJS } from "mobx"
+import {
+  Box,
+  Flex,
+  Heading,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
+import SearchCardInput from "../../../../../config/component/SearchInput/SearchCardInput/SearchCardInput";
+import CustomInput from "../../../../../config/component/CustomInput/CustomInput";
+import { useState } from "react";
 
-interface TableI {
-  tableForm?: any;
-}
-
-const ClassTable = observer(({ tableForm }: TableI) => {
+const QuizTable = observer(() => {
   const {
     quiz: {
       dashQuiz: { data },
-    }
+    },
   } = store;
 
+  console.log(toJS(data));
+
+  // date
+  const [date, setDate] = useState({
+    startYear: undefined,
+    endYear: undefined,
+  });
+
   return (
-    <Box title="Class" boxShadow={CardBoxShadow} borderRadius={5}>
-      <div style={{ overflowX: "scroll", borderRadius: "5px" }}>
-        <Table variant="striped" size="sm" stroke={"whiteAlpha.500"}>
-          <Thead
-            bg={"whiteAlpha.900"}
-            stroke={"whiteAlpha.500"}
-            bgColor={"red.100"}
-            h={10}
-          >
+    <Box
+      boxShadow="rgb(0 0 0 / 12%) 0px 0px 11px"
+      rounded={8}
+      p="1.125rem 1.375rem"
+      bg="white"
+      mt={8}
+    >
+      <Flex alignItems="center" justifyContent="space-between">
+        <Heading fontSize={"xl"} fontWeight={700} color="blue.500">
+          QuizTable
+        </Heading>
+        <Flex gap={6}>
+          <Box width="10rem">
+            <CustomInput
+              type="date"
+              placeholder="Start Year"
+              value={date.startYear}
+              name="date"
+              onChange={(e: any) => setDate({ ...date, startYear: e })}
+            />
+          </Box>
+          <Box w="10rem">
+            <CustomInput
+              type="date"
+              placeholder="End Year"
+              value={date.endYear}
+              name="date"
+              minDate={date.startYear}
+              onChange={(e: any) => setDate({ ...date, endYear: e })}
+            />
+          </Box>
+          <Box w="18rem">
+            <SearchCardInput />
+          </Box>
+        </Flex>
+      </Flex>
+      <Box
+        position="relative"
+        width="calc(100vw - 74px)"
+        overflow="auto hidden"
+        className="customScrollBar"
+      >
+        <Table className="customTable" variant="striped" mt="1rem">
+          <Thead>
             <Tr>
-            <Th textAlign="center">Quiz Title</Th>
-              <Th textAlign="center">Class Name</Th>
-              <Th textAlign="center">Sections</Th>
-              <Th textAlign="center">Catogory</Th>
-              <Th textAlign="center">Creater Name</Th>
-              <Th textAlign="center">Created Date</Th>
-              <Th textAlign="center">Actions</Th>
+              <Th>Name</Th>
+              <Th>Name</Th>
+              <Th>Name</Th>
+              <Th>Name</Th>
+              <Th>Name</Th>
+              <Th>Name</Th>
+              <Th>Name</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {data.map((item: any) => (
-              <Tr key={item._id}>
-                <Td textAlign="center">{item?.title}</Td>
-                <Td textAlign="center">{item?.class?.name}</Td>
-                <Td textAlign="center">{item.section?.name || '-'}</Td>
-                <Td textAlign="center">{item.category?.length || '-'}</Td>
-                <Td textAlign="center">{item.createdBy?.name || "-"}</Td>
-                <Td textAlign="center">
-                  {item?.createdAt
-                    ? moment(item?.createdAt).format("DD-MM-YYYY")
-                    : "-"}
-                </Td>
-                <Td
-                  textAlign="center"
-                  onClick={() => {
-                    tableForm({
-                      type: "edit",
-                      data: item,
-                      open: true,
-                    });
-                  }}
-                >
-                  <Icon as={FaEdit} cursor="pointer" color="blue.500" />
-                </Td>
-              </Tr>
-            ))}
+            <Tr>
+              <Td>sadasdfsdlkjasdflkjasdasdlfkj</Td>
+              <Td>sadasdfsdl</Td>
+              <Td>sadasdfsdlkjasdflkjasdasdlfkj</Td>
+              <Td>sadasdfsdlkjasdflkjasdasdlfkj</Td>
+              <Td>sadasdfsdlkjasdflkjasdasdlfkj</Td>
+              <Td>sadasdfsdlkjasdflkjasdasdlfkj</Td>
+              <Td>sadasdfsdlkjasdflkjasdasdlfkj</Td>
+            </Tr>
           </Tbody>
         </Table>
-      </div>
+      </Box>
     </Box>
   );
 });
 
-export default ClassTable;
+export default QuizTable;

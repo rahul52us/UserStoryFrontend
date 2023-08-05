@@ -4,3 +4,9 @@
     border: 1px solid #e2e8f0 !important;
     border-radius: 6px !important;
 }
+
+.customTable th {
+    background-color: #2D3748;
+    color: white !important;
+}
+
