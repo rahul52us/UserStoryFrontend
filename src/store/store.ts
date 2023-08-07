@@ -32,7 +32,7 @@ const store = {
   classStore: new ClassStore(),
   ExamStore: new ExamStore(),
   // users
-  Student: new StudentStore()
-
+  Student: new StudentStore(),
 };
+
 export default store;

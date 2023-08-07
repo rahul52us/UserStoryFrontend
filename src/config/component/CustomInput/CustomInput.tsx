@@ -205,7 +205,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
                 size="sm"
                 colorScheme="red"
                 variant="link"
-                onClick={() => onChange && onChange(null)}
+                onClick={() => onChange && onChange(undefined)}
                 style={{
                   position: "absolute",
                   top: "50%",

@@ -1,7 +1,8 @@
 import { observer } from "mobx-react-lite";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Box,
+  Button,
   Flex,
   Heading,
   Icon,
@@ -16,7 +17,6 @@ import { FaEdit, FaEye } from "react-icons/fa";
 import moment from "moment";
 import store from "../../../../../../store/store";
 import CustomInput from "../../../../../../config/component/CustomInput/CustomInput";
-import SearchCardInput from "../../../../../../config/component/SearchInput/SearchCardInput/SearchCardInput";
 import TableLoader from "../../../../../../config/component/DataTable/TableLoader";
 import Pagination from "../../../../../../config/component/pagination/Pagination";
 
@@ -25,29 +25,52 @@ interface TableI {
 }
 
 const StudentTable = observer(({ tableForm }: TableI) => {
+  const [firstTimeCall, setFirstTimeCall] = useState(true);
   const {
     classStore: { getClasses, classes },
     auth: { openNotification },
   } = store;
 
+  const now = new Date();
+  const oneYearLater = new Date(
+    now.getFullYear() + 1,
+    now.getMonth(),
+    now.getDate()
+  );
+
   const [date, setDate] = useState({
-    startYear: undefined,
-    endYear: undefined,
+    startYear: now,
+    endYear: oneYearLater,
   });
 
+  const getClassesFun = useCallback(
+    (value: boolean) => {
+      if (value) {
+        getClasses({
+          startYear: moment(date.startYear).format("YYYY-MM-DD"),
+          endYear: moment(date.endYear).format("YYYY-MM-DD"),
+        })
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            openNotification({
+              title: "Failed to Get Classes",
+              message: err.message,
+              type: "error",
+            });
+          });
+      }
+    },
+    [date, openNotification, getClasses]
+  );
+
   useEffect(() => {
-    getClasses({})
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        openNotification({
-          title: "Failed to Get Classes",
-          message: err.message,
-          type: "error",
-        });
-      });
-  }, [getClasses, openNotification]);
+    if (firstTimeCall) {
+      getClassesFun(true);
+      setFirstTimeCall(false);
+    }
+  }, [getClassesFun, firstTimeCall]);
 
   return (
     <Box
@@ -59,7 +82,7 @@ const StudentTable = observer(({ tableForm }: TableI) => {
         <Heading fontSize={"xl"} fontWeight={700} color="blue.500">
           Class
         </Heading>
-        <Flex gap={6}>
+        <Flex gap={6} display="flex" alignItems="center">
           <Box width="10rem">
             <CustomInput
               type="date"
@@ -81,8 +104,21 @@ const StudentTable = observer(({ tableForm }: TableI) => {
               isClear={true}
             />
           </Box>
+          <Box>
+            <Button
+              isDisabled={!(date.startYear && date.endYear)}
+              onClick={() => getClassesFun(true)}
+            >
+              Apply
+            </Button>
+          </Box>
           <Box w="18rem">
-            <SearchCardInput />
+            <CustomInput
+              type="select"
+              name="section"
+              options={[{ label: "First", value: "first" }]}
+              isSearchable
+            />
           </Box>
         </Flex>
       </Flex>
@@ -109,7 +145,7 @@ const StudentTable = observer(({ tableForm }: TableI) => {
             </Tr>
           </Thead>
           <Tbody>
-            <TableLoader loader={false} />
+            <TableLoader loader={classes.loading} show={classes.data.length} />
             {classes.data.map((item: any) => (
               <Tr key={item._id}>
                 <Td textAlign="center" p={3}>

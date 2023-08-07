@@ -29,13 +29,20 @@ const ClassTable = observer(({ tableForm }: TableI) => {
     auth: { openNotification },
   } = store;
 
+  const now = new Date();
+  const oneYearLater = new Date(
+    now.getFullYear() + 1,
+    now.getMonth(),
+    now.getDate()
+  );
+
   const [date, setDate] = useState({
-    startYear: undefined,
-    endYear: undefined,
+    startYear: now,
+    endYear: oneYearLater,
   });
 
   useEffect(() => {
-    getClasses({})
+    getClasses({startYear : date.startYear, endYear : date.endYear})
       .then((data) => {
         console.log(data);
       })
@@ -46,7 +53,7 @@ const ClassTable = observer(({ tableForm }: TableI) => {
           type: "error",
         });
       });
-  }, [getClasses, openNotification]);
+  }, [getClasses, openNotification, date]);
 
   return (
     <Box
@@ -108,7 +115,7 @@ const ClassTable = observer(({ tableForm }: TableI) => {
             </Tr>
           </Thead>
           <Tbody>
-          <TableLoader loader={true} />
+          <TableLoader loader={classes.loading} show={classes.data.length} />
             {classes.data.map((item: any) => (
               <Tr key={item._id}>
                 <Td textAlign="center" p={3}>{item.name}</Td>
