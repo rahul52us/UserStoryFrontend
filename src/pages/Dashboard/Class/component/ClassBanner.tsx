@@ -11,12 +11,11 @@ import { CardBoxShadow } from "../../../../config/constant/variable";
 import BarChart from "../../../../config/component/charts/BarChart";
 import { observer } from "mobx-react-lite";
 
-
 interface createClassI {
-  createClass? : any
+  createClass?: any;
 }
 
-const ClassBanner = observer(({createClass} : createClassI) => {
+const ClassBanner = observer(({ createClass }: createClassI) => {
   return (
     <Grid gridTemplateColumns={{ base: "1fr", xl: "1.3fr 1fr" }} gap={4}>
       <Card p={0} boxShadow={CardBoxShadow} borderRadius={10}>
@@ -35,15 +34,17 @@ const ClassBanner = observer(({createClass} : createClassI) => {
             <Heading textAlign="center" fontSize={"2xl"} mt={5}>
               CREATE NEW CLASS
             </Heading>
-            <Button onClick={() => {
-
-              createClass({
-                open : true,
-                data : null,
-                type : 'create'
-              })
-
-            }}>CLICK HERE</Button>
+            <Button
+              onClick={() => {
+                createClass({
+                  open: true,
+                  data: null,
+                  type: "create",
+                });
+              }}
+            >
+              CLICK HERE
+            </Button>
           </Box>
         </Box>
       </Card>

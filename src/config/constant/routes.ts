@@ -12,7 +12,17 @@ export const dashboard = {
     home:'/dashboard',
     testimonial : '/dashboard/testimonial',
     videos:'/dashboard/videos',
-    class:'/dashboard/class'
+    class:'/dashboard/class',
+    student:{
+      index : '/dashboard/students',
+      create : '/dashboard/students/create'
+    },
+    teacher:{
+      index : '/dashboard/teachers'
+    },
+    staff:{
+      index : '/dashboard/staffs'
+    }
 }
 
 export const main = {

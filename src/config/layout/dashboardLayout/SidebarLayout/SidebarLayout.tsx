@@ -46,6 +46,30 @@ const SidebarLayout = () => {
         },
       ],
     },
+    {
+      label: "Users",
+      path: "/dashboard/students",
+      submenus: [
+        {
+          label: "Students",
+          path: "/dashboard/students",
+          submenus: [
+            {
+            label: "Students",
+            path: "/dashboard/students/create"
+            }
+          ]
+        },
+        {
+          label: "Teachers",
+          path: "/dashboard/teachers",
+        },
+        {
+          label: "Staff",
+          path: "/dashboard/staffs",
+        },
+      ],
+    },
   ]);
 
   return (

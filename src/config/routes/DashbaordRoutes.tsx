@@ -26,11 +26,25 @@ const VideosIndex = lazy(
   () => import("../../pages/Dashboard/Videos/VideosIndex")
 );
 
-const NotesIndex = lazy(() => import('../../pages/Dashboard/Notes/NotesIndex'))
+const NotesIndex = lazy(() => import("../../pages/Dashboard/Notes/NotesIndex"));
 
-const MarksheetDesignTool = lazy(() => import('../component/CreateDeisgn/MarksheetDesignTool'))
-const ClassIndex = lazy(() => import('../../pages/Dashboard/Class/ClassIndex'))
+const MarksheetDesignTool = lazy(
+  () => import("../component/CreateDeisgn/MarksheetDesignTool")
+);
+const ClassIndex = lazy(() => import("../../pages/Dashboard/Class/ClassIndex"));
 
+//users
+const StudentIndex = lazy(
+  () => import("../../pages/Dashboard/UserTypes/Student/StudentIndex")
+);
+const StudentForm = lazy(() => import("../../pages/Dashboard/UserTypes/Student/component/StudentForm"));
+
+const TeacherIndex = lazy(
+  () => import("../../pages/Dashboard/UserTypes/Teacher/TeacherIndex")
+);
+const StaffIndex = lazy(
+  () => import("../../pages/Dashboard/UserTypes/Staff/StaffIndex")
+);
 
 export const DashboardRoutes = [
   {
@@ -50,8 +64,8 @@ export const DashboardRoutes = [
   },
   {
     element: <NotesIndex />,
-    path: '/dashboard/courses',
-    privateRoutes: true
+    path: "/dashboard/courses",
+    privateRoutes: true,
   },
   {
     element: <ProjectIndex />,
@@ -75,11 +89,31 @@ export const DashboardRoutes = [
   {
     element: <ClassIndex />,
     path: dashboard.class,
-    privateRoutes:true
+    privateRoutes: true,
   },
   {
     element: <MarksheetDesignTool />,
-    path:'/dashboard/marksheet',
-    privateRoutes:true
+    path: "/dashboard/marksheet",
+    privateRoutes: true,
+  },
+  {
+    element: <StudentIndex />,
+    path: dashboard.student.index,
+    privateRoutes: true,
+  },
+  {
+    element: <TeacherIndex />,
+    path: dashboard.teacher.index,
+    privateRoutes: true,
+  },
+  {
+    element: <StaffIndex />,
+    path: dashboard.staff.index,
+    privateRoutes: true,
+  },
+  {
+    element:<StudentForm />,
+    path: dashboard.student.create,
+    privateRoutes: true,
   }
 ];

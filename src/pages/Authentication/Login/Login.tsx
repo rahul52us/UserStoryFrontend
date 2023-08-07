@@ -17,9 +17,11 @@ import CustomInput from "../../../config/component/CustomInput/CustomInput";
 import { LoginValidation } from "../utils/validation";
 import store from "../../../store/store";
 import { authentication } from "../../../config/constant/routes";
+import { useState } from "react";
 
 const Login = observer(() => {
   const [isBelowMd] = useMediaQuery("(max-width: md)");
+  const [showError, setShowError] = useState(false);
   const {
     auth: { openNotification, login },
   } = store;
@@ -32,7 +34,14 @@ const Login = observer(() => {
       justify={"center"}
       bg={useColorModeValue("gray.50", "gray.800")}
     >
-          <Stack spacing={8} mx="auto" maxW="lg" py={12} px={2} minW={isBelowMd ? "100%" : "30%"}>
+      <Stack
+        spacing={8}
+        mx="auto"
+        maxW="lg"
+        py={12}
+        px={2}
+        minW={isBelowMd ? "100%" : "30%"}
+      >
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>Sign in to your account</Heading>
           <Text fontSize={"lg"} color={"gray.600"}>
@@ -60,7 +69,7 @@ const Login = observer(() => {
                     message: "username has been login successFully",
                     type: "success",
                   });
-                  navigate('/')
+                  navigate("/");
                 })
                 .catch((error: Error) => {
                   openNotification({
@@ -86,6 +95,7 @@ const Login = observer(() => {
                     error={errors.username}
                     onChange={handleChange}
                     value={values.username}
+                    showError={showError}
                   />
                   <CustomInput
                     type="password"
@@ -96,6 +106,7 @@ const Login = observer(() => {
                     onChange={handleChange}
                     value={values.password}
                     required={true}
+                    showError={showError}
                   />
                   <Stack spacing={10}>
                     <Stack
@@ -121,6 +132,9 @@ const Login = observer(() => {
                         bg: "blue.500",
                       }}
                       isLoading={isSubmitting}
+                      onClick={() => {
+                        setShowError(true);
+                      }}
                     >
                       Sign in
                     </Button>

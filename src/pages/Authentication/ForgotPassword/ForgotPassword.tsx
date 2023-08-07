@@ -17,8 +17,10 @@ import { authentication } from "../../../config/constant/routes";
 import { useNavigate } from "react-router-dom";
 import store from "../../../store/store";
 import { observer } from "mobx-react-lite";
+import { useState } from "react";
 
 const ForgotPassword = observer(() => {
+  const [showError, setShowError] = useState(false)
   const {auth : { openNotification, forgotPasswordStore}} = store
   const navigate = useNavigate()
   const [isBelowMd] = useMediaQuery("(max-width: md)");
@@ -77,6 +79,7 @@ const ForgotPassword = observer(() => {
                     value={values.username}
                     onChange={handleChange}
                     error={errors.username}
+                    showError={showError}
                   />
                   <Stack spacing={10}>
                     <Stack
@@ -95,6 +98,9 @@ const ForgotPassword = observer(() => {
                         bg: "blue.500",
                       }}
                       isLoading={isSubmitting}
+                      onClick={() => {
+                        setShowError(true)
+                      }}
                     >
                       Submit
                     </Button>

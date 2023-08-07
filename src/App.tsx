@@ -28,7 +28,6 @@ const App = observer(() => {
     },
   });
 
-
   return (
     <ChakraProvider theme={theme}>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />

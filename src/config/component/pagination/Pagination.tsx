@@ -14,7 +14,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
   };
 
   return (
-    <Box display="flex" alignItems="center" justifyContent="center" marginTop="1rem">
+    <Box display="flex" alignItems="center" justifyContent="center" marginTop="0.1rem">
       <ReactPaginate
         previousLabel="Previous"
         nextLabel="Next"

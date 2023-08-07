@@ -1,5 +1,4 @@
 import { observer } from "mobx-react-lite";
-import store from "../../../../../store/store";
 import { useState, useEffect } from "react";
 import {
   Box,
@@ -15,15 +14,17 @@ import {
 } from "@chakra-ui/react";
 import { FaEdit, FaEye } from "react-icons/fa";
 import moment from "moment";
-import SearchCardInput from "../../../../../config/component/SearchInput/SearchCardInput/SearchCardInput";
-import CustomInput from "../../../../../config/component/CustomInput/CustomInput";
-import TableLoader from "../../../../../config/component/DataTable/TableLoader";
+import store from "../../../../../../store/store";
+import CustomInput from "../../../../../../config/component/CustomInput/CustomInput";
+import SearchCardInput from "../../../../../../config/component/SearchInput/SearchCardInput/SearchCardInput";
+import TableLoader from "../../../../../../config/component/DataTable/TableLoader";
+import Pagination from "../../../../../../config/component/pagination/Pagination";
 
 interface TableI {
   tableForm: any;
 }
 
-const ClassTable = observer(({ tableForm }: TableI) => {
+const StudentTable = observer(({ tableForm }: TableI) => {
   const {
     classStore: { getClasses, classes },
     auth: { openNotification },
@@ -56,7 +57,7 @@ const ClassTable = observer(({ tableForm }: TableI) => {
     >
       <Flex alignItems="center" justifyContent="space-between">
         <Heading fontSize={"xl"} fontWeight={700} color="blue.500">
-           Class
+          Class
         </Heading>
         <Flex gap={6}>
           <Box width="10rem">
@@ -90,7 +91,7 @@ const ClassTable = observer(({ tableForm }: TableI) => {
         overflow="auto"
         className="customScrollBar"
         mt="1rem"
-        h={'70vh'}
+        h={"70vh"}
       >
         <Table className="customTable" variant="striped" size="sm">
           <Thead
@@ -108,22 +109,28 @@ const ClassTable = observer(({ tableForm }: TableI) => {
             </Tr>
           </Thead>
           <Tbody>
-          <TableLoader loader={true} />
+            <TableLoader loader={false} />
             {classes.data.map((item: any) => (
               <Tr key={item._id}>
-                <Td textAlign="center" p={3}>{item.name}</Td>
-                <Td textAlign="center" p={3}>{item.sections?.length || 0}</Td>
-                <Td textAlign="center" p={3}>{item.createdBy?.name || "-"}</Td>
+                <Td textAlign="center" p={3}>
+                  {item.name}
+                </Td>
+                <Td textAlign="center" p={3}>
+                  {item.sections?.length || 0}
+                </Td>
+                <Td textAlign="center" p={3}>
+                  {item.createdBy?.name || "-"}
+                </Td>
                 <Td textAlign="center" p={3}>
                   {item?.createdAt
                     ? moment(item?.createdAt).format("DD-MM-YYYY")
                     : "-"}
                 </Td>
-                <Td textAlign="center">
+                <Td textAlign="center" p={3}>
                   <Flex gap={5} justify="center">
-                  <Box
+                    <Box
                       onClick={() => {
-                        alert("Rahul")
+                        alert("Rahul");
                       }}
                     >
                       <Icon as={FaEye} cursor="pointer" color="blue.500" />
@@ -146,8 +153,9 @@ const ClassTable = observer(({ tableForm }: TableI) => {
           </Tbody>
         </Table>
       </Box>
+      <Pagination currentPage={1} totalPages={10} onPageChange={() => {}} />
     </Box>
   );
 });
 
-export default ClassTable;
+export default StudentTable;

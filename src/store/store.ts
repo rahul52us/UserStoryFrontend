@@ -13,6 +13,7 @@ import ThemeStore from "./themeStore/themeStore";
 import NotesStore from "./notesStore/NotesStore";
 import ClassStore from "./classStore/ClassStore";
 import ExamStore from "./examStore/examStore";
+import StudentStore from "./userTypes/StudentStore";
 configure({ enforceActions: "never" });
 
 const store = {
@@ -29,6 +30,9 @@ const store = {
   chatMessage: new ChatMessageStore(),
   notesStore: new NotesStore(),
   classStore: new ClassStore(),
-  ExamStore: new ExamStore()
+  ExamStore: new ExamStore(),
+  // users
+  Student: new StudentStore()
+
 };
 export default store;

@@ -6,14 +6,15 @@ import {
   Switch,
   Textarea,
   useTheme,
+  Button,
+  Icon,
 } from "@chakra-ui/react";
-import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
+import { RiCloseFill, RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 import { useState } from "react";
 import Select from "react-select";
 import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import AdvancedEditor from "../Editor/Editor";
-
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
@@ -36,14 +37,15 @@ interface CustomInputProps {
   minDate?: any;
   disabledDates?: any;
   name: string;
-  onChange?: any;
+  isClear?:Boolean;
+  onChange?: (value: any) => void;
   value?: any;
   w?: string;
   options?: any[];
   isSearchable?: boolean;
   isMulti?: boolean;
-  getOptionLabel?: any;
-  getOptionValue?: any;
+  getOptionLabel?: (option: any) => string;
+  getOptionValue?: (option: any) => any;
   rows?: number;
   disabled?: boolean;
   showError?: boolean;
@@ -59,6 +61,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
   value,
   onChange,
   required,
+  isClear,
   options,
   isSearchable,
   isMulti,
@@ -94,7 +97,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             name={name}
             required={required}
             disabled={disabled}
-            _placeholder={{fontSize:'12px'}}
+            _placeholder={{ fontSize: "12px" }}
             {...rest}
           />
         );
@@ -107,7 +110,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             name={name}
             placeholder={placeholder}
             disabled={disabled}
-            _placeholder={{fontSize:'12px'}}
+            _placeholder={{ fontSize: "12px" }}
             {...rest}
           />
         );
@@ -120,7 +123,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             onChange={onChange}
             name={name}
             disabled={disabled}
-            _placeholder={{fontSize:'12px'}}
+            _placeholder={{ fontSize: "12px" }}
             {...rest}
           />
         );
@@ -133,7 +136,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             onChange={onChange}
             name={name}
             disabled={disabled}
-            _placeholder={{fontSize:'12px'}}
+            _placeholder={{ fontSize: "12px" }}
             {...rest}
           />
         );
@@ -165,37 +168,55 @@ const CustomInput: React.FC<CustomInputProps> = ({
         );
       case "date":
         return (
-          <SingleDatepicker
-            name={name}
-            date={value}
-            onDateChange={onChange ? onChange : () => {}}
-            maxDate={maxDate}
-            minDate={minDate}
-            disabled={disabled}
-            disabledDates={disabledDates}
-            configs={{
-              dateFormat: "dd-MM-yyyy",
-            }}
-            propsConfigs={{
-              dayOfMonthBtnProps: {
-                defaultBtnProps: {
-                  _hover: {
-                    background: "blue.500",
+          <div style={{ position: "relative" }}>
+            <SingleDatepicker
+              name={name}
+              date={value}
+              onDateChange={onChange ? onChange : () => {}}
+              maxDate={maxDate}
+              minDate={minDate}
+              disabled={disabled}
+              disabledDates={disabledDates}
+              configs={{
+                dateFormat: "dd-MM-yyyy",
+              }}
+              propsConfigs={{
+                dayOfMonthBtnProps: {
+                  defaultBtnProps: {
+                    _hover: {
+                      background: "blue.500",
+                    },
+                  },
+                  selectedBtnProps: {
+                    background: "blue.300",
+                  },
+                  todayBtnProps: {
+                    border: "1px solid #38B2AC",
                   },
                 },
-                selectedBtnProps: {
-                  background: "blue.300",
+                inputProps: {
+                  size: "md",
+                  placeholder: placeholder,
                 },
-                todayBtnProps: {
-                  border: "1px solid #38B2AC",
-                },
-              },
-              inputProps: {
-                size: "md",
-                placeholder: placeholder,
-              },
-            }}
-          />
+              }}
+            />
+            {value && isClear && (
+              <Button
+                size="sm"
+                colorScheme="red"
+                variant="link"
+                onClick={() => onChange && onChange(null)}
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  right: "0.2rem",
+                  transform: "translateY(-50%)",
+                }}
+              >
+               <Icon as={RiCloseFill} size="sm"/>
+              </Button>
+            )}
+          </div>
         );
       case "editor":
         return <AdvancedEditor editorState={value} setEditorState={onChange} />;
@@ -211,7 +232,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             onChange={onChange}
             name={name}
             disabled={disabled}
-            _placeholder={{fontSize:'12px'}}
+            _placeholder={{ fontSize: "12px" }}
             {...rest}
           />
         );
