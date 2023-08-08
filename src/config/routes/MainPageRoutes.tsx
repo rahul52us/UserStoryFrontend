@@ -17,6 +17,8 @@ const YoutubeVideoIndex = lazy(
 const CoursesIndex = lazy(() => import("../../pages/main/courses/Courses"));
 const Faq = lazy(() => import("../../pages/main/Faq/Faq"));
 
+// Blog Sections
+
 export const MainPublicRoutes = [
   {
     element: <Home />,
@@ -63,7 +65,6 @@ export const MainPublicRoutes = [
     path: main.faq,
     publicRoutes: true,
   },
-
   {
     element: <AddingparaForm />,
     path: main.addingparaform,

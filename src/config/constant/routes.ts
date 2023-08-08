@@ -37,3 +37,7 @@ export const main = {
   faq: "/faq",
   addingparaform: "/addingparaform",
 };
+
+export const privateMain = {
+  createBlog: "/blog/create"
+}

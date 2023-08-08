@@ -1,12 +1,86 @@
 .react-tel-input .form-control {
-    height: 2.5rem !important;
-    width: 100% !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 6px !important;
+  height: 2.5rem !important;
+  width: 100% !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
 }
 
 .customTable th {
-    background-color: #2D3748;
-    color: white !important;
+  background-color: #2d3748;
+  color: white !important;
 }
 
+.ql-toolbar {
+  border: none !important;
+  background-color: #f9f9f9;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+.ql-editor {
+  height: 100%;
+  min-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: none;
+}
+
+.ql-editor > p > img {
+  display: block !important;
+  max-width: 100% !important;
+  margin: auto !important;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.ql-container {
+  border: none !important;
+}
+
+.ql-align-center {
+  text-align: center !important;
+}
+.preview_blog_container > div > h2 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.preview_blog_container > div > blockquote {
+  border-left: 4px solid #ccc;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding-left: 16px;
+}
+.preview_blog_container > div > p > img {
+  margin: auto !important;
+}
+.preview_blog_container > div > p,
+h1,
+h2 > img {
+  margin: auto !important;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.preview_blog_container > div > pre {
+  white-space: pre-wrap;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding: 5px 10px;
+}
+
+.preview_blog_container > div > .ql-syntax {
+  background-color: #23241f;
+  color: #f8f8f2;
+  overflow: visible;
+  border-radius: 3px;
+  font-size: 13px;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
+
+.preview_blog_container > div > ul, ol {
+  padding-left: 2.5em !important;
+}

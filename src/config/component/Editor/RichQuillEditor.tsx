@@ -1,46 +1,20 @@
-import  { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-} from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 
-const RichTextEditor = () => {
-  const [editorHtml, setEditorHtml] = useState("");
-  const [previewMode, setPreviewMode] = useState(false);
-
-  const togglePreview = () => {
-    setPreviewMode(!previewMode);
-  };
+const RichTextEditor = ({editorHtml, setEditorHtml} : any) => {
 
   return (
-    <Box p="4">
-      <FormControl>
-        <FormLabel>Editor</FormLabel>
-        <ReactQuill
-          theme="snow"
-          value={editorHtml}
-          onChange={setEditorHtml}
-          modules={modules}
-          formats={formats}
-        />
-      </FormControl>
-      <Button
-        mt="2"
-        colorScheme="blue"
-        onClick={togglePreview}
-        size="lg"
-      >
-        {previewMode ? "Edit" : "Preview"}
+    <Box>
+          <ReactQuill
+            theme="snow"
+            value={editorHtml}
+            onChange={setEditorHtml}
+            modules={modules}
+            formats={formats}
+          />
+      <Button mt="2" colorScheme="blue" size="xs" display="none">
       </Button>
-      {previewMode ? (
-        <Box mt="4" p="2" border="1px solid" borderColor="gray.300">
-          <div dangerouslySetInnerHTML={{ __html: editorHtml }} />
-        </Box>
-      ) : null}
     </Box>
   );
 };

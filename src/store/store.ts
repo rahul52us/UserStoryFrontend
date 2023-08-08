@@ -13,6 +13,7 @@ import ThemeStore from "./themeStore/themeStore";
 import NotesStore from "./notesStore/NotesStore";
 import ClassStore from "./classStore/ClassStore";
 import ExamStore from "./examStore/examStore";
+import BlogStore from './blogStore/blogStore'
 import StudentStore from "./userTypes/StudentStore";
 configure({ enforceActions: "never" });
 
@@ -31,6 +32,7 @@ const store = {
   notesStore: new NotesStore(),
   classStore: new ClassStore(),
   ExamStore: new ExamStore(),
+  BlogStore: new BlogStore(),
   // users
   Student: new StudentStore(),
 };

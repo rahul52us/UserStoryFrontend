@@ -1,0 +1,9 @@
+/* custom-editor-styles.css */
+
+/* Center alignment for custom image, video, and embed formats */
+.ql-custom-image,
+.ql-custom-video,
+.ql-custom-embed {
+  display: block;
+  margin: 0 auto; /* Horizontal center alignment */
+}
