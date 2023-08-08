@@ -45,6 +45,7 @@
     "react-konva": "^18.2.10",
     "react-paginate": "^8.2.0",
     "react-phone-input-2": "^2.15.1",
+    "react-quill": "^2.0.0",
     "react-router-dom": "^6.13.0",
     "react-scripts": "5.0.1",
     "react-select": "^5.7.3",
