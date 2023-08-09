@@ -19,7 +19,9 @@ const RichTextEditor = ({editorHtml, setEditorHtml} : any) => {
   );
 };
 
+
 const modules = {
+  syntax: false, // Disable the default syntax module
   toolbar: [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
     ["bold", "italic", "underline", "strike"],
@@ -28,6 +30,8 @@ const modules = {
     [{ align: [] }],
     ["link", "image"],
     ["clean"],
+    [{ code_block: "" }],
+
   ],
 };
 
@@ -44,6 +48,7 @@ const formats = [
   "align",
   "link",
   "image",
+
 ];
 
 export default RichTextEditor;

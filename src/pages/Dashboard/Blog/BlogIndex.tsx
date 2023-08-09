@@ -23,7 +23,7 @@ const BlogIndex = observer(() => {
   const [editorHtml, setEditorHtml] = useState("");
 
   const handlePreviewContent = () => {
-    setpreViewContent(!preViewContent);
+    setpreViewContent(true);
   };
 
   const sendDataToBackend = () => {
@@ -82,6 +82,9 @@ const BlogIndex = observer(() => {
                 borderColor="gray.200"
                 p={5}
               >
+                <Text mb={4} fontSize="4xl" color="gray.600">
+                  {title}
+                </Text>
                 <div className="preview_blog_container">
                   <div dangerouslySetInnerHTML={{ __html: editorHtml }} />
                 </div>

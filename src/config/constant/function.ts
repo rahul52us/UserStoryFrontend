@@ -1,7 +1,16 @@
-const advancedSearch = (
-  dataArray: any[],
-  searchValue: string
-): any[] => {
+const moment = require("moment");
+
+export function getPostedDate(title: string, dateString: any) {
+  try {
+    const date = moment.utc(dateString);
+    const formattedDate = date.format("MMM D, YYYY");
+    return `${title} ${formattedDate}`;
+  } catch (_) {
+    return ``;
+  }
+}
+
+const advancedSearch = (dataArray: any[], searchValue: string): any[] => {
   // Convert the searchValue to lowercase for case-insensitive search
   const searchTerm = searchValue.toLowerCase();
 

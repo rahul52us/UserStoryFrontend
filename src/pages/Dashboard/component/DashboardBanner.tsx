@@ -53,6 +53,7 @@ const DashboardBanner = observer(() => {
                 h={70}
                 ml={index === 0 ? 0 : 5}
                 transform={getRandomRotation(index)}
+                display="none"
               />
             ))}
           </Flex>

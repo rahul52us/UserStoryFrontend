@@ -18,6 +18,7 @@ const CoursesIndex = lazy(() => import("../../pages/main/courses/Courses"));
 const Faq = lazy(() => import("../../pages/main/Faq/Faq"));
 
 // Blog Sections
+const BlogIndex = lazy(() => import("../../pages/main/Blog/BlogIndex"))
 
 export const MainPublicRoutes = [
   {
@@ -70,4 +71,9 @@ export const MainPublicRoutes = [
     path: main.addingparaform,
     publicRoutes: true,
   },
+  {
+    element: <BlogIndex />,
+    path:'/blog',
+    publicRoutes:true
+  }
 ];

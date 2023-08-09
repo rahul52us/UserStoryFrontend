@@ -1,10 +1,19 @@
 import axios from "axios";
-import { action, makeObservable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 
 class BlogStore {
+  blogs = {
+    data : [],
+    loading : false,
+    hasFetch : false,
+    currentPage : 1,
+    TotalPages : 0
+  }
+
   constructor() {
     makeObservable(this, {
-      getExam: action,
+      blogs:observable,
+      getBlogs: action,
       createBlog: action
     });
   }
@@ -20,13 +29,17 @@ class BlogStore {
   };
 
 
-  getExam = async (id: any) => {
+  getBlogs = async() => {
     try {
-      const { data } = await axios.get(`/exam/${id}`);
+      this.blogs.loading = true
+      const { data } = await axios.post(`/blog/get`);
+      this.blogs.data = data?.data?.data || []
+      this.blogs.TotalPages = data?.data?.totalPages || 0
       return data.data;
     } catch (err: any) {
       return Promise.reject(err?.response?.data || err);
     } finally {
+      this.blogs.loading = false
     }
   };
 }
