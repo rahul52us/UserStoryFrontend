@@ -8,9 +8,9 @@ const DashWidgetCard = () => {
         gap={4}
         marginX="auto"
       >
-        {[1, 2, 3].map((_, key) => (
+        {[{count : 1235, title : 'Total Users'}, {count : 653, title : 'Total Blogs'}, {count : 2000, title : 'Total Videos'}].map((item, key) => (
           <GridItem key={key}>
-            <WidgetCard />
+            <WidgetCard totalCount={item.count} title={item.title} />
           </GridItem>
         ))}
       </Grid>

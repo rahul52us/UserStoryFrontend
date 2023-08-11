@@ -1,59 +1,51 @@
-import {
-  Badge,
-  Card,
-  CardBody,
-  CardHeader,
-  Flex,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
-import ArrowIconImg from "../../assets/icon_images/icon-arrow-img.svg";
-import { BiDotsHorizontal } from "react-icons/bi";
+import { useState, useEffect } from "react";
+import { Box, Text, Flex, Icon } from "@chakra-ui/react";
+import { FiUsers } from "react-icons/fi";
 
-const WidgetCard = () => {
+const WidgetCard = ({
+  totalCount,
+  title,
+}: {
+  totalCount: number;
+  title: string;
+}) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (count < totalCount) {
+        setCount(count + 1);
+      }
+    },5);
+
+    return () => clearInterval(interval);
+  }, [count, totalCount]);
+
   return (
-    <Card boxShadow="rgb(0 0 0 / 20%) 0px 0px 11px">
-      <CardHeader>
-        <Flex display="flex" justifyContent="space-between">
-          <img
-            src={ArrowIconImg}
-            alt="img not found"
-            style={{ filter: "brightness(50%)", fill: "green" }}
-          />
-          <BiDotsHorizontal fontSize={24} cursor={"pointer"} />
-        </Flex>
-        <Text fontSize={"xl"} fontWeight={500} mt={3}>
-          Title
+    <Box
+      borderWidth="1px"
+      borderColor="gray.200"
+      borderRadius="lg"
+      p={6}
+      bgGradient="linear(to-r, #58a6ff, #1b8fff)"
+      boxShadow="md"
+      _hover={{ transform: "scale(1.05)" }}
+      cursor="pointer"
+      transition="transform 0.2s"
+      color="white"
+      textAlign="center"
+    >
+      <Flex align="center" justify="center" mb={4}>
+        <Icon as={FiUsers} boxSize={8} mr={2} />
+        <Text fontSize="3xl" fontWeight="bold">
+          {count}
         </Text>
-        <Text
-          fontSize={"10px"}
-          color={useColorModeValue("gray.500", "gray.300")}
-        >
-          subTitle
-        </Text>
-        <Flex display="flex" alignItems={"center"} gap={2} mt={2}>
-          <Text fontSize={20} fontWeight={700}>
-            $24,780
-          </Text>
-          <Badge
-            mt={-5}
-            px={1.5}
-            py={1}
-            borderRadius={15}
-            fontSize={"x-small"}
-            fontWeight={800}
-            bgColor={"red"}
-            color={"white"}
-          >
-            45+ %
-          </Badge>
-        </Flex>
-      </CardHeader>
-      <CardBody></CardBody>
-    </Card>
+      </Flex>
+      <Text fontSize="lg" fontWeight="medium">
+        {title}
+      </Text>
+    </Box>
   );
 };
 
 export default WidgetCard;
-
-

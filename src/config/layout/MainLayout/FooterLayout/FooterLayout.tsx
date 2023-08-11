@@ -83,6 +83,12 @@ const FooterLayout = observer(() => {
               </Box>
               <Box mt={2}>
                 <LinkText
+                  text="Profile"
+                  clickEvent={() => navigate(main.profile)}
+                />
+              </Box>
+              <Box mt={2}>
+                <LinkText
                   text="Dashboard"
                   clickEvent={() => navigate(dashboard.home)}
                 />
@@ -117,7 +123,7 @@ const FooterLayout = observer(() => {
                 <LinkText text="Events" />
               </Box>
               <Box mt={2}>
-                <LinkText text="Blogs" />
+                <LinkText text="Blogs" clickEvent={() => navigate(main.blog)}/>
               </Box>
               <Box mt={2}>
                 <LinkText

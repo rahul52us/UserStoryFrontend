@@ -1,48 +1,35 @@
-import { useState } from "react";
-import { Card, Container, Grid } from "@chakra-ui/react";
-import ProfileSidebar from "./component/profileSidebar/ProfileSidebar";
-import ProfileDetail from "./component/TabsComponent/ProfileDetail";
-import ProfileChangePassword from "./component/TabsComponent/ProfileChangePassword";
+import { Box, Grid, useBreakpointValue } from "@chakra-ui/react";
+import ProfileBanner from "./component/ProfileBanner";
+import ProfileMainTabContainer from "./component/element/component/profileTabContainer/ProfileMainTabContainer";
+// import ProfileFormContainer from "./component/element/component/ProfileFormContainer/ProfileFormContainer";
+import { observer } from "mobx-react-lite";
+// import ProfileChangePassword from "./component/TabsComponent/ProfileChangePassword";
+import ProfileFormContainer from "./component/element/component/ProfileFormContainer/ProfileFormContainer";
 
-
-interface ProfileContainerI {
-  changePassword?: any;
-  currentActiveTab:number
-}
-
-const ProfileContainer = ({changePassword,currentActiveTab} : ProfileContainerI) => {
-  const [currentTab, setCurrentTab] = useState(currentActiveTab);
-
-  const getCurrentTabElement = (): any => {
-    switch (currentTab) {
-      case 0:
-        return <ProfileDetail />;
-      case 1:
-        return <ProfileChangePassword changePassword={changePassword} />;
-      default:
-        return <ProfileDetail />;
-    }
-  };
-
+const ProfileContainer = observer(({profileData} : any) => {
+  const LargerThanMd = useBreakpointValue({ xl: true });
   return (
-    <Container maxW={"8xl"}>
-      <Card p={{ base: 2, sm: 5 }} mt={2} mb={2} borderRadius={5}>
-        <Grid
-          templateColumns={{
-            base: "repeat(1,1fr)",
-            lg: "1fr 3fr",
-          }}
-          gap={5}
-        >
-          <ProfileSidebar
-            currentTab={currentTab}
-            onChange={(value) => setCurrentTab(value)}
-          />
-          <Card p={5}>{getCurrentTabElement()}</Card>
-        </Grid>
-      </Card>
-    </Container>
+    <div>
+      <ProfileBanner />
+      <Grid
+        gridTemplateColumns={{ lg: "0.35fr 1fr" }}
+        style={{
+          marginLeft: LargerThanMd ? "140px" : "10px",
+          marginRight: LargerThanMd ? "140px" : "10px",
+        }}
+        gap={10}
+        mt={6}
+        mb={10}
+      >
+        <ProfileMainTabContainer profileData={profileData} />
+        <Box border="1px solid #e9ecef" borderRadius={5} p={5}>
+          {/* <ProfileChangePassword /> */}
+          <ProfileFormContainer profileData={profileData}/>
+
+        </Box>
+      </Grid>
+    </div>
   );
-};
+});
 
 export default ProfileContainer;

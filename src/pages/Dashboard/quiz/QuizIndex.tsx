@@ -7,6 +7,7 @@ import CustomDrawer from "../../../config/component/Drawer/CustomDrawer";
 import { Box } from "@chakra-ui/react";
 import QuizCategories from "./component/Forms/QuizCategories";
 import QuestionForm from "./component/Forms/QuestionForm";
+import { currentYear, oneYearLater } from "../../../config/constant/function";
 
 const QuizIndex = observer(() => {
   const [quizForm, setQuizForm] = useState({
@@ -40,7 +41,7 @@ const QuizIndex = observer(() => {
   }, [hasFetch, getDashQuiz, openNotification]);
 
   useEffect(() => {
-    getClasses({})
+    getClasses({ startYear: currentYear, endYear: oneYearLater })
       .then((data) => {
         console.log(data);
       })

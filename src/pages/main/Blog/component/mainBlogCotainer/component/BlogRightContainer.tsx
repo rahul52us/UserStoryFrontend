@@ -4,7 +4,7 @@ const BlogRightContainer = () => {
   return (
     <Flex justifyContent="center" mb={10}>
       <Card w="90%" h={400}>
-        <Heading>Here will other details</Heading>
+        <Heading fontSize="sm">Here will other details</Heading>
       </Card>
     </Flex>
   );

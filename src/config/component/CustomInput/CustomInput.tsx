@@ -177,6 +177,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
               minDate={minDate}
               disabled={disabled}
               disabledDates={disabledDates}
+              usePortal={false}
               configs={{
                 dateFormat: "dd-MM-yyyy",
               }}

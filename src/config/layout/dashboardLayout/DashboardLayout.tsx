@@ -28,18 +28,16 @@ const RedirectComponent = observer(() => {
   return <></>;
 });
 
-
 const DashboardLayout = observer(() => {
   const {
     auth: { restoreUser, user },
     layout: { fullScreenMode },
-    themeStore : {themeConfig}
+    themeStore: { themeConfig },
   } = store;
   const navigate = useNavigate();
   const theme = useTheme();
 
-  console.log(theme)
-
+  console.log(theme);
 
   const [sizeStatus] = useMediaQuery(`(max-width: ${theme.breakpoints.xl})`);
 
@@ -62,7 +60,10 @@ const DashboardLayout = observer(() => {
           className={fullScreenMode ? "fullscreen" : ""}
           sizeStatus={sizeStatus}
           fullScreenMode={fullScreenMode}
-          backgroundColor={useColorModeValue(themeConfig.colors.custom.light.primary,themeConfig.colors.custom.dark.primary)}
+          backgroundColor={useColorModeValue(
+            themeConfig.colors.custom.light.primary,
+            themeConfig.colors.custom.dark.primary
+          )}
         >
           <HeaderLayout />
         </HeaderContainer>
@@ -121,7 +122,7 @@ const Container = styled.div<{ fullScreenMode: boolean }>`
 const HeaderContainer = styled.div<{
   fullScreenMode: boolean;
   sizeStatus: boolean;
-  backgroundColor:any
+  backgroundColor: any;
 }>`
     height: ${headerHeight};
     border-bottom:'1px solid black'

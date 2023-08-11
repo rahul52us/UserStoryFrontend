@@ -6,7 +6,6 @@ import DeleteModel from "../../config/component/common/DeleteModel";
 import { deleteCategoryFunction } from "./quiz/component/Forms/utils/function";
 import DashChartContainer from "./component/DashChartContainer";
 
-
 const DashboardIndex = observer(() => {
   const {
     quiz: { setDeleteCategoryModal },

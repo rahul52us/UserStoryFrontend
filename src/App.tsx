@@ -14,8 +14,11 @@ import { GlobalStyles } from "./globalStyles";
 import ThemeChangeContainer from "./config/component/themeChangeContainer/ThemeChangeContainer";
 import ScrollToTopButton from "./config/component/ScrollToTopBottom/ScrollToTopBottom";
 import ChatMessageContainer from "./config/component/Chat/ChatMessageContainer";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const App = observer(() => {
+  const { pathname } = useLocation();
   i18n.use(initReactI18next).init({
     resources: {
       en: { translation: enTranslation },
@@ -27,6 +30,10 @@ const App = observer(() => {
       escapeValue: false,
     },
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <ChakraProvider theme={theme}>
