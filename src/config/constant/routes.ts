@@ -34,8 +34,10 @@ export const main = {
   testimonial: "/testimonial",
   video: "/videos",
   profile: "/profile",
+  profileTab: "/profile/:profileTab",
   faq: "/faq",
   blog: "/blog",
+  singleBlog:'/blog/:blogTitle',
   addingparaform: "/addingparaform",
 };
 

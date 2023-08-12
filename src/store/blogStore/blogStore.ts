@@ -14,7 +14,8 @@ class BlogStore {
     makeObservable(this, {
       blogs:observable,
       getBlogs: action,
-      createBlog: action
+      createBlog: action,
+      getSingleBlogs: action
     });
   }
 
@@ -25,6 +26,18 @@ class BlogStore {
       return data;
     } catch (err: any) {
       return Promise.reject(err?.response?.data || err);
+    }
+  };
+
+  getSingleBlogs = async(sendData : any) => {
+    try {
+      this.blogs.loading = true
+      const { data } = await axios.get(`/blog/${sendData}`);
+      return data.data;
+    } catch (err: any) {
+      return Promise.reject(err?.response?.data || err);
+    } finally {
+      this.blogs.loading = false
     }
   };
 

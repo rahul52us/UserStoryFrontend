@@ -1,8 +1,9 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 
 const ProfileBanner = () => {
   return (
-    <Box bgColor="blue.300" h={220} display="none">
+    <Box bgColor="blue.300" h={180}>
+      <Heading textAlign="center" fontSize="2xl">Profile</Heading>
     </Box>
   )
 }

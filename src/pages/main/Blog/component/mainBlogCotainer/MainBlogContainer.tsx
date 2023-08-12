@@ -25,7 +25,7 @@ const MainBlogContainer = observer(() => {
   return (
     <Box>
       {blogs.data.map((item: any, index: number) => {
-        return <BlogViewContainer item={item} key={index} />;
+        return <BlogViewContainer item={item} key={index} multi={true} />;
       })}
     </Box>
   );

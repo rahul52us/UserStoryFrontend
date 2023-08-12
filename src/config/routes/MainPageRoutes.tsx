@@ -19,6 +19,7 @@ const Faq = lazy(() => import("../../pages/main/Faq/Faq"));
 
 // Blog Sections
 const BlogIndex = lazy(() => import("../../pages/main/Blog/BlogIndex"))
+const SingleBlogIndex = lazy(() => import("../../pages/main/Blog/SingleBlogIndex"))
 
 export const MainPublicRoutes = [
   {
@@ -62,6 +63,11 @@ export const MainPublicRoutes = [
     publicRoutes: false,
   },
   {
+    element: <ProfileIndex />,
+    path: main.profileTab,
+    publicRoutes: false,
+  },
+  {
     element: <Faq />,
     path: main.faq,
     publicRoutes: true,
@@ -73,7 +79,12 @@ export const MainPublicRoutes = [
   },
   {
     element: <BlogIndex />,
-    path:'/blog',
+    path:main.blog,
+    publicRoutes:true
+  },
+  {
+    element: <SingleBlogIndex />,
+    path: main.singleBlog,
     publicRoutes:true
   }
 ];

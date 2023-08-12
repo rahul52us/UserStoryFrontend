@@ -3,7 +3,7 @@ import { Global, css } from "@emotion/react";
 const globalStyles = css`
   /* Customize scrollbar styles */
   ::-webkit-scrollbar {
-    width: 12px;
+    width: 5px;
     height:8px;
   }
 

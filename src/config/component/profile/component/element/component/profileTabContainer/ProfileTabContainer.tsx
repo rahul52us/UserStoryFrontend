@@ -11,15 +11,17 @@ import {
   AiOutlineMinusCircle,
 } from "react-icons/ai";
 
-const ProfileTabContainer = observer(() => {
+const ProfileTabContainer = observer(({type} : any ) => {
   const data = [
     {
       title: "Dashboard",
       icon: <IoIosBookmarks size="18" fontWeight="bold" />,
+      path:'dashboard'
     },
     {
       title: "My Profile",
       icon: <IoIosPerson size="18" fontWeight="bold" />,
+      path:'view'
     },
     {
       title: "Enrolled Courses",
@@ -39,6 +41,7 @@ const ProfileTabContainer = observer(() => {
     {
       title: "Edit Profile",
       icon: <AiOutlineEdit size="18" fontWeight="bold" />,
+      path:'edit'
     },
     {
       title: "Withdraw",
@@ -47,12 +50,14 @@ const ProfileTabContainer = observer(() => {
     {
       title: "Change Password",
       icon: <AiOutlineLock size="18" fontWeight="bold" />,
+      path:'change-password'
     },
     {
       title: "Logout",
       icon: <AiOutlineLogout size="18" fontWeight="bold" />,
     },
   ];
+
   return (
     <Box border="1px solid #e9ecef" borderRadius={5} p={4}>
       <Box>
@@ -62,7 +67,7 @@ const ProfileTabContainer = observer(() => {
         <Box mt={6}>
           {data.map((item: any, index: number) => {
             return (
-              <TabElement key={index} Icon={item.icon} title={item.title} />
+              <TabElement key={index} Icon={item.icon} title={item.title} path={item.path} type={type} />
             );
           })}
         </Box>
@@ -74,7 +79,7 @@ const ProfileTabContainer = observer(() => {
         <Box mt={6}>
           {AccountSetting.map((item: any, index: number) => {
             return (
-              <TabElement key={index} Icon={item.icon} title={item.title} />
+              <TabElement key={index} Icon={item.icon} title={item.title} path={item.path} type={type} />
             );
           })}
         </Box>

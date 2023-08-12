@@ -222,7 +222,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
       case "editor":
         return <AdvancedEditor editorState={value} setEditorState={onChange} />;
       case "phone":
-        return <PhoneInput country={"in"} value={value} onChange={onChange} />;
+        return <PhoneInput country={"in"} value={value} onChange={onChange} placeholder={placeholder} />;
 
       default:
         return (

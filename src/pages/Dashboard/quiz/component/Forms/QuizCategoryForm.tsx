@@ -64,8 +64,6 @@ const QuizCategoryForm = observer(
           }}
         >
           {({ values, errors, handleChange, isSubmitting, setFieldValue }) => {
-            console.log(errors);
-
             return (
               <Form>
                 <Flex
