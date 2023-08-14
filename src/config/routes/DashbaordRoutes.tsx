@@ -115,5 +115,10 @@ export const DashboardRoutes = [
     element:<StudentProfileIndex />,
     path: dashboard.student.create,
     privateRoutes: true,
+  },
+  {
+    element:<StudentProfileIndex />,
+    path: dashboard.student.profile,
+    privateRoutes: true,
   }
 ];

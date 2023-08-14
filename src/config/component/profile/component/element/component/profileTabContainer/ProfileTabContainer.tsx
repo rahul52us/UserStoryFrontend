@@ -59,7 +59,7 @@ const ProfileTabContainer = observer(({type} : any ) => {
   ];
 
   return (
-    <Box border="1px solid #e9ecef" borderRadius={5} p={4}>
+    <Box border="1px solid #e9ecef" borderRadius={5} p={4} flex={1}>
       <Box>
         <Heading fontSize="lg" color="#002058">
           Dashboard

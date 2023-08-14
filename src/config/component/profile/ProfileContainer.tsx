@@ -7,16 +7,16 @@ import ProfileChangePassword from "./component/TabsComponent/ProfileChangePasswo
 import ProfileEdit from "./component/element/component/ProfileFormContainer/element/ProfileEdit/ProfileEdit";
 import ProfileView from "./component/element/component/ProfileFormContainer/element/ProfileView/ProfileView";
 
-const ProfileContainer = observer(({classes,profileData,type,changePassword} : any) => {
+const ProfileContainer = observer(({classes,profileData,type,formType,changePassword,handleSubmitProfile} : any) => {
   const LargerThanMd = useBreakpointValue({ xl: true });
 
   const {profileTab} = useParams()
 
-  const getActiveComponent = ({classes,profileData,type,changePassword} : any) => {
+  const getActiveComponent = ({classes,profileData,type,changePassword,handleSubmitProfile} : any) => {
 
     switch(profileTab) {
       case 'edit':
-        return <ProfileEdit type={type} profileData={profileData} classes={classes}/>
+        return <ProfileEdit type={type} profileData={profileData} classes={classes} handleSubmitProfile={handleSubmitProfile} formType={formType} />
       case 'change-password':
         return <ProfileChangePassword changePassword={changePassword} />
       default:
@@ -41,7 +41,7 @@ const ProfileContainer = observer(({classes,profileData,type,changePassword} : a
         <ProfileMainTabContainer profileData={profileData} type={type} />
         </Box>
         <Box border="1px solid #e9ecef" borderRadius={5} p={5}>
-          {getActiveComponent({classes,profileData,type,changePassword})}
+          {getActiveComponent({classes,profileData,type,changePassword,handleSubmitProfile})}
         </Box>
       </Grid>
     </div>

@@ -1,4 +1,3 @@
-import { Box } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import store from "../../../../../store/store";
@@ -23,11 +22,11 @@ const MainBlogContainer = observer(() => {
   }, [openNotification, getBlogs]);
 
   return (
-    <Box>
-      {blogs.data.map((item: any, index: number) => {
-        return <BlogViewContainer item={item} key={index} multi={true} />;
-      })}
-    </Box>
+    <>
+      {blogs.data.map((item: any) => (
+        <BlogViewContainer item={item} key={item._id} multi={true} />
+      ))}
+    </>
   );
 });
 

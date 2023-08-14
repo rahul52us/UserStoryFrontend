@@ -15,7 +15,8 @@ export const dashboard = {
     class:'/dashboard/class',
     student:{
       index : '/dashboard/students',
-      create : '/dashboard/students/create/class/:className'
+      create : '/dashboard/students/class/:className',
+      profile : '/dashboard/students/class/:className/:profileTab'
     },
     teacher:{
       index : '/dashboard/teachers'

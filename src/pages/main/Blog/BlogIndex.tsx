@@ -7,11 +7,26 @@ import BlogLikeContainer from "./component/mainBlogCotainer/component/BlogLikeCo
 const BlogIndex = observer(() => {
   return (
     <Box display="flex" justifyContent="center">
-      <Grid gridTemplateColumns={{ lg: "0.6fr 2fr 0.9fr" }} position="relative" mt={3}>
-        <Box position="sticky" top={20} left={0} alignSelf="flex-start" justifyContent="center" display={{base : 'none', lg :'flex'}} style={{marginTop:'80px'}}>
+      <Grid
+        gridTemplateColumns={{ lg: "0.6fr 1.9fr 0.9fr" }}
+        position="relative"
+        mt={3}
+        w="100%"
+      >
+        <Box
+          position="sticky"
+          top={20}
+          left={0}
+          alignSelf="flex-start"
+          justifyContent="center"
+          display={{ base: "none", lg: "flex" }}
+          style={{ marginTop: "80px" }}
+        >
           <BlogLikeContainer />
         </Box>
-        <MainBlogContainer />
+        <Box w="100%" mt={{ base: 0, md: 2 }}>
+          <MainBlogContainer />
+        </Box>
         <Box position="sticky" top={20} right={0} alignSelf="flex-start">
           <BlogRightContainer />
         </Box>

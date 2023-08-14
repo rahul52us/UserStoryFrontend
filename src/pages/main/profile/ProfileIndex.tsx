@@ -37,6 +37,7 @@ const ProfileIndex = observer(() => {
       changePassword={changePasswordStore}
       type="profile"
       classes={classes.data}
+      formType="edit"
     />
   ) : null;
 });

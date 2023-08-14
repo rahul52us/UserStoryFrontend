@@ -54,9 +54,9 @@ const BlogReaction = observer(({ item, multi }: any) => {
             pr={3}
             borderRadius={5}
             cursor="pointer"
-            color={"gray.700"}
             fontSize="sm"
-            _hover={{ backgroundColor: "gray.200" }}
+            color={"gray.600"}
+          _hover={{ backgroundColor: "gray.200" }}
           >
             <BiComment fontSize="sm" style={{ marginTop: "4px" }} />
             <Text ml={2} fontSize="sm">

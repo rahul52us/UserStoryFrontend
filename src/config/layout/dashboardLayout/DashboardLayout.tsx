@@ -37,8 +37,6 @@ const DashboardLayout = observer(() => {
   const navigate = useNavigate();
   const theme = useTheme();
 
-  console.log(theme);
-
   const [sizeStatus] = useMediaQuery(`(max-width: ${theme.breakpoints.xl})`);
 
   useEffect(() => {

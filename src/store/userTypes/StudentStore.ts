@@ -18,6 +18,7 @@ class StudentStore {
       studentDrawerForm: observable,
       classes: observable,
       setHandleFormDrawer: action,
+      createStudent: action,
       getClasses: action,
       createClass: action,
       updateClass: action
@@ -63,6 +64,15 @@ class StudentStore {
     } else {
     }
   };
+
+  createStudent = async (sendData : any) => {
+    try {
+      const { data } = await axios.post("student/create", sendData);
+      return data;
+    } catch (err: any) {
+      return Promise.reject(err?.response?.data || err);
+    }
+  }
 }
 
 export default StudentStore;

@@ -6,11 +6,16 @@ import { studentCreateValidation } from "../../../../../../utils/validation";
 import { studentInitialValues } from "../../../../../../utils/constant";
 import { toJS } from "mobx";
 
-const ProfileEdit = ({ classes, type, profileData }: any) => {
+const ProfileEdit = ({
+  classes,
+  type,
+  formType,
+  profileData,
+  handleSubmitProfile,
+}: any) => {
   console.log(type);
   const [showError, setShowError] = useState(false);
   const [sections, setSections] = useState([]);
-
 
   const getAddressError = (errors: any, type: string, index: number) => {
     const errorTypes = ["address", "country", "state", "city", "pinCode"];
@@ -23,27 +28,41 @@ const ProfileEdit = ({ classes, type, profileData }: any) => {
     return undefined;
   };
 
-    const handleSections = (_id: any, setFieldValue: any) => {
-      setFieldValue("section", null);
-      const sec: any = classes.filter((item: any) => item._id === _id);
-      if (sec.length) {
-        setSections(sec[0].sections);
-        if (sec.length === 1) {
-        }
-      } else {
-        setSections([]);
+  const handleSections = (_id: any, setFieldValue: any) => {
+    setFieldValue("section", null);
+    const sec: any = classes.filter((item: any) => item._id === _id);
+    if (sec.length) {
+      setSections(sec[0].sections);
+      if (sec.length === 1) {
       }
-    };
+    } else {
+      setSections([]);
+    }
+  };
 
   return (
     <Formik
       validationSchema={studentCreateValidation}
       initialValues={studentInitialValues(profileData)}
-      onSubmit={(values) => {
+      onSubmit={(values, { setSubmitting, resetForm, setErrors }) => {
+        handleSubmitProfile(
+          values,
+          setSubmitting,
+          resetForm,
+          setErrors,
+          setShowError
+        );
         console.log(toJS(values));
       }}
     >
-      {({ values, errors, setFieldValue, handleChange, handleSubmit }) => {
+      {({
+        values,
+        errors,
+        setFieldValue,
+        handleChange,
+        handleSubmit,
+        isSubmitting,
+      }) => {
         return (
           <Form onSubmit={handleSubmit}>
             <Grid>
@@ -76,6 +95,7 @@ const ProfileEdit = ({ classes, type, profileData }: any) => {
                   value={values.lastName}
                   error={errors.lastName}
                   onChange={handleChange}
+                  showError={showError}
                   required
                 />
                 <CustomInput
@@ -84,7 +104,9 @@ const ProfileEdit = ({ classes, type, profileData }: any) => {
                   placeholder="Username"
                   label="UserName"
                   value={values?.username}
+                  error={errors.username}
                   onChange={handleChange}
+                  showError={showError}
                   required
                 />
                 <CustomInput
@@ -220,6 +242,43 @@ const ProfileEdit = ({ classes, type, profileData }: any) => {
                   onChange={handleChange}
                 />
               </Grid>
+              {formType === "create" && (
+                <Grid>
+                  <Heading color="#002058" fontSize="xl" mb={4}>
+                    Add Credential :-
+                  </Heading>
+                  <Divider />
+                  <Grid
+                    gridTemplateColumns={{ md: "1fr 1fr" }}
+                    columnGap={5}
+                    rowGap={3}
+                    mb={5}
+                  >
+                    <CustomInput
+                      name="password"
+                      type="password"
+                      placeholder="Enter the Password"
+                      label="Password"
+                      value={values.password}
+                      error={errors.password}
+                      showError={showError}
+                      onChange={handleChange}
+                      required
+                    />
+                    <CustomInput
+                      name="confirmPassword"
+                      type="password"
+                      placeholder="Enter the Password"
+                      label="Confirm Password"
+                      value={values.confirmPassword}
+                      error={errors.confirmPassword}
+                      showError={showError}
+                      onChange={handleChange}
+                      required
+                    />
+                  </Grid>
+                </Grid>
+              )}
               <Heading color="#002058" fontSize="xl" mb={4}>
                 Address Information :-
               </Heading>
@@ -229,7 +288,7 @@ const ProfileEdit = ({ classes, type, profileData }: any) => {
                   {({ push, remove }) => (
                     <Box>
                       {values.addressInfo.map((add: any, index: number) => (
-                        <>
+                        <div key={index}>
                           <Grid
                             gridTemplateColumns={{ md: "1fr 1fr" }}
                             gap={5}
@@ -303,7 +362,7 @@ const ProfileEdit = ({ classes, type, profileData }: any) => {
                               Remove Section
                             </Button>
                           )}
-                        </>
+                        </div>
                       ))}
                       <Button
                         colorScheme="blue"
@@ -334,6 +393,7 @@ const ProfileEdit = ({ classes, type, profileData }: any) => {
               onClick={() => {
                 setShowError(true);
               }}
+              isLoading={isSubmitting}
             >
               Submit
             </Button>

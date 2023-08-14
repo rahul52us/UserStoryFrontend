@@ -157,9 +157,9 @@ const ClassTableCard = observer(({ tableForm }: TableI) => {
                     _hover={{ textDecoration: "underline", color: "blue" }}
                     onClick={() =>
                       navigate(
-                        `/dashboard/students/create/class/${encodeURIComponent(
+                        `/dashboard/students/class/${encodeURIComponent(
                           item.name?.split(" ")?.join("-")
-                        )}`
+                        )}`, {state : {_id : item._id, className : item.name}}
                       )
                     }
                   >

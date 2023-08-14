@@ -19,7 +19,6 @@ const ChatMessageContainer = observer(() => {
   } = store;
 
   useEffect(() => {
-    console.log("ChatMessageContainer --> UseEffect");
     if (!socket && user) {
       createSocketConnection();
     }

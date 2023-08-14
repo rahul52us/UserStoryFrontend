@@ -67,4 +67,13 @@ export const studentCreateValidation = Yup.object().shape({
     .required("Select the Section")
     .typeError("Select the Section"),
   addressInfo: Yup.array().min(1,'atleast 1 address is required').of(addressValidation),
+  password: Yup.string()
+    .required("New Password is required")
+    .matches(
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+      "Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, and one number"
+    ),
+  confirmPassword: Yup.string()
+    .required("Confirm password is required")
+    .oneOf([Yup.ref("password")], "Passwords must match"),
 });

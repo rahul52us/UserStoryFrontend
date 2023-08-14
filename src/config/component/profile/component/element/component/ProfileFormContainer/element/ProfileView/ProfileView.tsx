@@ -68,7 +68,7 @@ const ProfileView = observer(({ profileData }: any) => {
             Mobile No.
           </Text>
           <Text mt={1} color="#685f78" fontSize="14px">
-            {profileData?.mobileNo ? profileData?.mobileNo : "-"}
+            {profileData?.profile_details?.mobileNo ? profileData?.profile_details?.mobileNo : "-"}
           </Text>
         </Box>
         <Box>
@@ -87,8 +87,9 @@ const ProfileView = observer(({ profileData }: any) => {
         <Heading color="#002058" fontSize="xl" mt={5} mb={0}>
           Address Infomation :-
         </Heading>
-        {profileData?.addressInfo?.map((item : any, index : number) => {
+        {profileData?.profile_details?.addressInfo?.map((item : any, index : number) => {
           return (
+            <div>
             <Grid
               pt={{ base: 5, sm: 6 }}
               gridTemplateColumns={{ lg: "2fr 1fr 1fr" }}
@@ -136,6 +137,8 @@ const ProfileView = observer(({ profileData }: any) => {
                 </Text>
               </Box>
             </Grid>
+            <Divider mt={6}/>
+            </div>
           );
         })}
       </Grid>
