@@ -1,90 +1,31 @@
 import { Box, Heading } from "@chakra-ui/react";
 import TabElement from "./element/TabElement";
 import { observer } from "mobx-react-lite";
-import { IoIosBookmarks, IoIosPerson } from "react-icons/io";
-import { MdExtension } from "react-icons/md";
-import { AiOutlineShopping } from "react-icons/ai";
-import {
-  AiOutlineEdit,
-  AiOutlineLock,
-  AiOutlineLogout,
-  AiOutlineMinusCircle,
-} from "react-icons/ai";
 
-const ProfileTabContainer = observer(({type} : any ) => {
-  const data = [
-    {
-      title: "Dashboard",
-      icon: <IoIosBookmarks size="18" fontWeight="bold" />,
-      path:'dashboard'
-    },
-    {
-      title: "My Profile",
-      icon: <IoIosPerson size="18" fontWeight="bold" />,
-      path:'view'
-    },
-    {
-      title: "Enrolled Courses",
-      icon: <IoIosBookmarks size="18" fontWeight="bold" />,
-    },
-    {
-      title: "My Quiz Attempts",
-      icon: <MdExtension size="18" fontWeight="bold" />,
-    },
-    {
-      title: "Order History",
-      icon: <AiOutlineShopping size="18" fontWeight="bold" />,
-    },
-  ];
-
-  const AccountSetting = [
-    {
-      title: "Edit Profile",
-      icon: <AiOutlineEdit size="18" fontWeight="bold" />,
-      path:'edit'
-    },
-    {
-      title: "Withdraw",
-      icon: <AiOutlineMinusCircle size="18" fontWeight="bold" />,
-    },
-    {
-      title: "Change Password",
-      icon: <AiOutlineLock size="18" fontWeight="bold" />,
-      path:'change-password'
-    },
-    {
-      title: "Logout",
-      icon: <AiOutlineLogout size="18" fontWeight="bold" />,
-    },
-  ];
-
+const ProfileTabContainer = observer(({ type, sideTab, editTabLink }: any) => {
   return (
     <Box border="1px solid #e9ecef" borderRadius={5} p={4} flex={1}>
-      <Box>
-        <Heading fontSize="lg" color="#002058">
-          Dashboard
-        </Heading>
-        <Box mt={6}>
-          {data.map((item: any, index: number) => {
+        {sideTab &&
+          sideTab.map((item: any, index: number) => {
             return (
-              <TabElement key={index} Icon={item.icon} title={item.title} path={item.path} type={type} />
+              <Box mt={6} key={index}>
+                {item.heading && (
+                  <Heading fontSize="lg" color="#002058">
+                    {item.heading}
+                  </Heading>
+                )}
+                <TabElement
+                  key={index}
+                  Icon={item.icon}
+                  title={item.title}
+                  path={item.path}
+                  type={type}
+                  editTabLink={editTabLink}
+                />
+              </Box>
             );
           })}
-        </Box>
       </Box>
-      <Box mt={6}>
-        <Heading fontSize="lg" color="#002058">
-          Account Settings
-        </Heading>
-        <Box mt={6}>
-          {AccountSetting.map((item: any, index: number) => {
-            return (
-              <TabElement key={index} Icon={item.icon} title={item.title} path={item.path} type={type} />
-            );
-          })}
-        </Box>
-      </Box>
-    </Box>
   );
 });
 

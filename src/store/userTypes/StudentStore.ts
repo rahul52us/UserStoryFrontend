@@ -2,7 +2,19 @@ import axios from "axios";
 import { action, makeObservable, observable } from "mobx";
 
 class StudentStore {
+  studentDetails : any = {
+    data : null,
+    loading:true,
+    hasFetch:false
+  }
+
   classes = {
+    data: [],
+    loading: false,
+    hasFetch: false,
+  };
+
+  student = {
     data: [],
     loading: false,
     hasFetch: false,
@@ -16,10 +28,14 @@ class StudentStore {
   constructor() {
     makeObservable(this, {
       studentDrawerForm: observable,
+      studentDetails:observable,
       classes: observable,
+      student:observable,
       setHandleFormDrawer: action,
       createStudent: action,
-      getClasses: action,
+      getStudentById:action,
+      getStudents: action,
+      updateStudent: action,
       createClass: action,
       updateClass: action
     });
@@ -43,16 +59,17 @@ class StudentStore {
     }
   };
 
-  getClasses = async (sendData: any) => {
+  getStudents = async (sendData: any) => {
     try {
-      this.classes.loading = true
-      const { data } = await axios.post("/class", sendData);
-      this.classes.data = data.data;
-      return data;
+      this.student.loading = true
+      const { data } = await axios.post("/student", sendData);
+      console.log(data.data)
+      this.student.data = data?.data?.students || [];
+      return data.data
     } catch (err: any) {
       return Promise.reject(err?.response?.data || err);
     } finally {
-      this.classes.loading = false;
+      this.student.loading = false;
     }
   };
 
@@ -71,6 +88,30 @@ class StudentStore {
       return data;
     } catch (err: any) {
       return Promise.reject(err?.response?.data || err);
+    }
+  }
+
+  updateStudent = async (id : string , sendData : any) => {
+    try {
+      const { data } = await axios.post(`student/${id}`, sendData);
+      return data;
+    } catch (err: any) {
+      return Promise.reject(err?.response?.data || err);
+    }
+  }
+
+
+  getStudentById = async (sendData : any) => {
+    try {
+      const { data } = await axios.get(`student/${sendData._id}`);
+      this.studentDetails.data = data.data
+      this.studentDetails.hasFetch = true
+      return data;
+    } catch (err: any) {
+      this.studentDetails.hasFetch = false
+      return Promise.reject(err?.response?.data || err);
+    }finally{
+      this.studentDetails.loading = false
     }
   }
 }

@@ -1,5 +1,5 @@
+import React, { useState, useEffect, useCallback } from "react";
 import { observer } from "mobx-react-lite";
-import { useState, useEffect, useCallback } from "react";
 import {
   Box,
   Button,
@@ -26,9 +26,10 @@ interface TableI {
   tableForm: any;
 }
 
-const ClassTableCard = observer(({ tableForm }: TableI) => {
+const ClassTableCard: React.FC<TableI> = observer(({ tableForm }) => {
   const navigate = useNavigate();
   const [firstTimeCall, setFirstTimeCall] = useState(true);
+
   const {
     classStore: { getClasses, classes },
     auth: { openNotification },
@@ -48,12 +49,10 @@ const ClassTableCard = observer(({ tableForm }: TableI) => {
 
   const getClassesFun = useCallback(
     (value: boolean) => {
-      // GET THE CLASSES BY THE SELECTED YEARS
       if (value) {
-        getClasses({
-          startYear: moment(date.startYear).format("YYYY-MM-DD"),
-          endYear: moment(date.endYear).format("YYYY-MM-DD"),
-        })
+        const startYearFormatted = moment(date.startYear).format("YYYY-MM-DD");
+        const endYearFormatted = moment(date.endYear).format("YYYY-MM-DD");
+        getClasses({ startYear: startYearFormatted, endYear: endYearFormatted })
           .then((data) => {
             console.log(data);
           })
@@ -76,14 +75,93 @@ const ClassTableCard = observer(({ tableForm }: TableI) => {
     }
   }, [getClassesFun, firstTimeCall]);
 
+  const renderClassRows = () =>
+    classes.data.map((item: any, index: number) => (
+      <Tr key={item._id}>
+        <Td textAlign="center">{index + 1}</Td>
+        <Td textAlign="center" p={3}>
+          <Text
+            cursor="pointer"
+            _hover={{ textDecoration: "underline", color: "blue" }}
+          >
+            {item.name}
+          </Text>
+        </Td>
+        <Td textAlign="center" p={3}>
+          <select
+            onChange={(e: any) => {
+              sessionStorage.setItem(
+                "classInfo",
+                JSON.stringify({
+                  classId: item._id,
+                  className: item.name,
+                  section: e.target.value,
+                })
+              );
+              navigate(
+                `/dashboard/students/index?class=${encodeURIComponent(
+                  item.name?.split(" ")?.join("-")
+                )}&section=${JSON.parse(e.target.value)
+                  ?.name?.split(" ")
+                  ?.join("-")}&startYear=${moment(item.startYear).format(
+                  "YYYY-MM-DD"
+                )}&endYear=${moment(item.endYear).format("YYYY-MM-DD")}`,
+                {
+                  state: {
+                    classId: item._id,
+                    className: item.name,
+                    sectionId: JSON.parse(e.target.value).id,
+                  },
+                }
+              );
+            }}
+          >
+            <option key={index} value={1}>
+              {"Select Section"}
+            </option>
+            {item.sections.map((it: any, index: number) => {
+              return (
+                <option
+                  key={index}
+                  value={JSON.stringify({ name: it.name, id: it._id })}
+                >
+                  {it.name}
+                </option>
+              );
+            })}
+          </select>
+        </Td>
+        <Td textAlign="center" p={3}>
+          <Flex gap={5} justify="center">
+            <Box onClick={() => alert("Rahul")}>
+              <Icon as={FaEye} cursor="pointer" color="blue.500" />
+            </Box>
+            <Box
+              onClick={() =>
+                tableForm({
+                  type: "edit",
+                  data: item,
+                  open: true,
+                })
+              }
+            >
+              <Icon as={FaEdit} cursor="pointer" color="blue.500" />
+            </Box>
+          </Flex>
+        </Td>
+      </Tr>
+    ));
+
   return (
-    <Box
-      boxShadow="rgb(0 0 0 / 12%) 0px 0px 11px"
-      rounded={8}
-      p="0.805rem 0.805rem"
-    >
+    <Box boxShadow="rgb(0 0 0 / 12%) 0px 0px 11px" rounded={8}>
       <Flex alignItems="center" justifyContent="space-between">
-        <Heading fontSize={"xl"} fontWeight={700} color="blue.500">
+        <Heading
+          fontSize={"xl"}
+          fontWeight={700}
+          color="blue.500"
+          pl={5}
+          pt={5}
+        >
           Select Class
         </Heading>
         <Flex gap={6} alignItems="center" display="none">
@@ -133,7 +211,12 @@ const ClassTableCard = observer(({ tableForm }: TableI) => {
         mt="1rem"
         h={"70vh"}
       >
-        <Table className="customTable" variant="striped" size="sm">
+        <Table
+          className="customTable"
+          variant="striped"
+          size="sm"
+          style={{ tableLayout: "auto" }}
+        >
           <Thead
             bg={"whiteAlpha.900"}
             stroke={"whiteAlpha.500"}
@@ -141,58 +224,15 @@ const ClassTableCard = observer(({ tableForm }: TableI) => {
             h={10}
           >
             <Tr>
-              <Th textAlign="center">Class Name</Th>
-              <Th textAlign="center">Sections</Th>
-              <Th textAlign="center">Actions</Th>
+              <Th style={{ width: "25%", textAlign: "center" }}>S.No.</Th>
+              <Th style={{ width: "25%", textAlign: "center" }}>Class Name</Th>
+              <Th style={{ width: "25%", textAlign: "center" }}>Sections</Th>
+              <Th style={{ width: "25%", textAlign: "center" }}>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
             <TableLoader loader={classes.loading} show={classes.data.length} />
-            {classes.data.map((item: any) => (
-              <Tr key={item._id}>
-                <Td textAlign="center" p={3}>
-                  <Text
-                    cursor="pointer"
-                    fontWeight="bold"
-                    _hover={{ textDecoration: "underline", color: "blue" }}
-                    onClick={() =>
-                      navigate(
-                        `/dashboard/students/class/${encodeURIComponent(
-                          item.name?.split(" ")?.join("-")
-                        )}`, {state : {_id : item._id, className : item.name}}
-                      )
-                    }
-                  >
-                    {item.name}
-                  </Text>
-                </Td>
-                <Td textAlign="center" p={3} fontWeight="bold">
-                  {item.sections?.length || 0}
-                </Td>
-                <Td textAlign="center" p={3}>
-                  <Flex gap={5} justify="center">
-                    <Box
-                      onClick={() => {
-                        alert("Rahul");
-                      }}
-                    >
-                      <Icon as={FaEye} cursor="pointer" color="blue.500" />
-                    </Box>
-                    <Box
-                      onClick={() => {
-                        tableForm({
-                          type: "edit",
-                          data: item,
-                          open: true,
-                        });
-                      }}
-                    >
-                      <Icon as={FaEdit} cursor="pointer" color="blue.500" />
-                    </Box>
-                  </Flex>
-                </Td>
-              </Tr>
-            ))}
+            {renderClassRows()}
           </Tbody>
         </Table>
       </Box>

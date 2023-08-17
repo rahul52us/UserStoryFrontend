@@ -38,13 +38,13 @@ const StudentIndex = lazy(
   () => import("../../pages/Dashboard/UserTypes/Student/StudentIndex")
 );
 const StudentProfileIndex = lazy(() => import("../../pages/Dashboard/UserTypes/Student/component/studentProfile/StudentProfileIndex"));
+const StudentFormIndex = lazy(() => import("../../pages/Dashboard/UserTypes/Student/component/StudentFormIndex"))
 
-const TeacherIndex = lazy(
-  () => import("../../pages/Dashboard/UserTypes/Teacher/TeacherIndex")
-);
-const StaffIndex = lazy(
-  () => import("../../pages/Dashboard/UserTypes/Staff/StaffIndex")
-);
+// teacher
+const TeacherIndex = lazy(() => import("../../pages/Dashboard/UserTypes/Teacher/TeacherIndex"));
+
+//staff
+const StaffIndex = lazy(() => import("../../pages/Dashboard/UserTypes/Staff/StaffIndex"));
 
 export const DashboardRoutes = [
   {
@@ -112,8 +112,8 @@ export const DashboardRoutes = [
     privateRoutes: true,
   },
   {
-    element:<StudentProfileIndex />,
-    path: dashboard.student.create,
+    element:<StudentFormIndex />,
+    path: dashboard.student.table,
     privateRoutes: true,
   },
   {

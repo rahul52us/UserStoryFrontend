@@ -1,5 +1,5 @@
 import { Box, Grid, useBreakpointValue } from "@chakra-ui/react";
-import {  useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import ProfileBanner from "./component/ProfileBanner";
 import ProfileMainTabContainer from "./component/element/component/profileTabContainer/ProfileMainTabContainer";
 import { observer } from "mobx-react-lite";
@@ -7,45 +7,112 @@ import ProfileChangePassword from "./component/TabsComponent/ProfileChangePasswo
 import ProfileEdit from "./component/element/component/ProfileFormContainer/element/ProfileEdit/ProfileEdit";
 import ProfileView from "./component/element/component/ProfileFormContainer/element/ProfileView/ProfileView";
 
-const ProfileContainer = observer(({classes,profileData,type,formType,changePassword,handleSubmitProfile} : any) => {
-  const LargerThanMd = useBreakpointValue({ xl: true });
+const ProfileContainer = observer(
+  ({
+    classes,
+    profileData,
+    editTabLink,
+    type,
+    sideTab,
+    changePassword,
+    handleSubmitProfile,
+    initialValues,
+    validations,
+  }: any) => {
+    const LargerThanMd = useBreakpointValue({ xl: true });
+    const location = useLocation();
 
-  const {profileTab} = useParams()
+    const tab: any = new URLSearchParams(location.search).get("profileTab");
 
-  const getActiveComponent = ({classes,profileData,type,changePassword,handleSubmitProfile} : any) => {
+    const getEditActiveComponent = ({
+      classes,
+      profileData,
+      type,
+      changePassword,
+      handleSubmitProfile,
+    }: any) => {
+      switch (tab) {
+        case "edit":
+          return (
+            <ProfileEdit
+              type={type}
+              profileData={profileData}
+              classes={classes}
+              handleSubmitProfile={handleSubmitProfile}
+              initialValues={initialValues}
+              validations={validations}
+            />
+          );
+        case "change-password":
+          return <ProfileChangePassword changePassword={changePassword} />;
+        default:
+          return <ProfileView type={type} profileData={profileData} />;
+      }
+    };
 
-    switch(profileTab) {
-      case 'edit':
-        return <ProfileEdit type={type} profileData={profileData} classes={classes} handleSubmitProfile={handleSubmitProfile} formType={formType} />
-      case 'change-password':
-        return <ProfileChangePassword changePassword={changePassword} />
-      default:
-        return <ProfileView type={type} profileData={profileData} />
-    }
+    const getCreateActiveComponent = () => {
+      switch (type) {
+        case "create":
+          return (
+            <ProfileEdit
+              type={type}
+              profileData={profileData}
+              classes={classes}
+              handleSubmitProfile={handleSubmitProfile}
+              initialValues={initialValues}
+              validations={validations}
+            />
+          );
+        default:
+          return (
+            <ProfileEdit
+              type={type}
+              profileData={profileData}
+              classes={classes}
+              handleSubmitProfile={handleSubmitProfile}
+              initialValues={initialValues}
+              validations={validations}
+            />
+          );
+      }
+    };
+
+    return (
+      <div>
+        <ProfileBanner />
+        <Grid
+          gridTemplateColumns={{ lg: "0.35fr 1fr" }}
+          style={{
+            marginLeft: LargerThanMd ? "140px" : "10px",
+            marginRight: LargerThanMd ? "100px" : "10px",
+          }}
+          gap={10}
+          mt={6}
+          mb={10}
+        >
+          <Box>
+            <ProfileMainTabContainer
+              profileData={profileData}
+              type={type}
+              sideTab={sideTab}
+              editTabLink={editTabLink}
+            />
+          </Box>
+          <Box border="1px solid #e9ecef" borderRadius={5} p={5}>
+            {type === "edit"
+              ? getEditActiveComponent({
+                  classes,
+                  profileData,
+                  type,
+                  changePassword,
+                  handleSubmitProfile,
+                })
+              : getCreateActiveComponent()}
+          </Box>
+        </Grid>
+      </div>
+    );
   }
-
-  return (
-    <div>
-      <ProfileBanner />
-      <Grid
-        gridTemplateColumns={{ lg: "0.35fr 1fr" }}
-        style={{
-          marginLeft: LargerThanMd ? "140px" : "10px",
-          marginRight: LargerThanMd ? "100px" : "10px",
-        }}
-        gap={10}
-        mt={6}
-        mb={10}
-      >
-        <Box>
-        <ProfileMainTabContainer profileData={profileData} type={type} />
-        </Box>
-        <Box border="1px solid #e9ecef" borderRadius={5} p={5}>
-          {getActiveComponent({classes,profileData,type,changePassword,handleSubmitProfile})}
-        </Box>
-      </Grid>
-    </div>
-  );
-});
+);
 
 export default ProfileContainer;

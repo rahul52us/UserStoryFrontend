@@ -203,7 +203,6 @@ const CustomInput: React.FC<CustomInputProps> = ({
             />
             {value && isClear && (
               <Button
-                size="sm"
                 colorScheme="red"
                 variant="link"
                 onClick={() => onChange && onChange(undefined)}
@@ -214,7 +213,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
                   transform: "translateY(-50%)",
                 }}
               >
-               <Icon as={RiCloseFill} size="sm"/>
+               <Icon as={RiCloseFill} />
               </Button>
             )}
           </div>

@@ -45,10 +45,12 @@ class ClassStore {
   getClasses = async (sendData: any) => {
     try {
       this.classes.loading = true
+      this.classes.hasFetch = true
       const { data } = await axios.post("/class", sendData);
       this.classes.data = data.data;
       return data;
     } catch (err: any) {
+      this.classes.hasFetch = false
       return Promise.reject(err?.response?.data || err);
     } finally {
       this.classes.loading = false;

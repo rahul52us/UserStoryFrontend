@@ -1,5 +1,3 @@
-import { observer } from "mobx-react-lite";
-import { useState, useEffect, useCallback } from "react";
 import {
   Box,
   Button,
@@ -13,74 +11,34 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { FaEdit, FaEye } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import moment from "moment";
+import { observer } from "mobx-react-lite";
 import store from "../../../../../../store/store";
 import CustomInput from "../../../../../../config/component/CustomInput/CustomInput";
 import TableLoader from "../../../../../../config/component/DataTable/TableLoader";
 import Pagination from "../../../../../../config/component/pagination/Pagination";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-interface TableI {
-  tableForm: any;
-}
-
-const StudentTable = observer(({ tableForm }: TableI) => {
-  const [firstTimeCall, setFirstTimeCall] = useState(true);
+const StudentTable = observer(({ setDate, date, editLink }: any) => {
+  const navigate = useNavigate();
+  const { className } = useParams();
+  const location = useLocation();
   const {
-    classStore: { getClasses, classes },
-    auth: { openNotification },
+    Student: { student },
   } = store;
 
-  const now = new Date();
-  const oneYearLater = new Date(
-    now.getFullYear() + 1,
-    now.getMonth(),
-    now.getDate()
-  );
-
-  const [date, setDate] = useState({
-    startYear: now,
-    endYear: oneYearLater,
-  });
-
-  const getClassesFun = useCallback(
-    (value: boolean) => {
-      if (value) {
-        getClasses({
-          startYear: moment(date.startYear).format("YYYY-MM-DD"),
-          endYear: moment(date.endYear).format("YYYY-MM-DD"),
-        })
-          .then((data) => {
-            console.log(data);
-          })
-          .catch((err) => {
-            openNotification({
-              title: "Failed to Get Classes",
-              message: err.message,
-              type: "error",
-            });
-          });
-      }
-    },
-    [date, openNotification, getClasses]
-  );
-
-  useEffect(() => {
-    if (firstTimeCall) {
-      getClassesFun(true);
-      setFirstTimeCall(false);
-    }
-  }, [getClassesFun, firstTimeCall]);
-
   return (
-    <Box
-      boxShadow="rgb(0 0 0 / 12%) 0px 0px 11px"
-      rounded={8}
-      p="1.025rem 1.075rem"
-    >
-      <Flex alignItems="center" justifyContent="space-between">
+    <Box boxShadow="rgb(0 0 0 / 12%) 0px 0px 11px" rounded={8}>
+      <Flex
+        alignItems="center"
+        justifyContent="space-between"
+        pt={2}
+        pl={4}
+        pr={2}
+      >
         <Heading fontSize={"xl"} fontWeight={700} color="blue.500">
-          Class
+          {className?.split("-").join(" ")}
         </Heading>
         <Flex gap={6} display="flex" alignItems="center">
           <Box width="10rem">
@@ -107,7 +65,7 @@ const StudentTable = observer(({ tableForm }: TableI) => {
           <Box>
             <Button
               isDisabled={!(date.startYear && date.endYear)}
-              onClick={() => getClassesFun(true)}
+              onClick={() => {}}
             >
               Apply
             </Button>
@@ -120,6 +78,21 @@ const StudentTable = observer(({ tableForm }: TableI) => {
               isSearchable
             />
           </Box>
+          <Box
+            onClick={() =>
+              navigate(
+                `/dashboard/students/create?class=${new URLSearchParams(
+                  location.search
+                ).get("class")}&section=${new URLSearchParams(
+                  location.search
+                ).get("section")}&startYear=${moment(date.startYear).format(
+                  "YYYY-MM-DD"
+                )}&endYear=${moment(date.endYear).format("YYYY-MM-DD")}`
+              )
+            }
+          >
+            CREATE
+          </Box>
         </Flex>
       </Flex>
       <Box
@@ -127,7 +100,7 @@ const StudentTable = observer(({ tableForm }: TableI) => {
         overflow="auto"
         className="customScrollBar"
         mt="1rem"
-        h={"70vh"}
+        h={"72vh"}
       >
         <Table className="customTable" variant="striped" size="sm">
           <Thead
@@ -137,49 +110,34 @@ const StudentTable = observer(({ tableForm }: TableI) => {
             h={10}
           >
             <Tr>
-              <Th textAlign="center">Class Name</Th>
-              <Th textAlign="center">Sections</Th>
-              <Th textAlign="center">Creater Name</Th>
+              <Th textAlign="center">Name</Th>
+              <Th textAlign="center">Username</Th>
+              <Th textAlign="center">Date Of Joining</Th>
               <Th textAlign="center">Created Date</Th>
               <Th textAlign="center">Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
-            <TableLoader loader={classes.loading} show={classes.data.length} />
-            {classes.data.map((item: any) => (
+            <TableLoader loader={student.loading} show={student.data.length} />
+            {student.data.map((item: any) => (
               <Tr key={item._id}>
                 <Td textAlign="center" p={3}>
-                  {item.name}
+                  {item.user?.name || "-"}
                 </Td>
                 <Td textAlign="center" p={3}>
-                  {item.sections?.length || 0}
+                  {item.user?.username || "-"}
                 </Td>
                 <Td textAlign="center" p={3}>
-                  {item.createdBy?.name || "-"}
-                </Td>
-                <Td textAlign="center" p={3}>
-                  {item?.createdAt
-                    ? moment(item?.createdAt).format("DD-MM-YYYY")
+                  {item?.user?.createdAt
+                    ? moment(item?.uses?.createdAt).format("DD-MM-YYYY")
                     : "-"}
                 </Td>
                 <Td textAlign="center" p={3}>
+                  {item.user?.username || "-"}
+                </Td>
+                <Td textAlign="center" p={3}>
                   <Flex gap={5} justify="center">
-                    <Box
-                      onClick={() => {
-                        alert("Rahul");
-                      }}
-                    >
-                      <Icon as={FaEye} cursor="pointer" color="blue.500" />
-                    </Box>
-                    <Box
-                      onClick={() => {
-                        tableForm({
-                          type: "edit",
-                          data: item,
-                          open: true,
-                        });
-                      }}
-                    >
+                    <Box onClick={() => editLink(item._id)}>
                       <Icon as={FaEdit} cursor="pointer" color="blue.500" />
                     </Box>
                   </Flex>

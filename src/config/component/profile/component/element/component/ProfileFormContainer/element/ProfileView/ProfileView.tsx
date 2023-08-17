@@ -20,7 +20,7 @@ const ProfileView = observer(({ profileData }: any) => {
             First Name
           </Text>
           <Text mt={1} color="#685f78" fontSize="14px">
-            {profileData?.name}
+            {`${profileData?.firstName} ${profileData?.lastName}`}
           </Text>
         </Box>
         <Box>
@@ -52,7 +52,7 @@ const ProfileView = observer(({ profileData }: any) => {
             Father Name
           </Text>
           <Text mt={1} color="#685f78" fontSize="14px">
-            {profileData?.profile_details?.fatherName}
+            {profileData?.fatherName}
           </Text>
         </Box>
         <Box>
@@ -60,7 +60,7 @@ const ProfileView = observer(({ profileData }: any) => {
             Mother Name
           </Text>
           <Text mt={1} color="#685f78" fontSize="14px">
-            {profileData?.profile_details?.motherName}
+            {profileData?.motherName}
           </Text>
         </Box>
         <Box>
@@ -68,7 +68,7 @@ const ProfileView = observer(({ profileData }: any) => {
             Mobile No.
           </Text>
           <Text mt={1} color="#685f78" fontSize="14px">
-            {profileData?.profile_details?.mobileNo ? profileData?.profile_details?.mobileNo : "-"}
+            {profileData?.mobileNo ? profileData?.mobileNo : "-"}
           </Text>
         </Box>
         <Box>
@@ -76,7 +76,7 @@ const ProfileView = observer(({ profileData }: any) => {
             Emergency No.
           </Text>
           <Text mt={1} color="#685f78" fontSize="14px">
-            {profileData?.profile_details?.emergencyNo}
+            {profileData?.emergencyNo}
           </Text>
         </Box>
       </Grid>
@@ -87,9 +87,9 @@ const ProfileView = observer(({ profileData }: any) => {
         <Heading color="#002058" fontSize="xl" mt={5} mb={0}>
           Address Infomation :-
         </Heading>
-        {profileData?.profile_details?.addressInfo?.map((item : any, index : number) => {
+        {profileData?.addressInfo?.map((item : any, index : number) => {
           return (
-            <div>
+            <div key={index}>
             <Grid
               pt={{ base: 5, sm: 6 }}
               gridTemplateColumns={{ lg: "2fr 1fr 1fr" }}

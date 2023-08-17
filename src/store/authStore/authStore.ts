@@ -28,6 +28,7 @@ class AuthStore {
       login: action,
       register: action,
       doLogout: action,
+      updateProfile:action,
       closeSearchBar: action,
       openNotification: action,
       closeNotication: action,
@@ -190,6 +191,16 @@ class AuthStore {
 
   register = () => {
     console.log(this.user);
+  };
+
+  updateProfile = async (sendData: any) => {
+    try {
+      const { data } = await axios.put("/auth", sendData);
+      this.user = data.data
+      return data;
+    } catch (err: any) {
+      return Promise.reject(err?.response?.data || err?.message);
+    }
   };
 
   forgotPasswordStore = async (value: any) => {

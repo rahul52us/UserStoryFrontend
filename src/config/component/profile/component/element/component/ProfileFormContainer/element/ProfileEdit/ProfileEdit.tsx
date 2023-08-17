@@ -2,18 +2,14 @@ import { useState } from "react";
 import { Box, Button, Divider, Grid, Heading } from "@chakra-ui/react";
 import CustomInput from "../../../../../../../CustomInput/CustomInput";
 import { FieldArray, Form, Formik } from "formik";
-import { studentCreateValidation } from "../../../../../../utils/validation";
-import { studentInitialValues } from "../../../../../../utils/constant";
-import { toJS } from "mobx";
 
 const ProfileEdit = ({
   classes,
   type,
-  formType,
-  profileData,
   handleSubmitProfile,
+  initialValues,
+  validations
 }: any) => {
-  console.log(type);
   const [showError, setShowError] = useState(false);
   const [sections, setSections] = useState([]);
 
@@ -42,8 +38,8 @@ const ProfileEdit = ({
 
   return (
     <Formik
-      validationSchema={studentCreateValidation}
-      initialValues={studentInitialValues(profileData)}
+      validationSchema={validations}
+      initialValues={initialValues}
       onSubmit={(values, { setSubmitting, resetForm, setErrors }) => {
         handleSubmitProfile(
           values,
@@ -52,7 +48,6 @@ const ProfileEdit = ({
           setErrors,
           setShowError
         );
-        console.log(toJS(values));
       }}
     >
       {({
@@ -242,7 +237,7 @@ const ProfileEdit = ({
                   onChange={handleChange}
                 />
               </Grid>
-              {formType === "create" && (
+              {type === "create" && (
                 <Grid>
                   <Heading color="#002058" fontSize="xl" mb={4}>
                     Add Credential :-

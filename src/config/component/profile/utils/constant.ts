@@ -1,3 +1,5 @@
+import moment from "moment"
+
 export const studentInitialValues = (data : any) => {
     return {
         firstName : data?.name?.split(' ')[0] || "",
@@ -12,6 +14,7 @@ export const studentInitialValues = (data : any) => {
         section:data?.profile_details?.section || '',
         language:data?.profile_details?.language || '',
         medium:data?.profile_details?.medium || '',
+        createdAt:data?.createdAt ? moment(data?.createdAt).format('DD-MM-YYYY') : '',
         bio:data?.bio || "",
         password:"",
         confirmPassword:"",

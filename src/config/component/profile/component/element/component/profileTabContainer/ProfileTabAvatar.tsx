@@ -23,7 +23,7 @@ const ProfileTabAvatar = ({profileData} : any) => {
             _hover={{ color: "blue" }}
             cursor="pointer"
           >
-            {profileData?.name}
+            {`${profileData?.firstName} ${profileData?.lastName}`}
           </Text>
           <Text color="gray.600" cursor="pointer">
             Student
