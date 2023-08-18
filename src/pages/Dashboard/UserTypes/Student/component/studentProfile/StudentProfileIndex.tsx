@@ -3,34 +3,64 @@ import ProfileContainer from "../../../../../../config/component/profile/Profile
 import { Box } from "@chakra-ui/react";
 import store from "../../../../../../store/store";
 import { sendStudentData } from "../../utils/constant";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { studentInitialValues } from "../../../../../../config/component/profile/utils/constant";
-import { studentCreateValidation } from "../../../../../../config/component/profile/utils/validation";
+import {
+  studentCreateValidation,
+  studentEditValidation,
+} from "../../../../../../config/component/profile/utils/validation";
+import Loader from "../../../../../../config/component/Loader/Loader";
 
 const StudentProfileIndex = observer(({ type, sideTab, editTabLink }: any) => {
-  const location = useLocation()
+  const navigate = useNavigate();
+  const location = useLocation();
   const {
     classStore: { classes },
     auth: { openNotification },
-    Student: { createStudent, getStudentById,studentDetails },
+    Student: {
+      createStudent,
+      getStudentById,
+      studentDetails,
+      updateStudentProfile,
+    },
   } = store;
 
-  useEffect(() => {
-    if(new URLSearchParams(location.search).get("edit") && type === "edit" && !studentDetails.hasFetch){
-      getStudentById({_id : new URLSearchParams(location.search).get("edit") }).then(() => {
-      }).catch((err) => {
-        openNotification({
-          title: "FAILED TO GET STUDENT DETAILS",
-          message: err?.message,
-          type: "error",
-        });
-      }).finally(() => {
+  const redirectToTableBack = () => {
+    navigate(
+      `/dashboard/students/index?class=${new URLSearchParams(
+        location.search
+      ).get("class")}&section=${new URLSearchParams(location.search).get(
+        "section"
+      )}&startYear=${new URLSearchParams(location.search).get(
+        "startYear"
+      )}&endYear=${new URLSearchParams(location.search).get("endYear")}`
+    );
+  };
 
-      })
-      alert(new URLSearchParams(location.search).get("edit"))
+  useEffect(() => {
+    if (
+      new URLSearchParams(location.search).get("edit") &&
+      type === "edit" &&
+      !studentDetails.hasFetch
+    ) {
+      getStudentById({ _id: new URLSearchParams(location.search).get("edit")})
+        .then(() => {})
+        .catch((err) => {
+          openNotification({
+            title: "FAILED TO GET STUDENT DETAILS",
+            message: err?.message,
+            type: "error",
+          });
+        })
     }
-  },[studentDetails.hasFetch,location.search,type,getStudentById,openNotification])
+  }, [
+    studentDetails.hasFetch,
+    location.search,
+    type,
+    getStudentById,
+    openNotification,
+  ]);
 
   const handleSubmitProfile = (
     sendData: any,
@@ -49,6 +79,7 @@ const StudentProfileIndex = observer(({ type, sideTab, editTabLink }: any) => {
           });
           resetForm();
           setShowError(false);
+          redirectToTableBack();
         })
         .catch((err) => {
           openNotification({
@@ -60,22 +91,62 @@ const StudentProfileIndex = observer(({ type, sideTab, editTabLink }: any) => {
         .finally(() => {
           setSubmitting(false);
         });
+    } else if (type === "edit") {
+      setSubmitting(true);
+      updateStudentProfile(new URLSearchParams(location.search).get("edit"),sendStudentData(sendData))
+        .then((data) => {
+          openNotification({
+            title: "UPDATED SUCCESSFULLY",
+            message: data?.message,
+          });
+          setShowError(false);
+        })
+        .catch((err) => {
+          openNotification({
+            title: "FAILED TO UPDATE STUDENT",
+            message: err?.message,
+            type: "error",
+          });
+        })
+        .finally(() => {
+          setSubmitting(false);
+        });
+    } else {
+      alert("something went wrong");
     }
   };
 
   return (
     <Box m={{ lg: -5 }}>
-      {studentDetails.data && !studentDetails.loading ?
-      <ProfileContainer
-        sideTab={sideTab}
-        type={type}
-        editTabLink={editTabLink}
-        handleSubmitProfile={handleSubmitProfile}
-        classes={classes.data}
-        initialValues={studentInitialValues({...studentDetails.data.user})}
-        validations={studentCreateValidation}
-        profileData={studentInitialValues({...studentDetails.data.user})}
-      /> : <p>Wait please</p>}
+      {type === "edit" ? (
+        studentDetails.data && !studentDetails.loading ? (
+          <ProfileContainer
+            sideTab={sideTab}
+            type={type}
+            editTabLink={editTabLink}
+            handleSubmitProfile={handleSubmitProfile}
+            classes={classes.data}
+            initialValues={studentInitialValues({
+              ...studentDetails.data.user,
+            })}
+            validations={studentEditValidation}
+            profileData={studentInitialValues({ ...studentDetails.data.user })}
+          />
+        ) : (
+          <Loader />
+        )
+      ) : (
+        <ProfileContainer
+          sideTab={sideTab}
+          type={type}
+          editTabLink={editTabLink}
+          handleSubmitProfile={handleSubmitProfile}
+          classes={classes.data}
+          initialValues={studentInitialValues(null)}
+          validations={studentCreateValidation}
+          profileData={studentInitialValues(null)}
+        />
+      )}
     </Box>
   );
 });

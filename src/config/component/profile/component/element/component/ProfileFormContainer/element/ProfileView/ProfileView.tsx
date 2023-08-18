@@ -1,149 +1,66 @@
+import React from "react";
 import { Box, Divider, Grid, Heading, Text } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
+import moment from "moment";
 
 const ProfileView = observer(({ profileData }: any) => {
   return (
-    <Grid>
-      {/* Personal Information */}
-      <Heading color="#002058" fontSize="xl" mb={4}>
-        Personal Information :-{" "}
+    <Box p={6} bg="white" boxShadow="md" borderRadius="md">
+      <Heading color="brand.500" fontSize="xl" mb={2}>
+        Personal Information
       </Heading>
-      <Divider />
-      <Grid
-        pt={{ base: 5, sm: 6 }}
-        mb={3}
-        gridTemplateColumns={{ lg: "1fr 1fr 1fr" }}
-        rowGap={5}
-      >
-        <Box>
-          <Text color="#002058" fontWeight="bold">
-            First Name
-          </Text>
-          <Text mt={1} color="#685f78" fontSize="14px">
-            {`${profileData?.firstName} ${profileData?.lastName}`}
-          </Text>
-        </Box>
-        <Box>
-          <Text color="#002058" fontWeight="bold">
-            User Name
-          </Text>
-          <Text mt={1} color="#685f78" fontSize="14px">
-            {profileData?.username}
-          </Text>
-        </Box>
-        <Box>
-          <Text color="#002058" fontWeight="bold">
-            Registration Date
-          </Text>
-          <Text mt={1} color="#685f78" fontSize="14px">
-            {profileData?.createdAt}
-          </Text>
-        </Box>
-        <Box>
-          <Text color="#002058" fontWeight="bold">
-            Email
-          </Text>
-          <Text mt={1} color="#685f78" fontSize="14px">
-            {profileData?.username}
-          </Text>
-        </Box>
-        <Box>
-          <Text color="#002058" fontWeight="bold">
-            Father Name
-          </Text>
-          <Text mt={1} color="#685f78" fontSize="14px">
-            {profileData?.fatherName}
-          </Text>
-        </Box>
-        <Box>
-          <Text color="#002058" fontWeight="bold">
-            Mother Name
-          </Text>
-          <Text mt={1} color="#685f78" fontSize="14px">
-            {profileData?.motherName}
-          </Text>
-        </Box>
-        <Box>
-          <Text color="#002058" fontWeight="bold">
-            Mobile No.
-          </Text>
-          <Text mt={1} color="#685f78" fontSize="14px">
-            {profileData?.mobileNo ? profileData?.mobileNo : "-"}
-          </Text>
-        </Box>
-        <Box>
-          <Text color="#002058" fontWeight="bold">
-            Emergency No.
-          </Text>
-          <Text mt={1} color="#685f78" fontSize="14px">
-            {profileData?.emergencyNo}
-          </Text>
-        </Box>
+      <Divider my={2} />
+      <Grid templateColumns={{ base: "1fr", lg: "repeat(3, 1fr)" }} gap={4}>
+        <InfoCard label="Name" value={`${profileData?.firstName} ${profileData?.lastName}`} />
+        <InfoCard label="Username" value={profileData?.username} />
+        <InfoCard label="Joined On" value={moment(profileData?.created_At).format('DD-MM-YYYY')} />
+        <InfoCard label="Email" value={profileData?.username} />
+        <InfoCard label="NickName" value={profileData?.nickName} />
+        <InfoCard label="Father's Name" value={profileData?.fatherName} />
+        <InfoCard label="Mother's Name" value={profileData?.motherName} />
+        <InfoCard label="Mobile No." value={profileData?.mobileNo || "-"} />
+        <InfoCard label="Emergency No." value={profileData?.emergencyNo} />
       </Grid>
-      {/* Divider */}
-      <Divider mt={3} />
-      {/* Address */}
-      <Grid>
-        <Heading color="#002058" fontSize="xl" mt={5} mb={0}>
-          Address Infomation :-
+      <Grid mt={4}>
+        <InfoCard label="Bio" value={profileData?.bio} />
+      </Grid>
+      <Divider my={4} />
+      <Box>
+        <Heading color="brand.500" fontSize="xl" mb={4}>
+          Address Information
         </Heading>
-        {profileData?.addressInfo?.map((item : any, index : number) => {
-          return (
-            <div key={index}>
-            <Grid
-              pt={{ base: 5, sm: 6 }}
-              gridTemplateColumns={{ lg: "2fr 1fr 1fr" }}
-              rowGap={5}
-              key={index}
-            >
-              <Box>
-                <Text color="#002058" fontWeight="bold">
-                  Address
-                </Text>
-                <Text mt={1} color="#685f78" fontSize="14px">
-                  {item?.address}
-                </Text>
-              </Box>
-              <Box>
-                <Text color="#002058" fontWeight="bold">
-                  Country
-                </Text>
-                <Text mt={1} color="#685f78" fontSize="14px">
-                {item?.country}
-                </Text>
-              </Box>
-              <Box>
-                <Text color="#002058" fontWeight="bold">
-                  State
-                </Text>
-                <Text mt={1} color="#685f78" fontSize="14px">
-                {item?.state}
-                </Text>
-              </Box>
-              <Box>
-                <Text color="#002058" fontWeight="bold">
-                  City
-                </Text>
-                <Text mt={1} color="#685f78" fontSize="14px">
-                {item?.city}
-                </Text>
-              </Box>
-              <Box>
-                <Text color="#002058" fontWeight="bold">
-                  PinCode
-                </Text>
-                <Text mt={1} color="#685f78" fontSize="14px">
-                {item?.pinCode}
-                </Text>
-              </Box>
-            </Grid>
-            <Divider mt={6}/>
-            </div>
-          );
-        })}
-      </Grid>
-    </Grid>
+        {profileData?.addressInfo?.map((item: any, index: number) => (
+          <React.Fragment key={index}>
+            <AddressCard {...item} />
+            {index < profileData.addressInfo.length - 1 && <Divider my={4} />}
+          </React.Fragment>
+        ))}
+      </Box>
+    </Box>
   );
 });
+
+const InfoCard = ({ label, value }: { label: string; value: string }) => (
+  <Box p={4} bg="gray.100" borderRadius="md" shadow="md">
+    <Text fontSize="sm" fontWeight="bold" color="gray.600">
+      {label}
+    </Text>
+    <Text mt={1} fontSize="md" color="gray.800">
+      {value}
+    </Text>
+  </Box>
+);
+
+const AddressCard = ({ address, country, state, city, pinCode }: any) => (
+  <Box p={4} borderRadius="md" shadow="md">
+    <Grid templateColumns="repeat(3, 1fr)" gap={4}>
+      <InfoCard label="Address" value={address} />
+      <InfoCard label="Country" value={country} />
+      <InfoCard label="State" value={state} />
+      <InfoCard label="City" value={city} />
+      <InfoCard label="PinCode" value={pinCode} />
+    </Grid>
+  </Box>
+);
 
 export default ProfileView;

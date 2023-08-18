@@ -71,7 +71,7 @@ const SingleBlogIndex = observer(() => {
           <BlogViewContainer item={blogData} />
         </Box>
         <Box position="sticky" top={20} right={0} alignSelf="flex-start">
-          <BlogSingleRight />
+          <BlogSingleRight item={blogData}/>
         </Box>
       </Grid>
     </Box>

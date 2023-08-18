@@ -5,6 +5,7 @@ export const studentInitialValues = (data : any) => {
         firstName : data?.name?.split(' ')[0] || "",
         lastName :  data?.name?.split(' ')[1] || "",
         username : data?.username || "",
+        pic : data?.pic || "",
         motherName :data?.profile_details?.motherName || "",
         fatherName :data?.profile_details?.fatherName || "",
         sibling :data?.profile_details?.sibling || "",

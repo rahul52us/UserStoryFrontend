@@ -10,7 +10,7 @@ import { EditStudentSideTab } from "../../Dashboard/UserTypes/Student/utils/cons
 const ProfileIndex = observer(() => {
   const {
     classStore: { getClasses, classes },
-    auth: { openNotification, changePasswordStore, user,updateProfile },
+    auth: { openNotification, changePasswordStore, user, updateProfile },
   } = store;
 
   const date = useState({
@@ -34,18 +34,23 @@ const ProfileIndex = observer(() => {
     }
   }, [getClasses, openNotification, date, user]);
 
-  const handleSubmitProfile = (values : any ,setSubmitting : any, resetForm : any, setErrors : any, setShowError : any) => {
-    try
-    {
+  const handleSubmitProfile = (
+    values: any,
+    setSubmitting: any,
+    resetForm: any,
+    setErrors: any,
+    setShowError: any
+  ) => {
+    try {
       updateProfile(values)
         .then((data) => {
           openNotification({
             title: "UPDATE SUCCESSFULLY",
-            message: data.message
+            message: data.message,
           });
-          setErrors({})
-          setShowError(false)
-          console.log(resetForm)
+          setErrors({});
+          setShowError(false);
+          console.log(resetForm);
         })
         .catch((err) => {
           openNotification({
@@ -53,15 +58,18 @@ const ProfileIndex = observer(() => {
             message: err.message,
             type: "error",
           });
-        }).finally(() => {
-          setSubmitting(false)
+        })
+        .finally(() => {
+          setSubmitting(false);
         });
+    } catch (err: any) {
+      openNotification({
+        title: "FAILED TO UPDATE",
+        message: err.message,
+        type: "error",
+      });
     }
-    catch(err : any)
-    {
-      console.log(err.message)
-    }
-  }
+  };
 
   return user ? (
     <ProfileContainer
@@ -71,7 +79,7 @@ const ProfileIndex = observer(() => {
       changePassword={changePasswordStore}
       classes={classes.data}
       sideTab={EditStudentSideTab}
-      editTabLink={'/profile?'}
+      editTabLink={"/profile?"}
       handleSubmitProfile={handleSubmitProfile}
       type="edit"
     />

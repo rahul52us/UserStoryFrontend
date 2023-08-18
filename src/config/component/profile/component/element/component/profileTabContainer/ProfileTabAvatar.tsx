@@ -1,46 +1,37 @@
 import { Avatar, Box, Button, Flex, Text } from "@chakra-ui/react";
 
-const ProfileTabAvatar = ({profileData} : any) => {
+const ProfileTabAvatar = ({ profileData }: any) => {
   return (
-    <Box border="1px solid #e9ecef" borderRadius={10} h={320}>
-      <Box
-        justifyContent="center"
-        style={{ height: "120px" }}
-        bgColor="#ff6575"
-        position="relative"
-        borderRadius={"10px 10px 0px 0px"}
-      >
-        <Flex justifyContent="center" alignItems="flex-end" height="100%">
-          <Avatar
-            style={{ marginBottom: "-45px", height: "120px", width: "120px" }}
-            src={profileData?.pic}
-          />
+    <Box
+      borderWidth="1px"
+      borderColor="gray.200"
+      borderRadius="lg"
+      overflow="hidden"
+      boxShadow="md"
+    >
+      <Box bgColor="#ff6575" p={6} borderRadius="lg 0 0 0">
+        <Flex justifyContent="center" alignItems="center" mb={4}>
+          <Avatar size="xl" src={profileData?.pic} borderColor="white" borderWidth={4} />
         </Flex>
-        <Box textAlign="center" style={{ marginTop: "45px" }}>
-          <Text
-            fontWeight="bold"
-            fontSize="2xl"
-            _hover={{ color: "blue" }}
-            cursor="pointer"
-          >
-            {`${profileData?.firstName} ${profileData?.lastName}`}
-          </Text>
-          <Text color="gray.600" cursor="pointer">
-            Student
-          </Text>
-        </Box>
-        <Box display="flex" justifyContent="center">
-          <Button
-            width="85%"
-            mt={8}
-            bgColor="#ff6575"
-            _hover={{ backgroundColor: "#ff6575" }}
-            color="white"
-            cursor="pointer"
-          >
-            Add New Course
-          </Button>
-        </Box>
+        <Text fontWeight="bold" fontSize="xl" color="white" textAlign="center">
+          {`${profileData?.firstName} ${profileData?.lastName}`}
+        </Text>
+        <Text mt={2} color="white" fontSize="sm" textAlign="center">
+          Student
+        </Text>
+      </Box>
+      <Box p={4} bgColor="white" borderRadius="0 0 lg lg">
+        <Button
+          width="100%"
+          bgColor="#ff6575"
+          _hover={{ backgroundColor: "#ff6575" }}
+          color="white"
+          borderRadius="md"
+          fontSize="sm"
+          fontWeight="bold"
+        >
+          Add New Course
+        </Button>
       </Box>
     </Box>
   );

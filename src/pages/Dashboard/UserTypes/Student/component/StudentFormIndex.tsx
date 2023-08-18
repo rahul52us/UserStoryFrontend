@@ -8,7 +8,7 @@ import moment from "moment";
 import { CreateStudentSideTab, EditStudentSideTab } from "../utils/constant";
 
 const StudentFormIndex = observer(() => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [firstTimeCall, setFirstTimeCall] = useState(true);
   const { type } = useParams();
   const { state } = useLocation();
@@ -16,12 +16,12 @@ const StudentFormIndex = observer(() => {
   const {
     classStore: { getClasses, classes },
     auth: { openNotification },
-    Student: { getStudents, student },
+    Student: { getStudents, student, resetStudentDetails },
   } = store;
 
   const cls = useState(new URLSearchParams(location.search).get("class"))[0];
   const sct = useState(new URLSearchParams(location.search).get("section"))[0];
-  const editId = new URLSearchParams(location.search).get("edit")
+  const editId = new URLSearchParams(location.search).get("edit");
 
   const [date, setDate] = useState({
     startYear:
@@ -58,6 +58,7 @@ const StudentFormIndex = observer(() => {
 
   const getStudentFun = useCallback(
     (sectionId: string) => {
+      resetStudentDetails()
       if (type === "index" && !student.hasFetch) {
         getStudents({ section: sectionId })
           .then(() => {})
@@ -70,7 +71,7 @@ const StudentFormIndex = observer(() => {
           });
       }
     },
-    [type, getStudents, openNotification, student.hasFetch]
+    [type, getStudents, openNotification, student.hasFetch, resetStudentDetails]
   );
 
   useEffect(() => {
@@ -101,7 +102,7 @@ const StudentFormIndex = observer(() => {
         }
       }
     } catch (err) {}
-  }, [getStudentFun, state, classes.data,cls,sct ]);
+  }, [getStudentFun, state, classes.data, cls, sct]);
 
   useEffect(() => {
     if (firstTimeCall && !classes.hasFetch) {
@@ -110,25 +111,53 @@ const StudentFormIndex = observer(() => {
     }
   }, [getClassesFun, firstTimeCall, classes]);
 
-  const createEditLink = (id : any) => {
-    navigate(`/dashboard/students/edit?class=${cls}&section=${sct}&startYear=${moment(date.startYear).format('YYYY-MM-DD')}&endYear=${moment(date.endYear).format('YYYY-MM-DD')}&edit=${id}&profileTab=dashboard`)
-  }
+  const createEditLink = (id: any) => {
+    navigate(
+      `/dashboard/students/edit?class=${cls}&section=${sct}&startYear=${moment(
+        date.startYear
+      ).format("YYYY-MM-DD")}&endYear=${moment(date.endYear).format(
+        "YYYY-MM-DD"
+      )}&edit=${id}&profileTab=dashboard`
+    );
+  };
 
   const getCurrentTab = () => {
-    switch(type){
-     case "index":
-      return <StudentTable date={date} setDate={setDate} editLink={createEditLink} />
-     case "create":
-      return <StudentProfileIndex sideTab={CreateStudentSideTab} type="create" />
-     case "edit":
-       return <StudentProfileIndex sideTab={EditStudentSideTab} type="edit" editTabLink={`/dashboard/students/edit?class=${cls}&section=${sct}&startYear=${moment(date.startYear).format('YYYY-MM-DD')}&endYear=${moment(date.endYear).format('YYYY-MM-DD')}&edit=${editId}`} />
-    default:
-      return <StudentTable date={date} setDate={setDate} editLink={createEditLink} />
+    switch (type) {
+      case "index":
+        return (
+          <StudentTable
+            date={date}
+            setDate={setDate}
+            editLink={createEditLink}
+          />
+        );
+      case "create":
+        return (
+          <StudentProfileIndex sideTab={CreateStudentSideTab} type="create" />
+        );
+      case "edit":
+        return (
+          <StudentProfileIndex
+            sideTab={EditStudentSideTab}
+            type="edit"
+            editTabLink={`/dashboard/students/edit?class=${cls}&section=${sct}&startYear=${moment(
+              date.startYear
+            ).format("YYYY-MM-DD")}&endYear=${moment(date.endYear).format(
+              "YYYY-MM-DD"
+            )}&edit=${editId}`}
+          />
+        );
+      default:
+        return (
+          <StudentTable
+            date={date}
+            setDate={setDate}
+            editLink={createEditLink}
+          />
+        );
     }
-  }
-  return(
-    getCurrentTab()
-  )
+  };
+  return getCurrentTab();
 });
 
 export default StudentFormIndex;

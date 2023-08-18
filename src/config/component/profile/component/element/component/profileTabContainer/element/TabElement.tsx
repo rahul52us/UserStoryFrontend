@@ -7,21 +7,26 @@ const TabElement = observer(({ Icon, title, path, editTabLink }: any) => {
   const location = useLocation();
   const profileTab = new URLSearchParams(location.search).get("profileTab");
 
+  const isActive = profileTab === path;
+
   return (
     <Box
       display="flex"
       alignItems="center"
-      mt={5}
-      color={profileTab === path ? "#ff6575" : "#685f78"}
-      _hover={{ color: "#ff6575", transition: "200ms ease-in" }}
-      cursor="pointer"
+      py={2}
+      pl={4}
+      borderRadius="md"
+      color={isActive ? "white" : "gray.600"}
+      bg={isActive ? "brand.500" : "transparent"}
+      _hover={{ bg: isActive ? "brand.600" : "gray.100", transition: "200ms ease-in" }}
+      cursor={editTabLink ? "pointer" : "default"}
       onClick={() => {
         if (editTabLink) {
           navigate(`${editTabLink}&profileTab=${path}`);
         }
       }}
     >
-      {Icon}
+      <Box>{Icon}</Box>
       <Text ml={3} fontSize="sm" fontWeight="500">
         {title}
       </Text>

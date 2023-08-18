@@ -197,6 +197,13 @@ class AuthStore {
     try {
       const { data } = await axios.put("/auth", sendData);
       this.user = data.data
+      localStorage.setItem(
+        "quizUserData",
+        CryptoJS.AES.encrypt(
+          JSON.stringify(data.data),
+          process.env.REACT_APP_ENCRYPT_SECRET_KEY!
+        ).toString()
+      );
       return data;
     } catch (err: any) {
       return Promise.reject(err?.response?.data || err?.message);

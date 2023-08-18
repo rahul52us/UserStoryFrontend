@@ -83,11 +83,11 @@ const ProfileContainer = observer(
         <Grid
           gridTemplateColumns={{ lg: "0.35fr 1fr" }}
           style={{
-            marginLeft: LargerThanMd ? "140px" : "10px",
-            marginRight: LargerThanMd ? "100px" : "10px",
+            marginLeft: LargerThanMd ? "100px" : "0",
+            marginRight: LargerThanMd ? "100px" : "2px",
           }}
-          gap={10}
-          mt={6}
+          gap={5}
+          mt={3}
           mb={10}
         >
           <Box>
@@ -98,7 +98,7 @@ const ProfileContainer = observer(
               editTabLink={editTabLink}
             />
           </Box>
-          <Box border="1px solid #e9ecef" borderRadius={5} p={5}>
+          <Box border="1px solid #e9ecef" borderRadius={5}>
             {type === "edit"
               ? getEditActiveComponent({
                   classes,

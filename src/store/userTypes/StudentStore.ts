@@ -31,11 +31,12 @@ class StudentStore {
       studentDetails:observable,
       classes: observable,
       student:observable,
+      resetStudentDetails:action,
       setHandleFormDrawer: action,
       createStudent: action,
       getStudentById:action,
       getStudents: action,
-      updateStudent: action,
+      updateStudentProfile: action,
       createClass: action,
       updateClass: action
     });
@@ -91,15 +92,14 @@ class StudentStore {
     }
   }
 
-  updateStudent = async (id : string , sendData : any) => {
+  updateStudentProfile = async (id : any , sendData : any) => {
     try {
-      const { data } = await axios.post(`student/${id}`, sendData);
+      const { data } = await axios.put(`student/profile/${id}`, sendData);
       return data;
     } catch (err: any) {
       return Promise.reject(err?.response?.data || err);
     }
   }
-
 
   getStudentById = async (sendData : any) => {
     try {
@@ -113,6 +113,12 @@ class StudentStore {
     }finally{
       this.studentDetails.loading = false
     }
+  }
+
+  resetStudentDetails = async () => {
+    this.studentDetails.data = null;
+    this.studentDetails.loading = true
+    this.studentDetails.hasFetch = false
   }
 }
 

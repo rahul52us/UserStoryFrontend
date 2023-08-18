@@ -75,6 +75,8 @@ export const sendStudentData = (data: any) => {
   delete sendData.firstName;
   delete sendData.lastName;
   delete sendData.confirmPassword;
+  delete sendData.createdAt
+
   return {
     ...sendData,
     name: sendData.name,

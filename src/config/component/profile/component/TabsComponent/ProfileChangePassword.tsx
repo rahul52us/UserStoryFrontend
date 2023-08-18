@@ -16,6 +16,7 @@ const ProfileChangePassword = ({ changePassword }: ProfileChangePasswordI) => {
   } = store;
   const [showError, setShowError] = useState(false);
   return (
+    <Box p={4} bg="white" borderRadius="lg" boxShadow="md">
     <Formik
       validationSchema={ChangePasswordValidation}
       initialValues={{ oldPassword: "", newPassword: "", confirmPassword: "" }}
@@ -107,6 +108,7 @@ const ProfileChangePassword = ({ changePassword }: ProfileChangePasswordI) => {
         </Form>
       )}
     </Formik>
+    </Box>
   );
 };
 

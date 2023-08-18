@@ -129,7 +129,7 @@ const StudentTable = observer(({ setDate, date, editLink }: any) => {
                 </Td>
                 <Td textAlign="center" p={3}>
                   {item?.user?.createdAt
-                    ? moment(item?.uses?.createdAt).format("DD-MM-YYYY")
+                    ? moment(item?.user?.createdAt).format("DD-MM-YYYY")
                     : "-"}
                 </Td>
                 <Td textAlign="center" p={3}>
