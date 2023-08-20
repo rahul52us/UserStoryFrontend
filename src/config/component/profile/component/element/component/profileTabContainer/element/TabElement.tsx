@@ -23,6 +23,7 @@ const TabElement = observer(({ Icon, title, path, editTabLink }: any) => {
       onClick={() => {
         if (editTabLink) {
           navigate(`${editTabLink}&profileTab=${path}`);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       }}
     >

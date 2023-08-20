@@ -26,6 +26,7 @@ class QuizStore {
       createCategory: action,
       deleteCategory: action,
       setDeleteCategoryModal: action,
+      getQuestionsByCategory:action
     });
   }
 
@@ -105,6 +106,19 @@ class QuizStore {
       return Promise.reject(err?.response?.data || err?.message);
     }
   };
+
+  getQuestionsByCategory = async (id : string) => {
+    try
+    {
+      const { data } = await axios.get(`quiz/questions/${id}`);
+      console.log(data)
+      return data
+    }
+    catch(err)
+    {
+
+    }
+  }
 }
 
 export default QuizStore;

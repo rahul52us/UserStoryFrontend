@@ -21,6 +21,7 @@ interface TestimonialFormValues {
 }
 
 const TestimonialForm = observer(({ close }: any) => {
+  const [showError, setShowError] = useState(false)
   const {
     TestimonialStore: { createTestimonial },
     auth: { openNotification },
@@ -107,6 +108,7 @@ const TestimonialForm = observer(({ close }: any) => {
                     onChange={handleChange}
                     value={values.name}
                     error={errors.name}
+                    showError={showError}
                   />
                   <CustomInput
                     name="profession"
@@ -115,6 +117,7 @@ const TestimonialForm = observer(({ close }: any) => {
                     onChange={handleChange}
                     value={values.profession}
                     error={errors.profession}
+                    showError={showError}
                   />
                 </Box>
               </Flex>
@@ -127,12 +130,13 @@ const TestimonialForm = observer(({ close }: any) => {
                 onChange={handleChange}
                 value={values.description}
                 rows={4}
+                showError={showError}
               />
               <Flex justifyContent="end" mt={5} mr={3} mb={2}>
                 <Button leftIcon={<FaTimes />} mr={2} onClick={close}>
                   Cancel
                 </Button>
-                <Button type="submit" leftIcon={<FaPlus />} colorScheme="blue" isLoading={isSubmitting}>
+                <Button type="submit" leftIcon={<FaPlus />} colorScheme="blue" isLoading={isSubmitting} onClick={() => setShowError(true)}>
                   Create
                 </Button>
               </Flex>

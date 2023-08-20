@@ -21,6 +21,11 @@ const Faq = lazy(() => import("../../pages/main/Faq/Faq"));
 const BlogIndex = lazy(() => import("../../pages/main/Blog/BlogIndex"))
 const SingleBlogIndex = lazy(() => import("../../pages/main/Blog/SingleBlogIndex"))
 
+// Quiz Sections
+const QuizIndex = lazy(() => import('../../pages/main/quiz/QuizIndex'))
+const QuizCategoryIndex = lazy(() => import('../../pages/main/quiz/pages/QuizCategoryIndex'))
+const QuizQuestionIndex = lazy(() => import("../../pages/main/quiz/pages/QuizQuestionIndex")) ;
+
 export const MainPublicRoutes = [
   {
     element: <Home />,
@@ -85,6 +90,21 @@ export const MainPublicRoutes = [
   {
     element: <SingleBlogIndex />,
     path: main.singleBlog,
+    publicRoutes:true
+  },
+  {
+    element : <QuizIndex />,
+    path:main.quizIndex,
+    publicRoutes:true
+  },
+  {
+    element : <QuizCategoryIndex />,
+    path: main.quizTitle,
+    publicRoutes:true
+  },
+  {
+    element: <QuizQuestionIndex />,
+    path:main.quizQuestionIndex,
     publicRoutes:true
   }
 ];

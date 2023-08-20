@@ -40,6 +40,9 @@ export const main = {
   blog: "/blog",
   singleBlog:'/blog/:blogTitle',
   addingparaform: "/addingparaform",
+  quizIndex:'/quiz',
+  quizTitle:'/quiz/:quizTitle',
+  quizQuestionIndex:'/quiz/:quizTitle/:categoryTitle'
 };
 
 export const privateMain = {

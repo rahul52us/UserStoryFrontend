@@ -4,15 +4,12 @@ import {
   ButtonGroup,
   Flex,
   IconButton,
-//   useColorModeValue,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import TestimonialForm from "./component/TestimonialForm";
 import { observer } from "mobx-react-lite";
 import TestimonialList from "./TestimonialGridList";
-// import { headerHeight } from "../../../config/constant/variable";
 import DashPageHeader from "../../../config/component/common/DashPageHeader/DashPageHeader";
-import Pagination from "../../../config/component/pagination/Pagination";
 import DashPageTitle from "../../../config/component/common/DashPageTitle/DashPageTitle";
 import { dashboard } from "../../../config/constant/routes";
 import DashFormModel from "../../../config/component/common/DashFormModel/DashFormModel";
@@ -34,7 +31,6 @@ const Testimonial = observer(() => {
   } = store;
   const tableRef = useRef<HTMLDivElement>(null);
   const [isFullScreen, setIsFullScreen] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
   const [openTestimonial, setOpenTestimonial] = useState(false);
 
   const items = [
@@ -61,14 +57,7 @@ const Testimonial = observer(() => {
   };
 
   return (
-    <Box
-    //   bg={useColorModeValue("gray.100", "gray.700")}
-      // maxHeight={`calc(100vh - ${headerHeight})`}
-      maxH="90vh"
-      overflowY={"scroll"}
-      m={-4}
-      p={4}
-    >
+    <Box>
       <Box display="none">
         <DashPageHeader
           btnAction={() => setOpenTestimonialDrawer()}
@@ -84,9 +73,8 @@ const Testimonial = observer(() => {
       <Box
         boxShadow="rgb(0 0 0 / 20%) 0px 0px 11px"
         bg="white"
-        p="1.125rem 1.375rem"
         rounded={8}
-        my={4}
+        my={2}
       >
         <Box ref={tableRef}>
           <Flex
@@ -114,8 +102,6 @@ const Testimonial = observer(() => {
             </ButtonGroup>
           </Flex>
           <Box
-            // h={isFullScreen ? "calc(100vh - 40px)" : "73vh"}
-            h="65vh"
             overflowX={isFullScreen ? "hidden" : "auto"}
             mt={isFullScreen ? "20px" : "0"}
           >
@@ -124,13 +110,6 @@ const Testimonial = observer(() => {
             ) : (
               <TestimonialTableList />
             )}
-            <Pagination
-              totalPages={20}
-              onPageChange={(w) => {
-                setCurrentPage(w);
-              }}
-              currentPage={currentPage}
-            />
           </Box>
         </Box>
       </Box>
