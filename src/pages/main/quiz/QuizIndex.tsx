@@ -87,10 +87,10 @@ const YoutubeVideoIndex = observer(() => {
         </Container>
       </Box>
       <Container maxW={"8xl"}>
-          <Box mt={"-70"} mb={10}>
-             <QuizCategoryContainer />
-          </Box>
-        </Container>
+        <Box mt={"-70"} mb={10}>
+          <QuizCategoryContainer />
+        </Box>
+      </Container>
     </Box>
   );
 });

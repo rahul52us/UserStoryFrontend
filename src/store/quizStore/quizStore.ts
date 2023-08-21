@@ -3,6 +3,12 @@ import { action, makeObservable, observable } from "mobx";
 import { QuizCategoryValue } from "../../pages/Dashboard/quiz/component/Forms/utils/dto";
 
 class QuizStore {
+  questions : any = {
+    data : [],
+    loading : false,
+    hasFetch: false
+  }
+
   dashQuiz: any = {
     data: [],
     loading: false,
@@ -20,6 +26,7 @@ class QuizStore {
       categories: observable,
       openDeleteCategoryModal: observable,
       dashQuiz: observable,
+      questions:observable,
       CreateQuiz:action,
       getCategories: action,
       getDashQuiz: action,
@@ -110,13 +117,17 @@ class QuizStore {
   getQuestionsByCategory = async (id : string) => {
     try
     {
+      this.questions.loading = true
       const { data } = await axios.get(`quiz/questions/${id}`);
-      console.log(data)
+      this.questions.data = data.data
       return data
     }
     catch(err)
     {
 
+    }
+    finally {
+      this.questions.loading = false
     }
   }
 }
