@@ -32,7 +32,7 @@
             });
           });
       }
-    }, [getCategories, categories.hasFetch, openNotification]);
+    }, [getCategories,categories.hasFetch, openNotification]);
 
     return (
       <Box>

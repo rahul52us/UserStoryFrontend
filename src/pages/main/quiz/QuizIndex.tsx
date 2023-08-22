@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   Box,
   Button,
@@ -11,29 +10,9 @@ import { BiGrid } from "react-icons/bi";
 import { FaList } from "react-icons/fa";
 import FilterContainer from "../../../config/component/FilterContainer/FilterContainer";
 import { observer } from "mobx-react-lite";
-import store from "../../../store/store";
 import QuizCategoryContainer from "./component/QuizCategoryContainer";
 
-const YoutubeVideoIndex = observer(() => {
-  const {
-    VideoStore: { getCategories, categories },
-    auth: { openNotification },
-  } = store;
-
-  useEffect(() => {
-    if (!categories.hasFetch) {
-      getCategories({ page: 1 })
-        .then(() => {})
-        .catch((err: any) => {
-          openNotification({
-            type: "error",
-            message: err?.message,
-            title: "Get Categories Failed",
-          });
-        });
-    }
-  }, [getCategories, categories.hasFetch, openNotification]);
-
+const QuizIndex = observer(() => {
   return (
     <Box>
       <Box
@@ -54,7 +33,7 @@ const YoutubeVideoIndex = observer(() => {
               mt={2}
               _hover={{ backgroundColor: "rgba(255, 255, 255, 0.05)" }}
             >
-              🎉 {categories?.data?.length} Courses
+              🎉 {0} Courses
             </Button>
           </Box>
           <Text mt={4} fontWeight={500}>
@@ -95,4 +74,4 @@ const YoutubeVideoIndex = observer(() => {
   );
 });
 
-export default YoutubeVideoIndex;
+export default QuizIndex;
