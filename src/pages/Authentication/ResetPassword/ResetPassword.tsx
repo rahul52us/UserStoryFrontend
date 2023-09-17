@@ -26,8 +26,6 @@ import {
     const [showError, setShowError] = useState(false)
     const [isBelowMd] = useMediaQuery("(max-width: md)");
 
-
-    console.log(showError)
     return (
       <Flex
         minH={"100vh"}

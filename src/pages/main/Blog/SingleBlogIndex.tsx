@@ -6,7 +6,6 @@ import BlogLikeContainer from "./component/mainBlogCotainer/component/BLogLikeCo
 import { useLocation } from "react-router-dom";
 import BlogViewContainer from "./component/mainBlogCotainer/component/BlogViewContainer";
 import store from "../../../store/store";
-import { toJS } from "mobx";
 import BlogSingleRight from "./component/mainBlogCotainer/component/BlogSingleRight";
 
 const SingleBlogIndex = observer(() => {
@@ -15,7 +14,6 @@ const SingleBlogIndex = observer(() => {
     BlogStore: {
       getSingleBlogs,
       getComments,
-      blogComments: { data },
     },
     auth: { openNotification },
   } = store;
@@ -46,8 +44,6 @@ const SingleBlogIndex = observer(() => {
         });
       });
   }, [openNotification, getComments, state]);
-
-  console.log(toJS(data));
 
   return (
     <Box display="flex" justifyContent="center">

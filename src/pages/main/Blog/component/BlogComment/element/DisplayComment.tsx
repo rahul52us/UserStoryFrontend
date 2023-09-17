@@ -1,7 +1,37 @@
+import { Box, Avatar, Text, Stack } from "@chakra-ui/react"; // Import Chakra UI components
+import { getPostedDate } from "../../../../../../config/constant/function";
 
-const DisplayComment = ({comment} : any) => {
+const DisplayComment = ({ comment }: any) => {
   return (
-    <div>{comment?.content}</div>
-  )
-}
-export default DisplayComment
+    <Box
+      p={4}
+      borderWidth="1px"
+      borderRadius="md"
+      mb={4}
+      display="flex"
+      flexDirection="column"
+      alignItems="start"
+      boxShadow="sm"
+    >
+      <Stack direction="row" alignItems="center" mb={2}>
+        <Avatar size="sm" src={""} name={"SK"} />
+        <Box>
+        <Box display="flex" fontSize="sm" gap={1}>
+          <Text fontWeight={700}>{comment?.user?.name}</Text>
+          <Text color="gray.600" fontWeight={600} fontSize="small">
+            (Student)
+          </Text>
+        </Box>
+        <Text fontSize="xs" color="gray.600" fontWeight={600}>
+          {getPostedDate('Commented on',new Date())}
+        </Text>
+      </Box>
+      </Stack>
+      <Text fontSize="sm">
+      <div dangerouslySetInnerHTML={{ __html: comment.content }} />
+      </Text>
+    </Box>
+  );
+};
+
+export default DisplayComment;

@@ -113,7 +113,7 @@ const Testimonial = observer(() => {
           </Box>
         </Box>
       </Box>
-      {/* custom modal */}
+      {/* CREATE THE NEW tESTIMONIAL */}
       <DashFormModel
         open={openTestimonial}
         close={() => setOpenTestimonial(false)}
@@ -124,7 +124,6 @@ const Testimonial = observer(() => {
         <TestimonialForm close={() => setOpenTestimonial(false)} />
       </DashFormModel>
 
-      {/* custom drawer */}
       <CustomDrawer
         open={openTestimonialDrawer.open}
         close={setOpenTestimonialDrawer}
