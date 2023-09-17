@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
 import { Box, Text, Flex, Icon } from "@chakra-ui/react";
 import { FiUsers } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const WidgetCard = ({
   totalCount,
   title,
+  link
 }: {
   totalCount: number;
   title: string;
+  link:string
 }) => {
   const [count, setCount] = useState(0);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -34,6 +38,7 @@ const WidgetCard = ({
       transition="transform 0.2s"
       color="white"
       textAlign="center"
+      onClick={() => navigate(link)}
     >
       <Flex align="center" justify="center" mb={4}>
         <Icon as={FiUsers} boxSize={8} mr={2} />

@@ -6,6 +6,7 @@ class ClassStore {
     data: [],
     loading: false,
     hasFetch: false,
+    totalPages:0
   };
 
   openTaskDrawer = {
@@ -47,7 +48,8 @@ class ClassStore {
       this.classes.loading = true
       this.classes.hasFetch = true
       const { data } = await axios.post("/class", sendData);
-      this.classes.data = data.data;
+      this.classes.data = data.data?.classes || [];
+      this.classes.totalPages = data.data?.totalPages || 0
       return data;
     } catch (err: any) {
       this.classes.hasFetch = false

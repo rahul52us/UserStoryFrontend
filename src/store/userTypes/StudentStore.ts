@@ -5,7 +5,7 @@ class StudentStore {
   studentDetails : any = {
     data : null,
     loading:true,
-    hasFetch:false
+    hasFetch:false,
   }
 
   classes = {
@@ -18,6 +18,7 @@ class StudentStore {
     data: [],
     loading: false,
     hasFetch: false,
+    totalPages:0
   };
 
   studentDrawerForm = {
@@ -64,8 +65,8 @@ class StudentStore {
     try {
       this.student.loading = true
       const { data } = await axios.post("/student", sendData);
-      console.log(data.data)
       this.student.data = data?.data?.students || [];
+      this.student.totalPages = data?.data?.totalPages || 0
       return data.data
     } catch (err: any) {
       return Promise.reject(err?.response?.data || err);

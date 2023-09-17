@@ -12,6 +12,7 @@ interface VideoFormValues {
   videoType: any;
   videoLink: string;
   description: string;
+  category?:string
 }
 
 const VideoForm = observer(({ close }: any) => {
@@ -31,6 +32,7 @@ const VideoForm = observer(({ close }: any) => {
           videoType: "",
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
+          values.category = "64fc28f23b503a037d90c7d4"
           values.videoType = values.videoType.value;
           createVideo(values)
             .then((data) => {

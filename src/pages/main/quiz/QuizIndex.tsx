@@ -37,7 +37,7 @@ const QuizIndex = observer(() => {
             </Button>
           </Box>
           <Text mt={4} fontWeight={500}>
-            Videos that help beginner designers become true unicorns.
+            Quiz that help beginner designers become true unicorns.
           </Text>
           <Box mt={10}>
             <ButtonGroup

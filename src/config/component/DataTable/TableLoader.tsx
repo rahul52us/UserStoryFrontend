@@ -3,9 +3,10 @@ import { Flex, Heading, Spinner, Td, Tr } from "@chakra-ui/react";
 interface TableLoaderProps {
   loader: boolean;
   show: number;
+  children?: React.ReactNode;
 }
 
-const TableLoader: React.FC<TableLoaderProps> = ({ loader, show }) => {
+const TableLoader: React.FC<TableLoaderProps> = ({ loader, show, children }) => {
   if (loader) {
     return (
       <Tr>
@@ -30,7 +31,7 @@ const TableLoader: React.FC<TableLoaderProps> = ({ loader, show }) => {
     );
   }
 
-  return null;
+  return <>{children}</>;
 };
 
 export default TableLoader;

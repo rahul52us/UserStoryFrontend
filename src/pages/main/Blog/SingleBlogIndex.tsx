@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Box, Grid } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
-import BlogLikeContainer from "./component/mainBlogCotainer/component/BlogLikeContainer";
+import BlogLikeContainer from "./component/mainBlogCotainer/component/BLogLikeContainer";
 import { useLocation } from "react-router-dom";
 import BlogViewContainer from "./component/mainBlogCotainer/component/BlogViewContainer";
 import store from "../../../store/store";

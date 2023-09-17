@@ -2,7 +2,6 @@ import { Box, Container, Grid, Heading } from "@chakra-ui/react";
 import { Controls, Player } from "@lottiefiles/react-lottie-player";
 import styled from "styled-components";
 import FaqQuestions from "./FaqQuestions";
-import RichTextEditor from "../../../config/component/Editor/RichQuillEditor";
 
 const BoxStyleFirst = styled(Box)`
   @media only screen and (min-device-width: 800px) and (max-device-width: 1024px) {
@@ -39,7 +38,6 @@ const Faq = () => {
           <FaqQuestions />
         </Box>
       </Grid>
-      <RichTextEditor />
     </Container>
   );
 };

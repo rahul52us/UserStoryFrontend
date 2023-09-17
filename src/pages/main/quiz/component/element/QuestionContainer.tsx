@@ -1,6 +1,14 @@
 import { useState, useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { Box, Text, Radio, RadioGroup, Stack, Button } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Radio,
+  RadioGroup,
+  Stack,
+  Button,
+  Flex,
+} from "@chakra-ui/react";
 import { FaCheck, FaTimes } from "react-icons/fa"; // Import React Icons
 import store from "../../../../../store/store";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -9,6 +17,13 @@ const QuestionContainer = observer(() => {
   const {
     quiz: { questions },
   } = store;
+
+  const [userAnswers, setUserAnswers] = useState<any>({});
+  const [remainingTime, setRemainingTime] = useState(1 * 60);
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | undefined>(
+    undefined
+  );
+  const [submitted, setSubmitted] = useState<boolean>(false);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -23,10 +38,28 @@ const QuestionContainer = observer(() => {
   const [currentQuestionIndex, setCurrentQuestionIndex] =
     useState(initialQuestionIndex);
   const navigate = useNavigate();
+  useEffect(() => {
+    if (remainingTime <= 0) {
+      handleSubmit();
+      return;
+    }
 
-  const [userAnswers, setUserAnswers] = useState<any>({});
-  const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | undefined>(undefined);
-  const [submitted, setSubmitted] = useState<boolean>(false); // Track if answers have been submitted
+    const intervalId = setInterval(() => {
+      setRemainingTime((prevTime) => {
+        if (prevTime <= 0) {
+          clearInterval(intervalId);
+          handleSubmit();
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [remainingTime]);
+
 
   useEffect(() => {
     if (queryQuestionId) {
@@ -51,7 +84,9 @@ const QuestionContainer = observer(() => {
   }, [userAnswers]);
 
   const handleAnswerSelect = (questionId: any, answer: any) => {
-    const selectedAnswer = currentQuestion.answers.find((ans: any) => ans.answer === answer);
+    const selectedAnswer = currentQuestion.answers.find(
+      (ans: any) => ans.answer === answer
+    );
     setUserAnswers((prevAnswers: any) => ({
       ...prevAnswers,
       [questionId]: answer,
@@ -82,8 +117,7 @@ const QuestionContainer = observer(() => {
   };
 
   const handleSubmit = () => {
-    setSubmitted(true); // Mark answers as submitted
-    // You can perform additional logic here if needed
+    setSubmitted(true);
   };
 
   const currentQuestion = questions.data[currentQuestionIndex];
@@ -94,14 +128,32 @@ const QuestionContainer = observer(() => {
 
   const correctAnswers = questions.data.filter((question: any) => {
     const userAnswer = userAnswers[question._id];
-    const correctAnswer = question.answers.find((answer: any) => answer.correct)?.answer;
+    const correctAnswer = question.answers.find(
+      (answer: any) => answer.correct
+    )?.answer;
     return userAnswer === correctAnswer;
   }).length;
 
   const wrongAnswers = numQuestions - correctAnswers;
 
+  const formatTime = (totalSeconds: any) => {
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    return `${hours}h ${minutes}m ${seconds}s`;
+  };
+
   return (
-    <Box p="4" boxShadow="md" rounded="md" borderWidth="1px" borderColor="gray.200">
+    <Box
+      p="4"
+      boxShadow="md"
+      rounded="md"
+      borderWidth="1px"
+      borderColor="gray.200"
+    >
+      <Text fontSize="sm" color="gray.500" mb="2">
+        Time Remaining: {formatTime(remainingTime)}
+      </Text>
       {currentQuestion ? (
         <>
           <Text fontSize="lg" fontWeight="semibold" mb="2">
@@ -114,7 +166,7 @@ const QuestionContainer = observer(() => {
             <Stack spacing="2">
               {currentQuestion.answers.map((answer: any) => (
                 <Radio
-                isDisabled={submitted}
+                  isDisabled={submitted}
                   key={answer._id}
                   value={answer.answer}
                   colorScheme={
@@ -134,9 +186,10 @@ const QuestionContainer = observer(() => {
                       {answer.correct && (
                         <FaCheck color="green" style={{ marginLeft: "8px" }} />
                       )}
-                      {!answer.correct && userAnswers[currentQuestion._id] === answer.answer && (
-                        <FaTimes color="red" style={{ marginLeft: "8px" }} />
-                      )}
+                      {!answer.correct &&
+                        userAnswers[currentQuestion._id] === answer.answer && (
+                          <FaTimes color="red" style={{ marginLeft: "8px" }} />
+                        )}
                     </>
                   )}
                 </Radio>
@@ -148,26 +201,27 @@ const QuestionContainer = observer(() => {
         <div>No questions found.</div>
       )}
 
-      <Button
-        onClick={handlePreviousQuestion}
-        colorScheme="gray"
-        mt="4"
-        disabled={currentQuestionIndex === 0}
-      >
-        Previous
-      </Button>
-
-      {currentQuestionIndex < questions.data.length - 1 && (
-        <Button onClick={handleNextQuestion} colorScheme="teal" mt="4">
-          Next
+      <Flex justifyContent="space-between" mt="4">
+        <Button
+          onClick={handlePreviousQuestion}
+          colorScheme="gray"
+          disabled={currentQuestionIndex === 0}
+        >
+          Previous
         </Button>
-      )}
 
-      {isSubmitEnabled && (
-        <Button onClick={handleSubmit} colorScheme="blue" mt="4">
-          Submit
-        </Button>
-      )}
+        {currentQuestionIndex < questions.data.length - 1 && (
+          <Button onClick={handleNextQuestion} colorScheme="teal">
+            Next
+          </Button>
+        )}
+
+        {isSubmitEnabled && (
+          <Button onClick={handleSubmit} colorScheme="blue">
+            Submit
+          </Button>
+        )}
+      </Flex>
 
       <Box mt="4">
         {submitted && (

@@ -19,6 +19,7 @@ import CustomInput from "../../../../../../config/component/CustomInput/CustomIn
 import TableLoader from "../../../../../../config/component/DataTable/TableLoader";
 import Pagination from "../../../../../../config/component/pagination/Pagination";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { toJS } from "mobx";
 
 const StudentTable = observer(({ setDate, date, editLink }: any) => {
   const navigate = useNavigate();
@@ -27,6 +28,8 @@ const StudentTable = observer(({ setDate, date, editLink }: any) => {
   const {
     Student: { student },
   } = store;
+
+  console.log(toJS(student));
 
   return (
     <Box boxShadow="rgb(0 0 0 / 12%) 0px 0px 11px" rounded={8}>
@@ -110,44 +113,49 @@ const StudentTable = observer(({ setDate, date, editLink }: any) => {
             h={10}
           >
             <Tr>
+              <Th textAlign="center">S.No.</Th>
               <Th textAlign="center">Name</Th>
               <Th textAlign="center">Username</Th>
               <Th textAlign="center">Date Of Joining</Th>
-              <Th textAlign="center">Created Date</Th>
               <Th textAlign="center">Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
-            <TableLoader loader={student.loading} show={student.data.length} />
-            {student.data.map((item: any) => (
-              <Tr key={item._id}>
-                <Td textAlign="center" p={3}>
-                  {item.user?.name || "-"}
-                </Td>
-                <Td textAlign="center" p={3}>
-                  {item.user?.username || "-"}
-                </Td>
-                <Td textAlign="center" p={3}>
-                  {item?.user?.createdAt
-                    ? moment(item?.user?.createdAt).format("DD-MM-YYYY")
-                    : "-"}
-                </Td>
-                <Td textAlign="center" p={3}>
-                  {item.user?.username || "-"}
-                </Td>
-                <Td textAlign="center" p={3}>
-                  <Flex gap={5} justify="center">
-                    <Box onClick={() => editLink(item._id)}>
-                      <Icon as={FaEdit} cursor="pointer" color="blue.500" />
-                    </Box>
-                  </Flex>
-                </Td>
-              </Tr>
-            ))}
+            <TableLoader loader={student.loading} show={student.data.length}>
+              {student.data.map((item: any, index: number) => (
+                <Tr key={item._id}>
+                  <Td textAlign="center">{index + 1}.</Td>
+                  <Td textAlign="center" p={3}>
+                    {item.user?.name || "-"}
+                  </Td>
+                  <Td textAlign="center" p={3}>
+                    {item.user?.username || "-"}
+                  </Td>
+                  <Td textAlign="center" p={3}>
+                    {item?.user?.createdAt
+                      ? moment(item?.user?.createdAt).format("DD-MM-YYYY")
+                      : "-"}
+                  </Td>
+                  <Td textAlign="center" p={3}>
+                    <Flex gap={5} justify="center">
+                      <Box onClick={() => editLink(item._id)}>
+                        <Icon as={FaEdit} cursor="pointer" color="blue.500" />
+                      </Box>
+                    </Flex>
+                  </Td>
+                </Tr>
+              ))}
+            </TableLoader>
           </Tbody>
         </Table>
       </Box>
-      <Pagination currentPage={1} totalPages={10} onPageChange={() => {}} />
+      <Pagination
+        currentPage={1}
+        totalPages={student.totalPages}
+        onPageChange={(e: any) => {
+          alert(e);
+        }}
+      />
     </Box>
   );
 });

@@ -88,10 +88,10 @@ const QuizTable = observer(() => {
           <Tbody>
             <Tr>
               <Td>sadasdfsdlkjasdflkjasdasdlfkj</Td>
-              <Td>sadasdfsdl</Td>
+              <Td>sh fdhsjf dsfjhds fhdsf adasdfsdl</Td>
               <Td>sadasdfsdlkjasdflkjasdasdlfkj</Td>
-              <Td>sadasdfsdlkjasdflkjasdasdlfkj</Td>
-              <Td>sadasdfsdlkjasdflkjasdasdlfkj</Td>
+              <Td>sadasdfsdlkjasdflkjasdafdsbf dsfkb fkdshfjdsfsdlfkj</Td>
+              <Td>sadasdfsdlkjhf djskhfdjs hfjdshf dshf dskfasdflkjasdasdlfkj</Td>
               <Td>sadasdfsdlkjasdflkjasdasdlfkj</Td>
               <Td>sadasdfsdlkjasdflkjasdasdlfkj</Td>
             </Tr>

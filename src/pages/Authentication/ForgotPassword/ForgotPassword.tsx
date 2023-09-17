@@ -50,9 +50,10 @@ const ForgotPassword = observer(() => {
             validationSchema={ForgotEmailValidation}
             onSubmit={(values, { setSubmitting }) => {
               forgotPasswordStore(values).then((data) => {
+                console.log(data)
                 openNotification({
-                  title: "Password Change Requested Successfully",
-                  message: data.message,
+                  title: "Mail has been sent Successfully",
+                  message: data,
                   type: "success",
                 });
                 navigate('/')

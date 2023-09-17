@@ -27,8 +27,8 @@ const VideosContainer = () => {
         }}
         gap={6}
       >
-        {videos.map((item) => (
-          <Box key={item}>
+        {videos.map((item,index) => (
+          <Box key={index}>
             <YoutubeVideoCard link={item} />
           </Box>
         ))}

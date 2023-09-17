@@ -16,7 +16,7 @@ import { Formik, Form, Field } from "formik";
 import CustomInput from "../../../config/component/CustomInput/CustomInput";
 import { LoginValidation } from "../utils/validation";
 import store from "../../../store/store";
-import { authentication } from "../../../config/constant/routes";
+import { authentication, main } from "../../../config/constant/routes";
 import { useState } from "react";
 
 const Login = observer(() => {
@@ -69,7 +69,7 @@ const Login = observer(() => {
                     message: "username has been login successFully",
                     type: "success",
                   });
-                  navigate("/");
+                  navigate(main.home);
                 })
                 .catch((error: Error) => {
                   openNotification({

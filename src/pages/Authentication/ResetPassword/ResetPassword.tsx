@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import {
     Flex,
     Box,
@@ -22,8 +23,11 @@ import {
     const {token} = useParams()
     const {auth : { openNotification, resetPasswordStore}} = store
     const navigate = useNavigate()
+    const [showError, setShowError] = useState(false)
     const [isBelowMd] = useMediaQuery("(max-width: md)");
 
+
+    console.log(showError)
     return (
       <Flex
         minH={"100vh"}
@@ -54,7 +58,7 @@ import {
                     message: data.message,
                     type: "success",
                   });
-                  navigate('/')
+                  navigate(authentication.login)
                 }).catch((err : any) => {
                   openNotification({
                     title: "Requested Failed",
@@ -78,6 +82,7 @@ import {
                       value={values.password}
                       onChange={handleChange}
                       error={errors.password}
+                      showError={showError}
                     />
                     <CustomInput
                       type="password"
@@ -88,6 +93,7 @@ import {
                       value={values.confirmPassword}
                       onChange={handleChange}
                       error={errors.confirmPassword}
+                      showError={showError}
                     />
                     <Stack spacing={10}>
                       <Stack
@@ -105,6 +111,7 @@ import {
                         _hover={{
                           bg: "blue.500",
                         }}
+                        onClick={() => setShowError(true)}
                         isLoading={isSubmitting}
                       >
                         Submit
