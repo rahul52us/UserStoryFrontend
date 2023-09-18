@@ -1,4 +1,4 @@
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
 import store from "../../../../../store/store";
 import DisplayComment from "./element/DisplayComment";
@@ -10,7 +10,8 @@ const BlogCommentIndex = observer(({ item }: any) => {
 
   const {
     BlogStore: {
-      blogComments: { data, totalComments },
+      blogComments: { data, totalComments, currentPage, TotalPages },
+      getComments
     },
   } = store;
 
@@ -30,11 +31,20 @@ const BlogCommentIndex = observer(({ item }: any) => {
         Total Comments ({totalComments})
       </Heading>
       <Box mb={5}>
-        <CreateComment editorHtml={editorHtml} setEditorHtml={setEditorHtml} blogItem={item} />
+        <CreateComment
+          editorHtml={editorHtml}
+          setEditorHtml={setEditorHtml}
+          blogItem={item}
+        />
       </Box>
       {data.map((comment: any, index: number) => {
         return <DisplayComment comment={comment} key={index} />;
       })}
+      {TotalPages > currentPage ? (
+        <Flex justify="center" mt={5}>
+          <Button onClick={() => getComments(item._id, currentPage + 1)}>Load More</Button>
+        </Flex>
+      ) : null}
     </Box>
   );
 });

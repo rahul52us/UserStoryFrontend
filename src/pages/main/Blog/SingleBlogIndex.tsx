@@ -14,6 +14,7 @@ const SingleBlogIndex = observer(() => {
     BlogStore: {
       getSingleBlogs,
       getComments,
+      blogComments :{currentPage}
     },
     auth: { openNotification },
   } = store;
@@ -34,7 +35,7 @@ const SingleBlogIndex = observer(() => {
   }, [openNotification, getSingleBlogs, state]);
 
   useEffect(() => {
-    getComments(state)
+    getComments(state, currentPage + 1)
       .then(() => {})
       .catch((err: any) => {
         openNotification({

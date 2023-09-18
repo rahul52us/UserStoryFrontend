@@ -6,12 +6,14 @@ interface CustomDrawerProps {
   title: string;
   close: any;
   children: any;
+  size?:string
 }
 
 const CustomDrawer: React.FC<CustomDrawerProps> = ({
   title,
   open,
   close,
+  size,
   children,
 }) => {
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -25,7 +27,7 @@ const CustomDrawer: React.FC<CustomDrawerProps> = ({
       isOpen={open}
       placement="right"
       onClose={handleCloseDrawer}
-      size="xl"
+      size={size ? size : 'xl'}
       finalFocusRef={drawerRef}
     >
       <DrawerOverlay />

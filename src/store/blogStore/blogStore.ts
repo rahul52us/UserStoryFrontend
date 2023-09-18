@@ -14,7 +14,7 @@ class BlogStore {
     data: [] as any,
     loading: false,
     hasFetch: false,
-    currentPage: 1,
+    currentPage: 0,
     TotalPages: 0,
     totalComments:0
   };
@@ -66,13 +66,15 @@ class BlogStore {
     }
   };
 
-  getComments = async (blogId: any) => {
+  getComments = async (blogId: any, currentPage : number) => {
     try {
       this.blogComments.loading = true;
-      const { data } = await axios.get(`/blog/comments/${blogId}`);
-      this.blogComments.data = data?.data?.comments || [];
+      const { data } = await axios.get(`/blog/comments/${blogId}?page=${currentPage}`);
+      const newComments = data?.data?.comments || [];
+      this.blogComments.data = [...this.blogComments.data, ...newComments];
       this.blogComments.totalComments = data?.data?.totalComments || 0;
       this.blogComments.TotalPages = data?.data?.totalPages || 0;
+      this.blogComments.currentPage = currentPage
       return data.data;
     } catch (err: any) {
       return Promise.reject(err?.response?.data || err);
@@ -88,6 +90,7 @@ class BlogStore {
         parentComment: sendData?.parentComment,
       });
       this.blogComments.data.unshift(data.data);
+      this.blogComments.totalComments += 1
       return data.data;
     } catch (err: any) {
       return Promise.reject(err?.response?.data || err);

@@ -8,6 +8,8 @@ import { ButtonGroup, IconButton } from '@chakra-ui/react';
 import { FaCalendarDay, FaCalendarWeek, FaCalendarAlt, FaCalendar } from 'react-icons/fa';
 import { EventClickArg } from '@fullcalendar/core';
 
+// import './calendar.css'; // Import your CSS file for custom styling
+
 interface Task {
   title: string;
   start: string;
@@ -19,7 +21,7 @@ interface Task {
 const MyCalendar: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const calendarRef = useRef<FullCalendar>(null);
-  const [selectedCells, setSelectedCells] = useState<DateClickArg[]>([]);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   const handleAddTask = () => {
     const newTask: Task = {
@@ -60,23 +62,12 @@ const MyCalendar: React.FC = () => {
   };
 
   const handleCellClick = (arg: DateClickArg) => {
-    setSelectedCells(prevSelectedCells => {
-      const existingCellIndex = prevSelectedCells.findIndex(cell => cell.date.valueOf() === arg.date.valueOf());
-      if (existingCellIndex !== -1) {
-        // Deselect the cell if already selected
-        const updatedSelectedCells = [...prevSelectedCells];
-        updatedSelectedCells.splice(existingCellIndex, 1);
-        return updatedSelectedCells;
-      } else {
-        // Select the cell if not already selected
-        return [...prevSelectedCells, arg];
-      }
-    });
+    setSelectedDate(arg.dateStr);
   };
 
   const handleCellSelectionComplete = () => {
     // Perform actions with the selected cells
-    console.log(selectedCells);
+    console.log(selectedDate);
   };
 
   const calendarOptions = {
@@ -97,6 +88,11 @@ const MyCalendar: React.FC = () => {
     dateClick: handleCellClick, // Use custom cell click event
     selectable: true, // Enable cell selection
     select: handleCellSelectionComplete, // Trigger function when cell selection is complete
+    eventRender: function(info : any) {
+      if (selectedDate && info.event.startStr === selectedDate) {
+        info.el.classList.add('selected-date');
+      }
+    },
     // Add more options as per your requirements
   };
 

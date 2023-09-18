@@ -11,6 +11,7 @@ const ColorPickerComponent = observer(() => {
   } = store;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [color, setColor] = useState("#000000");
+
   const handleColorChange = (newColor: ColorResult) => {
     setColor(newColor.hex);
     theme.colors.custom.light.primary = newColor.hex;
@@ -37,7 +38,7 @@ const ColorPickerComponent = observer(() => {
         size="sm"
         fontWeight="normal"
       >
-        Select Color
+        Custom Color
       </Button>
       {isOpen && (
         <Box position="absolute" zIndex={999}>
