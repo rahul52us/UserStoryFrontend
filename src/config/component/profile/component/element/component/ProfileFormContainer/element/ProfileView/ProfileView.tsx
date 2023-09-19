@@ -53,7 +53,7 @@ const InfoCard = ({ label, value }: { label: string; value: string }) => (
 
 const AddressCard = ({ address, country, state, city, pinCode }: any) => (
   <Box p={4} borderRadius="md" shadow="md">
-    <Grid templateColumns="repeat(3, 1fr)" gap={4}>
+    <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={4}>
       <InfoCard label="Address" value={address} />
       <InfoCard label="Country" value={country} />
       <InfoCard label="State" value={state} />

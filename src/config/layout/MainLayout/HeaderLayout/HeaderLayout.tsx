@@ -7,8 +7,13 @@ import {
 import { useMediaQuery } from "@chakra-ui/react";
 import HeaderNavbar from "./component/HeaderNavbar/HeaderNavbar";
 import HeaderLogo from "./component/Logo/HeaderLogo";
+import store from "../../../../store/store";
+import { observer } from "mobx-react-lite";
 
-const HeaderLayout = () => {
+const HeaderLayout = observer(() => {
+  const {
+    themeStore: { themeConfig },
+  } = store;
   const [isLargerThan1020] = useMediaQuery("(min-width: 1020px)");
   return (
     <HeaderingContainer
@@ -23,7 +28,10 @@ const HeaderLayout = () => {
       right={0}
       top={0}
       zIndex={999}
-      backgroundColor={useColorModeValue('white','#1A202C')}
+      backgroundColor={useColorModeValue(
+        themeConfig.colors.custom.light.primary,
+        themeConfig.colors.custom.dark.primary
+      )}
     >
       <Box width={isLargerThan1020 ? "60%" : "90%"}>
         <HeaderLogo />
@@ -31,7 +39,7 @@ const HeaderLayout = () => {
       <HeaderNavbar />
     </HeaderingContainer>
   );
-};
+});
 
 export default HeaderLayout;
 

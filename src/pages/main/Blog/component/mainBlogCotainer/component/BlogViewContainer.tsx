@@ -10,12 +10,12 @@ const BlogViewContainer = ({ item, multi }: any) => {
 
   return (
     <Card mb={5} p={0} width="100%">
-      {item?.coverImage && (
+      {item?.coverImage ? (
         <Box>
           <Image width="100%" src={item.coverImage} />
         </Box>
-      )}
-      <Box p={{ base: 1, sm: 4, lg: 8 }} pt={{ base: 3, lg: 5 }}>
+      ) : null}
+      <Box p={2}>
         <BlogViewDetail item={item} />
         <Heading
           mt={3}

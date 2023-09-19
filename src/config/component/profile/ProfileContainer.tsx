@@ -78,7 +78,7 @@ const ProfileContainer = observer(
     };
 
     return (
-      <div>
+      <Box p={{base: 1.5, lg : 0}}>
         <ProfileBanner />
         <Grid
           gridTemplateColumns={{ lg: "0.35fr 1fr" }}
@@ -110,7 +110,7 @@ const ProfileContainer = observer(
               : getCreateActiveComponent()}
           </Box>
         </Grid>
-      </div>
+      </Box>
     );
   }
 );
