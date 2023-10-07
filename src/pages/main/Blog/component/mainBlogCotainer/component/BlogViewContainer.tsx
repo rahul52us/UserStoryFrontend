@@ -29,6 +29,7 @@ const BlogViewContainer = ({ item, multi }: any) => {
           }}
           onClick={() => {
             if (multi) {
+              // navigate the blog to the specific blog route after splitting with the -
               navigate(`/blog/${item?.title.split(" ").join("-")}`, {
                 state: item?._id,
               });
@@ -45,6 +46,7 @@ const BlogViewContainer = ({ item, multi }: any) => {
           </Box>
         )}
       </Box>
+      {/* Show the comments at the single blog time */}
       {!multi && item && <BlogCommentIndex item={item} />}
     </Card>
   );

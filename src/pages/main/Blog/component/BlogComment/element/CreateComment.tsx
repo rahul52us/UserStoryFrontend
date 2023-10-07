@@ -17,6 +17,7 @@ const CreateComment = ({ editorHtml, setEditorHtml, blogItem }: any) => {
       content: editorHtml,
       parentComment: null,
       blogId: blogItem._id,
+      user:user
     })
       .then(() => {
         setEditorHtml(null);

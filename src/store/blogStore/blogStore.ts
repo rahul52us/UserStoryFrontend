@@ -2,6 +2,7 @@ import axios from "axios";
 import { action, makeObservable, observable } from "mobx";
 
 class BlogStore {
+  auth : any;
   blogs = {
     data: [],
     loading: false,
@@ -30,6 +31,7 @@ class BlogStore {
       createComment: action,
     });
   }
+
 
   createBlog = async (sendData: any) => {
     try {
@@ -79,17 +81,23 @@ class BlogStore {
     } catch (err: any) {
       return Promise.reject(err?.response?.data || err);
     } finally {
-      this.blogs.loading = false;
+      this.blogComments.loading = false;
     }
   };
 
   createComment = async (sendData: any) => {
     try {
       const { data } = await axios.post(`/blog/comment/${sendData?.blogId}`, {
+        blog:sendData.blogId,
         content: sendData.content,
+        createdAt: new Date(),
         parentComment: sendData?.parentComment,
       });
-      this.blogComments.data.unshift(data.data);
+      let createdResponse : any = {
+        ...data.data,
+        user:{...sendData.user}
+      }
+      this.blogComments.data.unshift(createdResponse);
       this.blogComments.totalComments += 1
       return data.data;
     } catch (err: any) {

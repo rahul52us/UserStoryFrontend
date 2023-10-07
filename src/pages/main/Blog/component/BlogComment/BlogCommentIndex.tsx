@@ -10,8 +10,8 @@ const BlogCommentIndex = observer(({ item }: any) => {
 
   const {
     BlogStore: {
-      blogComments: { data, totalComments, currentPage, TotalPages },
-      getComments
+      blogComments: { data, totalComments, currentPage, TotalPages, loading },
+      getComments,
     },
   } = store;
 
@@ -37,12 +37,15 @@ const BlogCommentIndex = observer(({ item }: any) => {
           blogItem={item}
         />
       </Box>
+      {/* Show the all comments */}
       {data.map((comment: any, index: number) => {
         return <DisplayComment comment={comment} key={index} />;
       })}
-      {TotalPages > currentPage ? (
+      {(TotalPages > currentPage) ? (
         <Flex justify="center" mt={5}>
-          <Button onClick={() => getComments(item._id, currentPage + 1)}>Load More</Button>
+          <Button isLoading={loading} onClick={() => getComments(item._id, currentPage + 1)}>
+            Load More
+          </Button>
         </Flex>
       ) : null}
     </Box>

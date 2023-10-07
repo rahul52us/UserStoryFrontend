@@ -18,7 +18,7 @@ import moment from "moment";
 import SearchCardInput from "../../../../../config/component/SearchInput/SearchCardInput/SearchCardInput";
 import CustomInput from "../../../../../config/component/CustomInput/CustomInput";
 import TableLoader from "../../../../../config/component/DataTable/TableLoader";
-import { currentYear, oneYearLater } from "../../../../../config/constant/function";
+import { currentYear, oneYearLater } from "../../../../../config/constant/dateUtils";
 
 interface TableI {
   tableForm: any;

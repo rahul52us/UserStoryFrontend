@@ -1,5 +1,5 @@
 import { Box, Avatar, Text, Stack } from "@chakra-ui/react"; // Import Chakra UI components
-import { getPostedDate } from "../../../../../../config/constant/function";
+import { getCustomTextDate } from "../../../../../../config/constant/dateUtils";
 
 const DisplayComment = ({ comment }: any) => {
   return (
@@ -23,7 +23,7 @@ const DisplayComment = ({ comment }: any) => {
           </Text>
         </Box>
         <Text fontSize="xs" color="gray.600" fontWeight={600}>
-          {getPostedDate('Commented on',new Date())}
+          {getCustomTextDate('Commented on',new Date())}
         </Text>
       </Box>
       </Stack>

@@ -39,6 +39,8 @@ class ChatMessageStore {
   createSocketConnection = () => {
     const socketUrl = process.env.REACT_APP_BACKEND_BASE_URL_FOR_SOCKET || 'http://localhost:8080';
     this.auth = new AuthStore();
+
+    console.log(this.auth)
     this.socket = io(socketUrl);
     this.socket.on("connect", () => {
       this.sockteId = this.socket?.id;

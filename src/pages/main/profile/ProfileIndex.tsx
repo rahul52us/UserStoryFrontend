@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import ProfileContainer from "../../../config/component/profile/ProfileContainer";
 import store from "../../../store/store";
-import { currentYear, oneYearLater } from "../../../config/constant/function";
 import { studentInitialValues } from "../../../config/component/profile/utils/constant";
 import { studentEditValidation } from "../../../config/component/profile/utils/validation";
 import { EditStudentSideTab } from "../../Dashboard/UserTypes/Student/utils/constant";
+import { currentYear, oneYearLater } from "../../../config/constant/dateUtils";
 
 const ProfileIndex = observer(() => {
   const {

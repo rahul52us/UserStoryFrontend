@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { IconButton } from "@chakra-ui/react";
 import { FaArrowUp } from "react-icons/fa";
+import { observer } from "mobx-react-lite";
 
-const ScrollToTopButton = () => {
+const ScrollToTopButton = observer(() => {
   const [isVisible, setIsVisible] = useState(false);
 
-  // Show/hide the button based on the scroll position
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.pageYOffset;
-      setIsVisible(scrollTop > 300); // Change 300 to the desired scroll position when the button should appear
+      setIsVisible(scrollTop > 300);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -22,7 +22,7 @@ const ScrollToTopButton = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth", // For smooth scrolling, you can remove this if you prefer instant scrolling
+      behavior: "smooth",
     });
   };
 
@@ -37,15 +37,15 @@ const ScrollToTopButton = () => {
       size="md"
       colorScheme="teal"
       aria-label="Scroll to top"
-      visibility={isVisible ? "visible" : "hidden"} // Show/hide the button based on the visibility state
-      opacity={isVisible ? 1 : 0} // Fade in/out the button based on the visibility state
-      transition="opacity 0.3s, visibility 0.3s" // Add a smooth transition when showing/hiding the button
-      borderRadius="50%" // Make the button circular
-      boxShadow="md" // Add a subtle shadow to the button
-      _hover={{ backgroundColor: "teal.500" }} // Change the background color on hover
-      _active={{ backgroundColor: "teal.600" }} // Change the background color on click
+      visibility={isVisible ? "visible" : "hidden"}
+      opacity={isVisible ? 1 : 0}
+      transition="opacity 0.3s, visibility 0.3s"
+      borderRadius="50%"
+      boxShadow="md"
+      _hover={{ backgroundColor: "teal.500" }}
+      _active={{ backgroundColor: "teal.600" }}
     />
   );
-};
+});
 
 export default ScrollToTopButton;
