@@ -12,6 +12,7 @@ class BlogStore {
   };
 
   blogComments = {
+    activeBlogId:null,
     data: [] as any,
     loading: false,
     hasFetch: false,
@@ -77,6 +78,7 @@ class BlogStore {
       this.blogComments.totalComments = data?.data?.totalComments || 0;
       this.blogComments.TotalPages = data?.data?.totalPages || 0;
       this.blogComments.currentPage = currentPage
+      this.blogComments.activeBlogId = blogId
       return data.data;
     } catch (err: any) {
       return Promise.reject(err?.response?.data || err);

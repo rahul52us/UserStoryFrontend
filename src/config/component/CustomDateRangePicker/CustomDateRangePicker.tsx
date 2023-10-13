@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
-// import "./CustomDateRangePicker.scss";
+import "./CustomDateRangePicker.css";
 
 import { DateRangePicker } from "react-date-range";
 import { addDays } from "date-fns";

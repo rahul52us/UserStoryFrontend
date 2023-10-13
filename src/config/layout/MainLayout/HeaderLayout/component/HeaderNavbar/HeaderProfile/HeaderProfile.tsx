@@ -1,15 +1,20 @@
 import {
   Avatar,
-  Flex,
   Menu,
   MenuButton,
-  MenuItem,
   MenuList,
+  MenuItem,
+  IconButton,
+  Divider,
+  Box,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
 import store from "../../../../../../../store/store";
 import { useNavigate } from "react-router-dom";
 import { authentication, main } from "../../../../../../constant/routes";
+import { FaCog, FaLock, FaPalette, FaSignOutAlt } from "react-icons/fa";
 
 const HeaderProfile = observer(() => {
   const {
@@ -21,68 +26,47 @@ const HeaderProfile = observer(() => {
   return (
     <Menu closeOnSelect={false} placement="bottom-end">
       <MenuButton
-        as={Flex}
-        alignItems="center"
-        justifyContent="center"
-        cursor="pointer"
-        _hover={{ opacity: 0.8 }}
-        fontSize="xl"
-      >
-        <Avatar src={user?.pic} size="sm" borderRadius={10} name={user?.name} />
-      </MenuButton>
+        as={IconButton}
+        aria-label="User Menu"
+        icon={<Avatar src={user?.pic} size="sm" borderRadius={10} name={user?.name}/>}
+        size="sm"
+        variant="ghost"
+      />
       <MenuList
-        minWidth="180px"
+        minWidth="220px"
         boxShadow="md"
-        py={1}
         borderRadius="md"
         zIndex={10}
+        p={2}
       >
-        <MenuItem
-          px={4}
-          py={2}
-          fontSize="sm"
-          fontWeight="medium"
-          onClick={() => {
-            localStorage.setItem("profile_current_active_tab", "0");
-            navigate(main.profile);
-          }}
-        >
-          Profile Settings
-        </MenuItem>
-        <MenuItem
-          px={4}
-          py={2}
-          fontSize="sm"
-          fontWeight="medium"
-          onClick={() => {
-            localStorage.setItem("profile_current_active_tab", "1");
-            navigate(main.changePassword);
-          }}
-        >
-          Change Password
-        </MenuItem>
-        <MenuItem
-          px={4}
-          py={2}
-          fontSize="sm"
-          fontWeight="medium"
-          onClick={() => setOpenThemeDrawer()}
-        >
-          Customize Theme
-        </MenuItem>
-        <MenuItem
-          px={4}
-          py={2}
-          fontSize="sm"
-          fontWeight="medium"
-          color="red.500"
-          onClick={() => {
-            doLogout();
-            navigate(authentication.login);
-          }}
-        >
-          Logout
-        </MenuItem>
+        <VStack spacing={2}>
+          <Box textAlign="center">
+            <Avatar src={user?.pic} size="lg" name={user?.name} />
+            <Text mt={2} fontWeight="bold">
+              {user?.name}
+            </Text>
+          </Box>
+          <Divider />
+          <MenuItem onClick={() => navigate(main.profile)}>
+            <FaCog style={{ marginRight: "8px" }} /> Profile Settings
+          </MenuItem>
+          <MenuItem onClick={() => navigate(main.changePassword)}>
+            <FaLock style={{ marginRight: "8px" }} /> Change Password
+          </MenuItem>
+          <MenuItem onClick={setOpenThemeDrawer}>
+            <FaPalette style={{ marginRight: "8px" }} /> Customize Theme
+          </MenuItem>
+          <Divider />
+          <MenuItem
+            onClick={() => {
+              doLogout();
+              navigate(authentication.login);
+            }}
+            // colorScheme="red"
+          >
+            <FaSignOutAlt style={{ marginRight: "8px" }} /> Logout
+          </MenuItem>
+        </VStack>
       </MenuList>
     </Menu>
   );

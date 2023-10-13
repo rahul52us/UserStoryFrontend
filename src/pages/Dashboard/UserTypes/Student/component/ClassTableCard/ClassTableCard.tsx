@@ -39,7 +39,7 @@ const ClassTableCard: React.FC<TableI> = observer(({ tableForm }) => {
   const now = new Date();
   const startOfYear = new Date(now.getFullYear(), 0, 1);
 
-  const [date, setDate] = useState({
+  const [date] = useState({
     startYear: startOfYear,
     endYear: new Date(now.getFullYear() + 1, 0, 1),
   });
@@ -82,8 +82,8 @@ const ClassTableCard: React.FC<TableI> = observer(({ tableForm }) => {
         >
           Select Class
         </Heading>
-        <Flex gap={6} alignItems="center" display="none">
-          <Box width="10rem">
+        <Flex gap={6} alignItems="center">
+          {/* <Box width="10rem">
             <CustomInput
               type="date"
               placeholder="Start Year"
@@ -103,8 +103,8 @@ const ClassTableCard: React.FC<TableI> = observer(({ tableForm }) => {
               onChange={(e: any) => setDate({ ...date, endYear: e })}
               isClear={true}
             />
-          </Box>
-          <CustomDateRangePicker onStartDateChange={() => {}} onEndDateChange={() => {}} months={5}/>
+          </Box> */}
+          <CustomDateRangePicker onStartDateChange={() => {}} onEndDateChange={() => {}} months={2} />
           <Box>
             <Button
               isDisabled={!(date.startYear && date.endYear)}
@@ -123,7 +123,6 @@ const ClassTableCard: React.FC<TableI> = observer(({ tableForm }) => {
           </Box>
         </Flex>
       </Flex>
-
       <Box
         position="relative"
         overflow="auto"
