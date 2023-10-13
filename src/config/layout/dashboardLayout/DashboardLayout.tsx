@@ -125,6 +125,7 @@ const HeaderContainer = styled.div<{
     height: ${headerHeight};
     border-bottom:'1px solid black'
     position: fixed;
+    top:0;
     right: 0;
     background-color:${(props) => props.backgroundColor};
     left: ${(props) =>

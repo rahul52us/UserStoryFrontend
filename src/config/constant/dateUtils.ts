@@ -35,7 +35,7 @@ export function formatDateTime(
 
   const dateTimeFormat =
     order === DateTimeOrder.DateFirst
-      ? `${dateFormat}, ${timeFormat} -`
+      ? `${dateFormat}, ${timeFormat}`
       : `${timeFormat}, ${dateFormat}`;
 
   const formattedDateTime = moment(timestamp).format(dateTimeFormat);

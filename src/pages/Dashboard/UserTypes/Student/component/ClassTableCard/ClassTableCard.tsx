@@ -21,6 +21,7 @@ import CustomInput from "../../../../../../config/component/CustomInput/CustomIn
 import TableLoader from "../../../../../../config/component/DataTable/TableLoader";
 import Pagination from "../../../../../../config/component/pagination/Pagination";
 import { useNavigate } from "react-router-dom";
+import CustomDateRangePicker from "../../../../../../config/component/CustomDateRangePicker/CustomDateRangePicker";
 
 interface TableI {
   tableForm: any;
@@ -103,6 +104,7 @@ const ClassTableCard: React.FC<TableI> = observer(({ tableForm }) => {
               isClear={true}
             />
           </Box>
+          <CustomDateRangePicker onStartDateChange={() => {}} onEndDateChange={() => {}} months={5}/>
           <Box>
             <Button
               isDisabled={!(date.startYear && date.endYear)}

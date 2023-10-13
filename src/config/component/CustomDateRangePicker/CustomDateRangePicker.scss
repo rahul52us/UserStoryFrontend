@@ -1,0 +1,67 @@
+.calendarElement {
+  .rdrDayToday .rdrDayNumber span:after {
+    background: #4fd1c5;
+  }
+
+  .rdrNextPrevButton {
+    box-sizing: inherit;
+    cursor: pointer;
+    outline: none;
+    background-color: #81e6d9;
+  }
+
+  .rdrNextPrevButton:hover {
+    box-sizing: inherit;
+    cursor: pointer;
+    outline: none;
+    background-color: #38b2ac;
+  }
+
+  .rdrDateDisplayItemActive {
+    border-color: #4fd1c5;
+  }
+
+  .rdrInRange {
+    background-color: #81e6d9;
+  }
+
+  .rdrStartEdge,
+  .rdrEndEdge {
+    background-color: #319795;
+  }
+
+  .rdrNextButton i {
+    border-color: transparent transparent transparent #fff;
+  }
+
+  .rdrPprevButton i {
+    border-color: transparent #fff transparent transparent;
+  }
+
+  .rdrMonthName {
+    font-weight: 700;
+  }
+
+  .rdrWeekDay,
+  .rdrDayNumber {
+    font-weight: 600;
+  }
+
+  .rdrCalendarWrapper {
+    font-size: 12.5px;
+  }
+
+  .rdrStaticRangeLabel {
+    font-size: 12.5px;
+    font-weight: 400;
+  }
+
+  .rdrInputRange {
+    font-size: 12.5px;
+    font-weight: 400;
+  }
+}
+
+input[name="datePicker"] {
+  background-color: #fff !important;
+}
